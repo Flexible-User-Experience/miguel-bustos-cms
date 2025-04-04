@@ -103,6 +103,7 @@
     "require-dev": {
         "hautelook/alice-bundle": "^2.15",
         "phpunit/phpunit": "^9.5",
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
