@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\WorkshopRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
@@ -21,6 +22,12 @@ class Workshop
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $startsAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $endsAt = null;
 
     #[ORM\Column]
     private ?int $price = null;
@@ -63,6 +70,28 @@ class Workshop
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    public function getStartsAt(): ?\DateTimeInterface
+    {
+        return $this->startsAt;
+    }
+
+    public function setStartsAt(\DateTimeInterface $startsAt): static
+    {
+        $this->startsAt = $startsAt;
+        return $this;
+    }
+
+    public function getEndsAt(): ?\DateTimeInterface
+    {
+        return $this->endsAt;
+    }
+
+    public function setEndsAt(\DateTimeInterface $endsAt): static
+    {
+        $this->endsAt = $endsAt;
         return $this;
     }
 
