@@ -22,3 +22,39 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # config/services.yaml
+
+
+    # Configuración de los servicios Admin de Sonata
+
+    # CategoryAdmin
+    admin.category:
+        class: App\Admin\CategoryAdmin
+        arguments: [~, App\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Categorías' }
+        public: true
+
+    # PartnerAdmin
+    admin.partner:
+        class: App\Admin\PartnerAdmin
+        arguments: [~, App\Entity\Partner, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Colaboradores', label: 'Socios' }
+        public: true
+
+    # ProjectAdmin
+    admin.project:
+        class: App\Admin\ProjectAdmin
+        arguments: [~, App\Entity\Project, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Proyectos' }
+        public: true
+
+    # WorkshopAdmin
+    admin.workshop:
+        class: App\Admin\WorkshopAdmin
+        arguments: [~, App\Entity\Workshop, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Talleres' }
+        public: true
