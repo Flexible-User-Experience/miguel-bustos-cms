@@ -1,0 +1,25 @@
+App\Entity\Category:
+  category_{1..5}:
+    name: 'category_<current()>'
+
+App\Entity\Partner:
+  partner_{1..5}:
+    name: 'partner_<current()>'
+    url: '<url()>'
+
+App\Entity\Project:
+  project_{1..20}:
+    title: 'project_<current()>'
+    subtitle: 'project_<current()>_subtitle'
+    description: '<text()>'
+    category: '@category_<numberBetween(1, 5)>'
+    partners:
+      - '@partner_<numberBetween(1, 5)>'
+
+App\Entity\Workshop:
+  workshop_{1..10}:
+    title: 'workshop_<current()>'
+    subtitle: 'workshop_<current()>_subtitle'
+    description: '<text()>'
+    startsAt: '<dateTime()>'
+    endsAt: '<dateTime()>'
