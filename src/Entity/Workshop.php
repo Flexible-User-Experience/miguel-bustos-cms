@@ -2,20 +2,19 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\SlugTitleTrait;
+use App\Entity\Trait\TitleTrait;
+use App\Interface\SlugInterface;
 use App\Repository\WorkshopRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
-class Workshop
+class Workshop extends AbstractEntity implements SlugInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    use SlugTitleTrait;
+    use TitleTrait;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subtitle = null;
@@ -31,23 +30,6 @@ class Workshop
 
     #[ORM\Column]
     private ?int $price = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getSubtitle(): ?string
     {
