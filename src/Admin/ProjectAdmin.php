@@ -38,6 +38,9 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('description', TextareaType::class, [
                 'label' => 'Descripción',
             ])
+            ->add('category', TextareaType::class, [
+                'label' => 'Categoria',
+            ])
         ;
     }
 
@@ -45,6 +48,7 @@ final class ProjectAdmin extends AbstractAdmin
     {
         $filter
             ->add('title')
+            ->add('category')
         ;
     }
 
@@ -54,6 +58,7 @@ final class ProjectAdmin extends AbstractAdmin
             ->addIdentifier('title')
             ->addIdentifier('subtitle')
             ->addIdentifier('description')
+            ->addIdentifier('category')
         ;
     }
 
@@ -63,6 +68,7 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('title')
             ->add('subtitle')
             ->add('description')
+            ->add('category')
         ;
     }
 }
