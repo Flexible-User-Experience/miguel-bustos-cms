@@ -10,7 +10,7 @@ trait SlugTitleTrait
 {
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     #[Gedmo\Slug(fields: ['title'])]
-    protected string $slug = '';
+    protected string $slug;
 
     public function getSlug(): string
     {
