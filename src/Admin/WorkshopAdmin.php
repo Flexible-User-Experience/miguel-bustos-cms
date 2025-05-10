@@ -65,12 +65,12 @@ final class WorkshopAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('title')
-            ->addIdentifier('subtitle')
-            ->addIdentifier('description')
-            ->addIdentifier('price')
-            ->addIdentifier('startsAt')
-            ->addIdentifier('endsAt')
+            ->add('title')
+            ->add('subtitle')
+            ->add('description')
+            ->add('price')
+            ->add('startsAt')
+            ->add('endsAt')
 
         ;
     }

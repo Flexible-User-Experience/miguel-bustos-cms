@@ -47,8 +47,8 @@ final class PartnerAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('name')
-            ->addIdentifier('url')
+            ->add('name')
+            ->add('url')
         ;
     }
 

@@ -44,13 +44,15 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('name')
+            ->add('slug')
+            ->add('name')
         ;
     }
 
     protected function configureShowFields(ShowMapper $show): void
     {
         $show
+            ->add('slug')
             ->add('name')
         ;
     }

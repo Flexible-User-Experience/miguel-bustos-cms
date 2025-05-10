@@ -41,6 +41,9 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('category', TextareaType::class, [
                 'label' => 'Categoria',
             ])
+            ->add('partners', TextareaType::class, [
+                'label' => 'Colaboradores',
+            ])
         ;
     }
 
@@ -55,20 +58,22 @@ final class ProjectAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('title')
-            ->addIdentifier('subtitle')
-            ->addIdentifier('description')
-            ->addIdentifier('category')
+            ->add('category')
+            ->add('title')
+            ->add('subtitle')
+            ->add('description')
+            ->add('partners')
         ;
     }
 
     protected function configureShowFields(ShowMapper $show): void
     {
         $show
+            ->add('category')
             ->add('title')
             ->add('subtitle')
             ->add('description')
-            ->add('category')
+            ->add('partners')
         ;
     }
 }
