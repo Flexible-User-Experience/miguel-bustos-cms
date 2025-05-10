@@ -23,12 +23,17 @@ class Partner extends AbstractEntity implements SlugInterface
     /**
      * @var Collection<int, Project>
      */
-    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'partner')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'partners')]
     private Collection $projects;
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName() ?: '';
     }
 
     public function getName(): ?string
