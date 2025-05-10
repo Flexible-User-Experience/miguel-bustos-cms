@@ -2,19 +2,23 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\ImagesTrait;
+use App\Entity\Trait\IsActiveTrait;
+use App\Entity\Trait\MainImageTrait;
 use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
 use App\Interface\SlugInterface;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project extends AbstractEntity implements SlugInterface
 {
+    use IsActiveTrait;
+    use ImagesTrait;
+    use MainImageTrait;
     use SlugTitleTrait;
     use TitleTrait;
 
@@ -73,6 +77,17 @@ class Project extends AbstractEntity implements SlugInterface
 
         return $this;
     }
+
+//    TODO:
+//
+//
+//    mainImage
+//
+//    images -> Entity: ProjectImage
+//
+//    videoUrl
+//    pdfFile
+
 
     /**
      * @return Collection<int, Partner>
