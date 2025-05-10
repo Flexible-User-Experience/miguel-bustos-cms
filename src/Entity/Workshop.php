@@ -2,17 +2,23 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\ImagesTrait;
+use App\Entity\Trait\IsActiveTrait;
+use App\Entity\Trait\MainImageTrait;
 use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
 use App\Interface\SlugInterface;
 use App\Repository\WorkshopRepository;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
 class Workshop extends AbstractEntity implements SlugInterface
 {
+    use IsActiveTrait;
+    use ImagesTrait;
+    use MainImageTrait;
     use SlugTitleTrait;
     use TitleTrait;
 
@@ -23,10 +29,10 @@ class Workshop extends AbstractEntity implements SlugInterface
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $startsAt = null;
+    private ?DateTimeInterface $startsAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $endsAt = null;
+    private ?DateTimeInterface $endsAt = null;
 
     #[ORM\Column]
     private ?int $price = null;
@@ -55,23 +61,23 @@ class Workshop extends AbstractEntity implements SlugInterface
         return $this;
     }
 
-    public function getStartsAt(): ?\DateTimeInterface
+    public function getStartsAt(): ?DateTimeInterface
     {
         return $this->startsAt;
     }
 
-    public function setStartsAt(\DateTimeInterface $startsAt): static
+    public function setStartsAt(DateTimeInterface $startsAt): static
     {
         $this->startsAt = $startsAt;
         return $this;
     }
 
-    public function getEndsAt(): ?\DateTimeInterface
+    public function getEndsAt(): ?DateTimeInterface
     {
         return $this->endsAt;
     }
 
-    public function setEndsAt(\DateTimeInterface $endsAt): static
+    public function setEndsAt(DateTimeInterface $endsAt): static
     {
         $this->endsAt = $endsAt;
         return $this;
