@@ -2,13 +2,19 @@
 
 namespace App\Admin;
 
+use App\Entity\Category;
+use App\Entity\Partner;
 use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\BooleanType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -38,11 +44,21 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('description', TextareaType::class, [
                 'label' => 'Descripción',
             ])
-            ->add('category', TextareaType::class, [
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
                 'label' => 'Categoria',
             ])
-            ->add('partners', TextareaType::class, [
+            ->add('partners', ModelType::class, [
+                'class' => Partner::class,
+                'multiple' => true,
                 'label' => 'Colaboradores',
+                'required' => false,
+            ])
+            ->add('isActive', BooleanType::class, [
+                'label' => 'Publicado',
+                'required' => false,
+                'transform' => true,
             ])
         ;
     }
@@ -58,11 +74,19 @@ final class ProjectAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->add('category')
-            ->add('title')
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+            ])
+            ->addIdentifier('title')
             ->add('subtitle')
             ->add('description')
             ->add('partners')
+            ->add('isActive', 'boolean', [
+                'label' => 'Publicado',
+                'editable' => true,
+                'inverse' => false,
+            ])
         ;
     }
 
@@ -74,6 +98,7 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('subtitle')
             ->add('description')
             ->add('partners')
+            ->add('isActive')
         ;
     }
 }
