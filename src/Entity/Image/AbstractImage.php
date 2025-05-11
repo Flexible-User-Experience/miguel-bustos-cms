@@ -11,7 +11,7 @@ use App\Entity\Trait\MainImageTrait;
 
 abstract class AbstractImage extends AbstractEntity implements ExtraImageInterfaceImage
 {
-    use CaptionTrait;
+//    use CaptionTrait;
 //    use DescriptionTrait;
     use MainImageTrait;
 //    use SeoAlternativeImageTextTrait;
