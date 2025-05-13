@@ -13,8 +13,6 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -40,14 +38,16 @@ final class ProjectAdmin extends AbstractAdmin
             ])
             ->add('subtitle', TextType::class, [
                 'label' => 'Subtítulo',
+                'required' => false,
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Descripción',
+                'required' => false,
             ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
+            ->add('category', ModelType::class, [
                 'label' => 'Categoria',
+                'class' => Category::class,
+                'required' => false,
             ])
             ->add('partners', ModelType::class, [
                 'class' => Partner::class,
@@ -68,24 +68,28 @@ final class ProjectAdmin extends AbstractAdmin
         $filter
             ->add('title')
             ->add('category')
+            ->add('isActive')
+            ->add('partners')
         ;
     }
 
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
-            ])
+            ->add('category')
             ->addIdentifier('title')
-            ->add('subtitle')
-            ->add('description')
             ->add('partners')
             ->add('isActive', 'boolean', [
                 'label' => 'Publicado',
                 'editable' => true,
                 'inverse' => false,
+            ])
+            ->add(ListMapper::NAME_ACTIONS, null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ])
         ;
     }
@@ -96,7 +100,7 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('category')
             ->add('title')
             ->add('subtitle')
-            ->add('description')
+//            ->add('description')
             ->add('partners')
             ->add('isActive')
         ;
