@@ -9,6 +9,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\BooleanType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,21 +35,32 @@ final class WorkshopAdmin extends AbstractAdmin
         $form
             ->add('title', TextType::class, [
                 'label' => 'Título',
+                'required' => true,
             ])
             ->add('subtitle', TextType::class, [
                 'label' => 'Subtítulo',
+                'required' => false,
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Descripción',
+                'required' => false,
             ])
             ->add('price', MoneyType::class, [
                 'label' => 'Precio',
+                'required' => true,
             ])
             ->add('startsAt', DateType::class, [
                 'label' => 'Fecha de inicio',
+                'required' => true,
             ])
             ->add('endsAt', DateType::class, [
                 'label' => 'Fecha de fin',
+                'required' => true,
+            ])
+            ->add('isActive', BooleanType::class, [
+                'label' => 'Publicado',
+                'required' => false,
+                'transform' => true,
             ])
         ;
     }
@@ -59,6 +72,7 @@ final class WorkshopAdmin extends AbstractAdmin
             ->add('price')
             ->add('startsAt')
             ->add('endsAt')
+            ->add('isActive')
         ;
     }
 
@@ -66,12 +80,17 @@ final class WorkshopAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('title')
-            ->add('subtitle')
-            ->add('description')
             ->add('price')
             ->add('startsAt')
             ->add('endsAt')
-
+            ->add('isActive')
+            ->add(ListMapper::NAME_ACTIONS, null, [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -82,6 +101,7 @@ final class WorkshopAdmin extends AbstractAdmin
             ->add('subtitle')
             ->add('description')
             ->add('price')
+            ->add('isActive')
             ->add('startsAt')
             ->add('endsAt')
         ;
