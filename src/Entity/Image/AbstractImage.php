@@ -4,7 +4,7 @@ namespace App\Entity\Image;
 
 use App\Entity\AbstractEntity;
 use App\Entity\Interface\ExtraImageInterfaceImage;
-use App\Entity\Trait\CaptionTrait;
+//use App\Entity\Trait\CaptionTrait;
 use App\Entity\Trait\DescriptionTrait;
 use App\Entity\Trait\MainImageTrait;
 //use App\Entity\Trait\SeoAlternativeImageTextTrait;

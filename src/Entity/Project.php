@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Image\ProjectImage;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -37,9 +38,16 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\ManyToMany(targetEntity: Partner::class, inversedBy: 'projects')]
     private Collection $partners;
 
+    /**
+     * @var Collection<int, ProjectImage>
+     */
+    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project')]
+    private Collection $images;
+
     public function __construct()
     {
         $this->partners = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getSubtitle(): ?string
@@ -80,11 +88,6 @@ class Project extends AbstractEntity implements SlugInterface
 
 //    TODO:
 //
-//
-//    mainImage
-//
-//    images -> Entity: ProjectImage
-//
 //    videoUrl
 //    pdfFile
 
@@ -115,6 +118,36 @@ class Project extends AbstractEntity implements SlugInterface
     public function removePartner(Partner $partner): static
     {
         $this->partners->removeElement($partner);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProjectImage>
+     */
+    public function getProjectImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addProjectImage(ProjectImage $projectImage): static
+    {
+        if (!$this->images->contains($projectImage)) {
+            $this->images->add($projectImage);
+            $projectImage->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectImage(ProjectImage $projectImage): static
+    {
+        if ($this->images->removeElement($projectImage)) {
+            // set the owning side to null (unless already changed)
+            if ($projectImage->getProject() === $this) {
+                $projectImage->setProject(null);
+            }
+        }
 
         return $this;
     }

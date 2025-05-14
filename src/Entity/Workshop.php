@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Image\WorkshopImage;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -10,6 +11,8 @@ use App\Entity\Trait\TitleTrait;
 use App\Interface\SlugInterface;
 use App\Repository\WorkshopRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,6 +39,17 @@ class Workshop extends AbstractEntity implements SlugInterface
 
     #[ORM\Column]
     private ?int $price = null;
+
+    /**
+     * @var Collection<int, WorkshopImage>
+     */
+    #[ORM\OneToMany(targetEntity: WorkshopImage::class, mappedBy: 'workshop')]
+    private Collection $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getSubtitle(): ?string
     {
@@ -91,6 +105,36 @@ class Workshop extends AbstractEntity implements SlugInterface
     public function setPrice(int $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WorkshopImage>
+     */
+    public function getWorkshopImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addWorkshopImage(WorkshopImage $workshopImage): static
+    {
+        if (!$this->images->contains($workshopImage)) {
+            $this->images->add($workshopImage);
+            $workshopImage->setWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshopImage(WorkshopImage $workshopImage): static
+    {
+        if ($this->images->removeElement($workshopImage)) {
+            // set the owning side to null (unless already changed)
+            if ($workshopImage->getWorkshop() === $this) {
+                $workshopImage->setWorkshop(null);
+            }
+        }
 
         return $this;
     }
