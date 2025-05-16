@@ -10,11 +10,13 @@ use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\CollectionType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class ProjectAdmin extends AbstractAdmin
 {
@@ -33,6 +35,11 @@ final class ProjectAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->add('category', ModelType::class, [
+                'label' => 'Categoria',
+                'class' => Category::class,
+                'required' => false,
+            ])
             ->add('title', TextType::class, [
                 'label' => 'Título',
             ])
@@ -44,10 +51,17 @@ final class ProjectAdmin extends AbstractAdmin
                 'label' => 'Descripción',
                 'required' => false,
             ])
-            ->add('category', ModelType::class, [
-                'label' => 'Categoria',
-                'class' => Category::class,
-                'required' => false,
+            ->add('mainImageFile', VichImageType::class, [
+                'label' => 'Imagen destacada',
+                'required' => true,
+            ])
+            ->add('images', CollectionType::class, [
+                'label' => 'Imagenes',
+                'by_reference' => false,
+                'error_bubbling' => true,
+            ], [
+                'edit' => 'inline',
+                'inline' => 'table',
             ])
             ->add('partners', ModelType::class, [
                 'class' => Partner::class,
@@ -88,7 +102,6 @@ final class ProjectAdmin extends AbstractAdmin
                 'actions' => [
                     'show' => [],
                     'edit' => [],
-                    'delete' => [],
                 ]
             ])
         ;
@@ -100,7 +113,8 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('category')
             ->add('title')
             ->add('subtitle')
-//            ->add('description')
+            ->add('description')
+            ->add('mainImageFile')
             ->add('partners')
             ->add('isActive')
         ;
