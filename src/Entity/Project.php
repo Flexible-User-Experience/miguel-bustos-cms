@@ -13,8 +13,13 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[Vich\Uploadable]
 class Project extends AbstractEntity implements SlugInterface
 {
     use IsActiveTrait;
@@ -29,6 +34,14 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
+    #[Assert\Image(minWidth: 600)]
+    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
+    private ?File $mainImageFile = null;
+
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectImage::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $images;
+
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?Category $category = null;
 
@@ -38,11 +51,11 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\ManyToMany(targetEntity: Partner::class, inversedBy: 'projects')]
     private Collection $partners;
 
-    /**
-     * @var Collection<int, ProjectImage>
-     */
-    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project')]
-    private Collection $images;
+//    /**
+//     * @var Collection<int, ProjectImage>
+//     */
+//    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project')]
+//    private Collection $images;
 
     public function __construct()
     {
@@ -150,5 +163,10 @@ class Project extends AbstractEntity implements SlugInterface
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle() ?: '';
     }
 }

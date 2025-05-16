@@ -28,11 +28,6 @@ class Category extends AbstractEntity implements SlugInterface
         $this->projects = new ArrayCollection();
     }
 
-    public function __toString(): string
-    {
-        return $this->getName() ?: '';
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -73,5 +68,10 @@ class Category extends AbstractEntity implements SlugInterface
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName() ?: '';
     }
 }
