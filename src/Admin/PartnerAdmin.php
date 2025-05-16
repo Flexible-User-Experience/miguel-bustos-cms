@@ -49,6 +49,11 @@ final class PartnerAdmin extends AbstractAdmin
         $list
             ->add('name')
             ->add('url')
+            ->add(ListMapper::NAME_ACTIONS, null, [
+                'actions' => [
+                    'edit' => [],
+                ]
+            ])
         ;
     }
 
