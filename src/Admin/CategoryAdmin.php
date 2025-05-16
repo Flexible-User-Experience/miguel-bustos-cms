@@ -46,6 +46,11 @@ final class CategoryAdmin extends AbstractAdmin
         $list
             ->addIdentifier('name')
             ->add('slug')
+            ->add(ListMapper::NAME_ACTIONS, null, [
+                'actions' => [
+                    'edit' => [],
+                ]
+            ])
         ;
     }
 
