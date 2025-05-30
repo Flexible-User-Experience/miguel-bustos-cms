@@ -10,10 +10,9 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class WorkshopAdmin extends AbstractAdmin
@@ -45,21 +44,17 @@ final class WorkshopAdmin extends AbstractAdmin
                 'label' => 'Descripción',
                 'required' => false,
             ])
-            ->add('price', MoneyType::class, [
-                'label' => 'Precio',
-                'required' => true,
-            ])
             ->add('mainImageFile', VichImageType::class, [
                 'label' => 'Imagen destacada',
                 'required' => true,
             ])
-            ->add('startsAt', DateType::class, [
-                'label' => 'Fecha de inicio',
-                'required' => true,
-            ])
-            ->add('endsAt', DateType::class, [
-                'label' => 'Fecha de fin',
-                'required' => true,
+            ->add('images', CollectionType::class, [
+                'label' => 'Imagenes',
+                'by_reference' => false,
+                'error_bubbling' => true,
+            ], [
+                'edit' => 'inline',
+                'inline' => 'table',
             ])
             ->add('isActive', BooleanType::class, [
                 'label' => 'Publicado',
@@ -84,9 +79,6 @@ final class WorkshopAdmin extends AbstractAdmin
     {
         $list
             ->addIdentifier('title')
-            ->add('price')
-            ->add('startsAt')
-            ->add('endsAt')
             ->add('isActive', 'boolean', [
                 'label' => 'Publicado',
                 'editable' => true,
@@ -107,10 +99,7 @@ final class WorkshopAdmin extends AbstractAdmin
             ->add('title')
             ->add('subtitle')
             ->add('description')
-            ->add('mainImageFile', VichImageType::class, [])
-            ->add('price')
-            ->add('startsAt')
-            ->add('endsAt')
+            ->add('mainImageFile')
             ->add('isActive')
         ;
     }

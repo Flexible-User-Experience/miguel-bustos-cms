@@ -2,19 +2,36 @@
 
 namespace App\Entity\Image;
 
+use App\Entity\Workshop;
+use App\Entity\Trait\MainImageTrait;
 use App\Repository\Image\WorkshopImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: WorkshopImageRepository::class)]
-class WorkshopImage
+#[Vich\Uploadable]
+class WorkshopImage extends AbstractImage
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use MainImageTrait;
 
-    public function getId(): ?int
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
+    #[Assert\Image(minWidth: 1200)]
+    #[Vich\UploadableField(mapping: 'workshops_photos', fileNameProperty: 'mainImage')]
+    private ?File $mainImageFile = null;
+
+    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Workshop::class, inversedBy: 'images')]
+    private Workshop $workshop;
+
+    public function getWorkshop(): ?Workshop
     {
-        return $this->id;
+        return $this->workshop;
+    }
+
+    public function setWorkshop(?Workshop $workshop): void
+    {
+        $this->workshop = $workshop;
     }
 }

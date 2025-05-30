@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Image\WorkshopImage;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -9,8 +10,8 @@ use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
 use App\Interface\SlugInterface;
 use App\Repository\WorkshopRepository;
-use DateTimeInterface;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -34,17 +35,16 @@ class Workshop extends AbstractEntity implements SlugInterface
 
     #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
     #[Assert\Image(minWidth: 600)]
-    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
+    #[Vich\UploadableField(mapping: 'workshops_photos', fileNameProperty: 'mainImage')]
     private ?File $mainImageFile = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?DateTimeInterface $startsAt = null;
+    #[ORM\OneToMany(targetEntity: WorkshopImage::class, mappedBy: 'workshop', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $images;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?DateTimeInterface $endsAt = null;
-
-    #[ORM\Column]
-    private ?int $price = null;
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getSubtitle(): ?string
     {
@@ -70,36 +70,32 @@ class Workshop extends AbstractEntity implements SlugInterface
         return $this;
     }
 
-    public function getStartsAt(): ?DateTimeInterface
+    /**
+     * @return Collection<int, WorkshopImage>
+     */
+    public function getWorkshopImages(): Collection
     {
-        return $this->startsAt;
+        return $this->images;
     }
 
-    public function setStartsAt(DateTimeInterface $startsAt): static
+    public function addWorkshopImage(WorkshopImage $workshopImage): static
     {
-        $this->startsAt = $startsAt;
+        if (!$this->images->contains($workshopImage)) {
+            $this->images->add($workshopImage);
+            $workshopImage->setWorkshop($this);
+        }
+
         return $this;
     }
 
-    public function getEndsAt(): ?DateTimeInterface
+    public function removeWorkshopImage(WorkshopImage $workshopImage): static
     {
-        return $this->endsAt;
-    }
-
-    public function setEndsAt(DateTimeInterface $endsAt): static
-    {
-        $this->endsAt = $endsAt;
-        return $this;
-    }
-
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(int $price): static
-    {
-        $this->price = $price;
+        if ($this->images->removeElement($workshopImage)) {
+            // set the owning side to null (unless already changed)
+            if ($workshopImage->getWorkshop() === $this) {
+                $workshopImage->setWorkshop(null);
+            }
+        }
 
         return $this;
     }
