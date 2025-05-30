@@ -39,27 +39,14 @@ class Project extends AbstractEntity implements SlugInterface
     #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
     private ?File $mainImageFile = null;
 
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectImage::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?Category $category = null;
 
-    /**
-     * @var Collection<int, Partner>
-     */
-    #[ORM\ManyToMany(targetEntity: Partner::class, inversedBy: 'projects')]
-    private Collection $partners;
-
-//    /**
-//     * @var Collection<int, ProjectImage>
-//     */
-//    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project')]
-//    private Collection $images;
-
     public function __construct()
     {
-        $this->partners = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
 
@@ -103,37 +90,6 @@ class Project extends AbstractEntity implements SlugInterface
 //
 //    videoUrl
 //    pdfFile
-
-
-    /**
-     * @return Collection<int, Partner>
-     */
-    public function getPartners(): Collection
-    {
-        return $this->partners;
-    }
-
-    public function setPartners(Collection $partners): static
-    {
-        $this->partners = $partners;
-        return $this;
-    }
-
-    public function addPartner(Partner $partner): static
-    {
-        if (!$this->partners->contains($partner)) {
-            $this->partners->add($partner);
-        }
-
-        return $this;
-    }
-
-    public function removePartner(Partner $partner): static
-    {
-        $this->partners->removeElement($partner);
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, ProjectImage>

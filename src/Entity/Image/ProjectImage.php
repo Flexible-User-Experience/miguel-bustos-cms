@@ -19,9 +19,19 @@ class ProjectImage extends AbstractImage
     #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
     #[Assert\Image(minWidth: 1200)]
     #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
-    private ?File $imageFile = null;
+    private ?File $mainImageFile = null;
 
     #[ORM\JoinColumn(nullable: false)]
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'images')]
     private Project $project;
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): void
+    {
+        $this->project = $project;
+    }
 }

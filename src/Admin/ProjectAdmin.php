@@ -3,14 +3,13 @@
 namespace App\Admin;
 
 use App\Entity\Category;
-use App\Entity\Partner;
 use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\CollectionType;
+use Sonata\Form\Type\CollectionType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
@@ -63,12 +62,6 @@ final class ProjectAdmin extends AbstractAdmin
                 'edit' => 'inline',
                 'inline' => 'table',
             ])
-            ->add('partners', ModelType::class, [
-                'class' => Partner::class,
-                'multiple' => true,
-                'label' => 'Colaboradores',
-                'required' => false,
-            ])
             ->add('isActive', BooleanType::class, [
                 'label' => 'Publicado',
                 'required' => false,
@@ -83,7 +76,6 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('title')
             ->add('category')
             ->add('isActive')
-            ->add('partners')
         ;
     }
 
@@ -92,7 +84,6 @@ final class ProjectAdmin extends AbstractAdmin
         $list
             ->add('category')
             ->addIdentifier('title')
-            ->add('partners')
             ->add('isActive', 'boolean', [
                 'label' => 'Publicado',
                 'editable' => true,
@@ -115,7 +106,6 @@ final class ProjectAdmin extends AbstractAdmin
             ->add('subtitle')
             ->add('description')
             ->add('mainImageFile')
-            ->add('partners')
             ->add('isActive')
         ;
     }
