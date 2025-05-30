@@ -35,14 +35,6 @@ services:
             - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Categorías' }
         public: true
 
-    # PartnerAdmin
-    admin.partner:
-        class: App\Admin\PartnerAdmin
-        arguments: [~, App\Entity\Partner, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Colaboradores', label: 'Socios' }
-        public: true
-
     # ProjectAdmin
     admin.project:
         class: App\Admin\ProjectAdmin
@@ -51,10 +43,26 @@ services:
             - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Proyectos' }
         public: true
 
+    # ProjectImageAdmin
+    admin.projectImage:
+        class: App\Admin\Image\ProjectImageAdmin
+        arguments: [~, App\Entity\Image\ProjectImage, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
+        public: true
+
     # WorkshopAdmin
     admin.workshop:
         class: App\Admin\WorkshopAdmin
         arguments: [~, App\Entity\Workshop, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Talleres' }
+        public: true
+
+    # WorkshopImageAdmin
+    admin.workshopImage:
+        class: App\Admin\Image\WorkshopImageAdmin
+        arguments: [ ~, App\Entity\Image\WorkshopImage, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
         public: true
