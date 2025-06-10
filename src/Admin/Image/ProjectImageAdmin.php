@@ -28,7 +28,6 @@ class ProjectImageAdmin extends AbstractAdmin
             )
             ->add('mainImageFile', VichImageType::class, [
                 'required' => false,
-                'label' => 'Imagen',
             ]);
     }
 }

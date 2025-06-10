@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-final class WorkshopAdmin extends AbstractAdmin
+final class WorkshopAdmin extends AbstractBaseAdmin
 {
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
@@ -33,31 +33,29 @@ final class WorkshopAdmin extends AbstractAdmin
     {
         $form
             ->add('title', TextType::class, [
-                'label' => 'Título',
                 'required' => true,
             ])
             ->add('subtitle', TextType::class, [
-                'label' => 'Subtítulo',
                 'required' => false,
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Descripción',
                 'required' => false,
             ])
             ->add('mainImageFile', VichImageType::class, [
-                'label' => 'Imagen destacada',
-                'required' => true,
-            ])
-            ->add('images', CollectionType::class, [
-                'label' => 'Imagenes',
-                'by_reference' => false,
-                'error_bubbling' => true,
-            ], [
-                'edit' => 'inline',
-                'inline' => 'table',
-            ])
+                'required' => false,
+            ]);
+        if (!$this->isFormToCreateNewRecord()) {
+            $form
+                ->add('images', CollectionType::class, [
+                    'by_reference' => false,
+                    'error_bubbling' => true,
+                ], [
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ]);
+        }
+        $form
             ->add('isActive', BooleanType::class, [
-                'label' => 'Publicado',
                 'required' => false,
                 'transform' => true,
             ])

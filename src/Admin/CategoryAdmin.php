@@ -29,7 +29,6 @@ final class CategoryAdmin extends AbstractAdmin
     {
         $form
             ->add('name', TextType::class, [
-                'label' => 'Nombre',
             ])
         ;
     }
