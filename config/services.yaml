@@ -30,39 +30,29 @@ services:
     # CategoryAdmin
     admin.category:
         class: App\Admin\CategoryAdmin
-        arguments: [~, App\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Categorías' }
-        public: true
+            - { name: sonata.admin, model_class: 'App\Entity\Category', controller: ~, manager_type: orm, group: 'Contenido', label: 'Categorías' }
 
     # ProjectAdmin
     admin.project:
         class: App\Admin\ProjectAdmin
-        arguments: [~, App\Entity\Project, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Proyectos' }
-        public: true
+            - { name: sonata.admin, model_class: 'App\Entity\Project', controller: ~, manager_type: orm, group: 'Contenido', label: 'Proyectos' }
 
     # ProjectImageAdmin
     admin.projectImage:
         class: App\Admin\Image\ProjectImageAdmin
-        arguments: [~, App\Entity\Image\ProjectImage, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
-        public: true
+            - { name: sonata.admin, model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
 
     # WorkshopAdmin
     admin.workshop:
         class: App\Admin\WorkshopAdmin
-        arguments: [~, App\Entity\Workshop, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Talleres' }
-        public: true
+            - { name: sonata.admin, model_class: 'App\Entity\Workshop', controller: ~, manager_type: orm, group: 'Contenido', label: 'Talleres' }
 
     # WorkshopImageAdmin
     admin.workshopImage:
         class: App\Admin\Image\WorkshopImageAdmin
-        arguments: [ ~, App\Entity\Image\WorkshopImage, ~ ]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
-        public: true
+            - { name: sonata.admin, model_class: 'App\Entity\Image\WorkshopImage', controller: ~, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
