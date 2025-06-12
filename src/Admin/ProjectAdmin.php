@@ -34,36 +34,42 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('category', ModelType::class, [
-                'class' => Category::class,
-                'required' => false,
-            ])
-            ->add('title', TextType::class, [
-            ])
-            ->add('subtitle', TextType::class, [
-                'required' => false,
-            ])
-            ->add('description', TextareaType::class, [
-                'required' => false,
-            ])
-            ->add('mainImageFile', VichImageType::class, [
-                'required' => false,
-            ]);
-        if (!$this->isFormToCreateNewRecord()) {
-            $form
-                ->add('images', CollectionType::class, [
-                    'by_reference' => false,
-                    'error_bubbling' => true,
-                ], [
-                    'edit' => 'inline',
-                    'inline' => 'table',
+            ->with('admin.general', ['class' => 'col-md-4'])
+                ->add('category', ModelType::class, [
+                    'class' => Category::class,
+                    'required' => false,
+                ])
+                ->add('title', TextType::class, [
+                ])
+                ->add('subtitle', TextType::class, [
+                    'required' => false,
+                ])
+                ->add('description', TextareaType::class, [
+                    'required' => false,
+                ])
+            ->end()
+            ->with('admin.images', ['class' => 'col-md-4'])
+                ->add('mainImageFile', VichImageType::class, [
+                    'required' => false,
                 ]);
-        }
+                if (!$this->isFormToCreateNewRecord()) {
+                    $form
+                        ->add('images', CollectionType::class, [
+                            'by_reference' => false,
+                            'error_bubbling' => true,
+                        ], [
+                            'edit' => 'inline',
+                            'inline' => 'table',
+                        ]);
+                }
         $form
-            ->add('isActive', BooleanType::class, [
-                'required' => false,
-                'transform' => true,
-            ])
+            ->end()
+            ->with('admin.controls', ['class' => 'col-md-4'])
+                ->add('isActive', BooleanType::class, [
+                    'required' => false,
+                    'transform' => true,
+                ])
+            ->end()
         ;
     }
 
