@@ -83,7 +83,6 @@ final class WorkshopAdmin extends AbstractBaseAdmin
         $list
             ->addIdentifier('title')
             ->add('isActive', 'boolean', [
-                'label' => 'Publicado',
                 'editable' => true,
                 'inverse' => false,
             ])
