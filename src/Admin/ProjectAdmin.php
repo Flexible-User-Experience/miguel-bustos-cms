@@ -4,7 +4,6 @@ namespace App\Admin;
 
 use App\Entity\Category;
 use App\Enum\DoctrineEnum;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;

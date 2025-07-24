@@ -10,6 +10,11 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProjectImageAdmin extends AbstractAdmin
 {
+    public function generateBaseRoutePattern(bool $isChildAdmin = false): string
+    {
+        return 'projects/image';
+    }
+
     protected function configureFormFields(FormMapper $form): void
     {
         $form
