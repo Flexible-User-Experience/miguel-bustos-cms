@@ -22,3 +22,37 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # config/services.yaml
+
+
+    # Configuración de los servicios Admin de Sonata
+
+    # CategoryAdmin
+    admin.category:
+        class: App\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, model_class: 'App\Entity\Category', controller: ~, manager_type: orm, group: 'Contenido', label: 'Categorías' }
+
+    # ProjectAdmin
+    admin.project:
+        class: App\Admin\ProjectAdmin
+        tags:
+            - { name: sonata.admin, model_class: 'App\Entity\Project', controller: ~, manager_type: orm, group: 'Contenido', label: 'Proyectos' }
+
+    # ProjectImageAdmin
+    admin.projectImage:
+        class: App\Admin\Image\ProjectImageAdmin
+        tags:
+            - { name: sonata.admin, model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
+
+    # WorkshopAdmin
+    admin.workshop:
+        class: App\Admin\WorkshopAdmin
+        tags:
+            - { name: sonata.admin, model_class: 'App\Entity\Workshop', controller: ~, manager_type: orm, group: 'Contenido', label: 'Talleres' }
+
+    # WorkshopImageAdmin
+    admin.workshopImage:
+        class: App\Admin\Image\WorkshopImageAdmin
+        tags:
+            - { name: sonata.admin, model_class: 'App\Entity\Image\WorkshopImage', controller: ~, manager_type: orm, group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }

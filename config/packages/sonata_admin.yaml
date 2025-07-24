@@ -3,7 +3,21 @@ sonata_admin:
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
-
+    persist_filters: true
+    show_mosaic_button: false
+    options:
+        html5_validate: true
+        confirm_exit: true
+        use_select2: true
+        use_icheck: true
+        use_stickyforms: true
+        use_bootlint: false
+        js_debug: false
+        default_admin_route: 'edit'
+        default_translation_domain: 'messages'
+        default_icon: 'fas fa-folder'
+        logo_content: 'icon'                # text | icon | all
+        list_action_button_content: 'icon'  # text | icon | all
 sonata_block:
     blocks:
         sonata.admin.block.admin_list:
