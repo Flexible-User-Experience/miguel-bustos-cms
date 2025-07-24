@@ -1,5 +1,6 @@
 parameters:
     default_locale: 'es'
+    admin_tag_version: '100000'
     admin_password: '%env(string:ADMIN_PASSWORD)%'
 
 services:

@@ -2,6 +2,8 @@ twig:
     file_name_pattern: '*.twig'
     form_themes:
         - 'form_themes/vich_uploader_fields.html.twig'
+    globals:
+        admin_tag_version: '%admin_tag_version%'
 
 when@test:
     twig:
