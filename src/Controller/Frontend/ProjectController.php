@@ -20,7 +20,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_project_show', methods: [Request::METHOD_GET])]
+    #[Route(path: RoutesEnum::app_project_show->value, name: RoutesEnum::app_project_show->name, methods: [Request::METHOD_GET])]
     public function show(Project $project): Response
     {
         return $this->render('project/show.html.twig', [
