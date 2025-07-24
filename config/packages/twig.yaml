@@ -3,6 +3,7 @@ twig:
     form_themes:
         - 'form_themes/vich_uploader_fields.html.twig'
     globals:
+        project_title: 'Miguel Bustos CMS'
         admin_tag_version: '%admin_tag_version%'
 
 when@test:
