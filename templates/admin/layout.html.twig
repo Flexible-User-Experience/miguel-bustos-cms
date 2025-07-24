@@ -26,7 +26,7 @@
     <div class="navbar-custom-menu">
         <ul class="nav navbar-nav navbar-right">
             <li class="first">
-                <a href="{{ path('app_web_homepage') }}"><i class="fas fa-globe"></i></a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_frontend_homepage_index.name) }}"><i class="fas fa-globe"></i></a>
             </li>
             <li>
                 <a><i class="far fa-user-circle mr-1"></i> {{ app.user }}</a>
