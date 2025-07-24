@@ -10,7 +10,7 @@ class AppExtension extends AbstractExtension
     public function getTests(): array
     {
         return [
-            new TwigTest('instance_of', [$this, 'isInstanceOf']),
+            new TwigTest('instance_of', $this->isInstanceOf(...)),
         ];
     }
 
