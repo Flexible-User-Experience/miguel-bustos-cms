@@ -1,10 +1,8 @@
 sonata_admin:
     title: 'Sonata Admin'
-    dashboard:
-        blocks:
-            - { type: sonata.admin.block.admin_list, position: left }
     persist_filters: true
     show_mosaic_button: false
+    search: false
     options:
         html5_validate: true
         confirm_exit: true
@@ -18,7 +16,16 @@ sonata_admin:
         default_icon: 'fas fa-folder'
         logo_content: 'icon'                # text | icon | all
         list_action_button_content: 'icon'  # text | icon | all
-sonata_block:
-    blocks:
-        sonata.admin.block.admin_list:
-            contexts: [admin]
+    security:
+        handler: 'sonata.admin.security.handler.role'
+        role_admin: 'ROLE_ADMIN'
+        role_super_admin: 'ROLE_SUPER_ADMIN'
+    dashboard:
+        blocks:
+            - { type: 'sonata.admin.block.admin_list', position: 'left' }
+
+when@dev:
+    sonata_admin:
+        options:
+            use_bootlint: true
+            js_debug: true
