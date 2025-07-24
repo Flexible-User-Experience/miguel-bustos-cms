@@ -15,7 +15,7 @@ class ProjectController extends AbstractController
     #[Route(path: RoutesEnum::app_project_index->value, name: RoutesEnum::app_project_index->name, methods: [Request::METHOD_GET])]
     public function index(ProjectRepository $projectRepository): Response
     {
-        return $this->render('project/index.html.twig', [
+        return $this->render('frontend/project/index.html.twig', [
             'projects' => $projectRepository->findAll(),
         ]);
     }
@@ -23,7 +23,7 @@ class ProjectController extends AbstractController
     #[Route(path: RoutesEnum::app_project_show->value, name: RoutesEnum::app_project_show->name, methods: [Request::METHOD_GET])]
     public function show(Project $project): Response
     {
-        return $this->render('project/show.html.twig', [
+        return $this->render('frontend/project/show.html.twig', [
             'project' => $project,
         ]);
     }
