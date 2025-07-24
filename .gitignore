@@ -1,3 +1,36 @@
+###> app/bundle ###
+auth.json
+google_apis_credentials.json
+/public/assets
+/public/images/projects/*
+!/public/images/projects/.gitkeep
+/public/uploads/*
+!/public/uploads/.gitkeep
+/src/.preload.php
+.php_cs.cache
+.php-cs-fixer.cache
+/var/*.db
+/var/cache/*
+!/var/cache/.gitkeep
+/var/database/*
+!/var/database/.gitkeep
+/var/csv/*
+!/var/csv/.gitkeep
+/var/log/*
+!/var/log/.gitkeep
+/var/sessions/*
+!/var/sessions/.gitkeep
+/var/uploads/*
+!/var/uploads/.gitkeep
+/var/testing-database.db
+/var/tailwind/*
+!/var/tailwind/.gitkeep
+/briefing
+.env
+.env.test
+.idea
+.DS_Store
+###< app/bundle ###
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -8,9 +41,6 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-.idea/
-.DS_Store
 
 ###> phpunit/phpunit ###
 /phpunit.xml
@@ -24,7 +54,5 @@
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
+!/public/media/cache/.gitkeep
 ###< liip/imagine-bundle ###
-/public/uploads/
-
-/briefing
