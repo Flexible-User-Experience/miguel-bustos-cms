@@ -16,7 +16,7 @@ class ProjectImage extends AbstractImage
 {
     use MainImageTrait;
 
-    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
+    #[Assert\File(maxSize: '20M', extensions: ['png', 'jpg', 'jpeg'])]
     #[Assert\Image(minWidth: 1200)]
     #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
     private ?File $mainImageFile = null;
