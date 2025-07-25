@@ -1,0 +1,44 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{# custom logo #}
+{% block logo %}
+    <a class="logo" href="{{ path('sonata_admin_dashboard') }}" style="background-color:#7F5330;">
+        <img src="{{ asset('images/full_logo.png') }}" alt="{{ project_title }} logo" class="img-responsive" style="max-width:140px !important;margin-top:-3px">
+        <span>{{ project_title }}</span>
+    </a>
+{% endblock %}
+
+{# custom sidebar footer #}
+{% block side_bar_after_nav %}
+    <p class="text-left small right-sidebar-footer">
+        v{{ admin_tag_version | slice(0, 1) }}.{{ admin_tag_version | slice(1, 2) }}.{{ admin_tag_version | slice(3) }}
+    </p>
+    <p class="text-left small">
+        <i class="fas fa-code"></i> {{ 'Developed by' | trans }} <a href="{{ developer_url }}" target="_blank">{{ developer_name }}</a>
+    </p>
+    <p class="text-left small">
+        <i class="far fa-copyright"></i> {{ 'now' | date('Y') }} <a href="{{ customer_url }}" target="_blank">{{ customer_name }}</a>
+    </p>
+{% endblock %}
+
+{# custom top menu #}
+{% block sonata_top_nav_menu %}
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="first">
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_frontend_homepage_index.name) }}"><i class="fas fa-globe"></i></a>
+            </li>
+            <li>
+                <a><i class="far fa-user-circle mr-1"></i> {{ app.user }}</a>
+            </li>
+            <li class="last">
+                <a href="{{ path('logout') }}"><i class="fas fa-power-off text-success"></i></a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+{% endblock %}

@@ -1,0 +1,49 @@
+.main-header.navbar {
+    border-left: none;
+}
+
+.logo img {
+    max-width: none !important;
+}
+
+.login-logo, .register-logo {
+    margin-bottom: 9px !important;
+}
+
+.login-box-bottom {
+    padding: 5px !important;
+    background-color: oklch(0.82 0.15 72.089996) !important;
+}
+
+p.text-left.small {
+    padding-left: 20px !important;
+    color: #EEE !important;
+    &.right-sidebar-footer {
+        padding: 180px 0 0 20px !important;
+    }
+}
+
+textarea {
+    resize: vertical !important;
+}
+
+input[type=file].dropzone-input {
+    height: 100% !important;
+}
+
+canvas.pdf-canvas {
+    width: 100%;
+    border: none;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.mt-2 {
+    margin-top: 4px !important;
+}
+
+.mr-1 {
+    margin-right: 2px !important;
+}

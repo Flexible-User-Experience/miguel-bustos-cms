@@ -1,0 +1,12 @@
+#- name: stop messenger subsystem async workers
+#  shell: "supervisorctl stop arnauroemartin-messenger-consume:*"
+#- name: stop scheduler subsystem async workers
+#  shell: "supervisorctl stop arnauroemartin-scheduler-consume:*"
+- name: copy .env production file
+  copy:
+    src:  "{{ playbook_dir }}/vars/.env.prod"
+    dest: "{{ ansistrano_release_path.stdout }}/.env"
+#- name: copy google_apis_credentials.json private access
+#  copy:
+#    src:  "{{ playbook_dir }}/vars/google_apis_credentials.json"
+#    dest: "{{ ansistrano_release_path.stdout }}/google_apis_credentials.json"

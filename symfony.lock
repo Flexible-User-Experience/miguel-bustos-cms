@@ -9,12 +9,12 @@
         }
     },
     "doctrine/doctrine-bundle": {
-        "version": "2.14",
+        "version": "2.15",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.10",
-            "ref": "c170ded8fc587d6bd670550c43dafcf093762245"
+            "ref": "d1778a69711a9b06bb4e202977ca6c4a0d16933d"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -359,7 +359,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.3",
-            "ref": "e28e27f53663cc34f0be2837aba18e3a1bef8e7b"
+            "ref": "620a1b84865ceb2ba304c8f8bf2a185fbf32a843"
         },
         "files": [
             "config/packages/translation.yaml",
@@ -419,7 +419,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.8",
-            "ref": "4ea7c9488fdce8943520daf3fdc31e93e5b59c64"
+            "ref": "d0bd0276f74de90adfaa4c6cd74cc0caacd77e0a"
         },
         "files": [
             "config/packages/symfonycasts_tailwind.yaml"

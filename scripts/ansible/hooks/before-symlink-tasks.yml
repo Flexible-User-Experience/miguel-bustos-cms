@@ -1,0 +1,34 @@
+- name: clear cache
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} cache:clear --no-warmup {{ symfony_cache_options }}"
+- name: warm-up cache again
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} cache:warmup {{ symfony_cache_options }}"
+#- name: install ckeditor
+#  shell: "chdir={{ ansistrano_release_path.stdout }}
+#    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} ckeditor:install --tag=4.22.1 {{ symfony_cache_options }}"
+- name: assets install
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} assets:install public {{ symfony_cache_options }}"
+- name: importmap install
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} importmap:install {{ symfony_cache_options }}"
+- name: tailwind build
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} tailwind:build {{ symfony_cache_options }}"
+- name: asset map compile
+  shell: "chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} asset-map:compile {{ symfony_cache_options }}"
+- name: fix symfony cache directory apache ownership
+  file:
+    path: "{{ ansistrano_release_path.stdout }}/var/cache"
+    recurse: yes
+    owner: "{{ remote_system_user_prod }}"
+    group: "{{ remote_system_group_prod }}"
+- name: fix symfony public directory apache ownership
+  file:
+    path: "{{ ansistrano_release_path.stdout }}/public"
+    recurse: yes
+    follow: yes
+    owner: "{{ remote_system_user_prod }}"
+    group: "{{ remote_system_group_prod }}"
