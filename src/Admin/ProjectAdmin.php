@@ -7,6 +7,7 @@ use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\Form\Type\CollectionType;
 use Sonata\AdminBundle\Form\Type\ModelType;
@@ -84,6 +85,16 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
+            ->add(
+                'main image',
+                FieldDescriptionInterface::TYPE_HTML,
+                array_merge(
+                    AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
+                    [
+                        'template' => 'backend/admin/cells/list/main_image_field.html.twig',
+                    ]
+                )
+            )
             ->add('category')
             ->addIdentifier('title')
             ->add('isActive', 'boolean', [
