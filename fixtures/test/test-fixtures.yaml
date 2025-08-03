@@ -8,10 +8,3 @@ App\Entity\Project:
     subtitle: 'project_<current()>_subtitle'
     description: '<text()>'
     category: '@category_<numberBetween(1, 5)>'
-    partners:
-      - '@partner_<numberBetween(1, 5)>'
-
-App\Entity\Workshop:
-  workshop_{1..10}:
-    title: 'workshop_<current()>'
-    subtitle: 'workshop_<current()>_subtitle'

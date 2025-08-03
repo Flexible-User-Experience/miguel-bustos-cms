@@ -26,11 +26,3 @@ services:
         class: 'App\Admin\Image\ProjectImageAdmin'
         tags:
             - { name: 'sonata.admin', model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: 'orm', group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
-    admin.workshop:
-        class: 'App\Admin\WorkshopAdmin'
-        tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Workshop', controller: ~, manager_type: 'orm', group: 'Contenido', label: 'Talleres' }
-    admin.workshop_image:
-        class: 'App\Admin\Image\WorkshopImageAdmin'
-        tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Image\WorkshopImage', controller: ~, manager_type: 'orm', group: 'Contenido', label: 'Imagenes', show_in_dashboard: false }
