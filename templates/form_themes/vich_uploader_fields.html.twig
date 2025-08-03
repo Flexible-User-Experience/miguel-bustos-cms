@@ -48,7 +48,7 @@
 {#                <i class="fa fa-cloud-download fa-fw"></i>  {{ 'Download' | trans }}#}
 {#            </a>#}
 {#        {%- endif -%}#}
-        {%- if form.delete is defined and ( form.vars.object is instance_of('App\\Entity\\Workshop') or form.vars.object is instance_of('App\\Entity\\Project')) -%}
+        {%- if form.delete is defined and form.vars.object is instance_of('App\\Entity\\Project') -%}
             {{- form_row(form.delete) -}}
         {%- endif -%}
     </div>
