@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 abstract class AbstractEntity
 {
+    public const string DEFAULT_NAME = '---';
     public const string DEFAULT_DATETIME = 'd/m/Y H:i';
 
     #[ORM\Id]
@@ -67,5 +68,8 @@ abstract class AbstractEntity
         return $this;
     }
 
-
+    public function __toString(): string
+    {
+        return $this->getId() ?: self::DEFAULT_NAME;
+    }
 }

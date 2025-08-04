@@ -6,8 +6,6 @@ security:
             - 'ROLE_ADMIN_CATEGORY_ALL'
             - 'ROLE_ADMIN_PROJECT_ALL'
             - 'ROLE_ADMIN_PROJECT_IMAGE_ALL'
-            - 'ROLE_ADMIN_WORKSHOP_ALL'
-            - 'ROLE_ADMIN_WORKSHOP_IMAGE_ALL'
         ROLE_ADMIN:
             - 'ROLE_USER'
             - 'ROLE_SONATA_ADMIN'
@@ -55,3 +53,11 @@ when@test:
                 cost: 4
                 time_cost: 3
                 memory_cost: 10
+        providers:
+            backend_users:
+                memory:
+                    users:
+                        admin: { password: '$2y$13$QuG.B6GbyFPDAkGRNi8JR./.3gq9ZJyrWs0c9YXCXMyZc8KI1dTQK', roles: [ 'ROLE_ADMIN' ] }
+        firewalls:
+            admin:
+                http_basic: ~

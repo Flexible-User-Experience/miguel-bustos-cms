@@ -7,11 +7,12 @@ use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\Form\Type\CollectionType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
+use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -51,16 +52,16 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ->add('mainImageFile', VichImageType::class, [
                     'required' => false,
                 ]);
-                if (!$this->isFormToCreateNewRecord()) {
-                    $form
-                        ->add('images', CollectionType::class, [
-                            'by_reference' => false,
-                            'error_bubbling' => true,
-                        ], [
-                            'edit' => 'inline',
-                            'inline' => 'table',
-                        ]);
-                }
+        if (!$this->isFormToCreateNewRecord()) {
+            $form
+                ->add('images', CollectionType::class, [
+                    'by_reference' => false,
+                    'error_bubbling' => true,
+                ], [
+                    'edit' => 'inline',
+                    'inline' => 'table',
+                ]);
+        }
         $form
             ->end()
             ->with('admin.controls', ['class' => 'col-md-4'])
@@ -84,6 +85,16 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
+            ->add(
+                'main image',
+                FieldDescriptionInterface::TYPE_HTML,
+                array_merge(
+                    AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
+                    [
+                        'template' => 'backend/admin/cells/list/main_image_field.html.twig',
+                    ]
+                )
+            )
             ->add('category')
             ->addIdentifier('title')
             ->add('isActive', 'boolean', [
@@ -94,7 +105,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 'actions' => [
                     'show' => [],
                     'edit' => [],
-                ]
+                ],
             ])
         ;
     }
