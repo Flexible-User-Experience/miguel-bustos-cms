@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
-        {#  // TODO: Tipo de lletra Inter de Google Fonts  #}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}Miguel Bustos{% endblock %}</title>
@@ -13,7 +12,6 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
-
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
@@ -30,13 +28,11 @@
                 </nav>
             {% endblock %}
         </header>
-
         <div class="flex flex-1 min-h-0">
             <main class="flex-1 overflow-y-auto p-6">
                 {% block main %}{% endblock %}
             </main>
         </div>
-
         <footer class="bg-white border-t px-4 py-2 text-center text-sm">
             {% block footer %}{% endblock %}
         </footer>

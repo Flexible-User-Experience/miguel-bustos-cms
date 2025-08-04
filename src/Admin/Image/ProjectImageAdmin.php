@@ -25,7 +25,7 @@ class ProjectImageAdmin extends AbstractAdmin
                     'required' => true,
                     'class' => Project::class,
                     'choice_label' => 'title',
-//                    'query_builder' => $this->getRepositoriesManager()->getMor()->findAllSortedByNameQB(),
+                    //                    'query_builder' => $this->getRepositoriesManager()->getMor()->findAllSortedByNameQB(),
                     'attr' => [
                         'hidden' => true,
                     ],

@@ -20,5 +20,4 @@ class AbstractBaseAdmin extends AbstractAdmin
             'editable' => false,
         ];
     }
-
 }
