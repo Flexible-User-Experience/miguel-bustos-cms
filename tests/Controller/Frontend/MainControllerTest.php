@@ -8,12 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainControllerTest extends WebTestCase
 {
-    public function testSomething(): void
+    public function testSuccessPages(): void
     {
         $client = static::createClient();
+        $client->request(Request::METHOD_GET, RoutesEnum::app_admin_login->value);
+        self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, RoutesEnum::app_frontend_homepage_index->value);
         self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, RoutesEnum::app_project_index->value);
+        self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, str_replace('{id}', '1', RoutesEnum::app_project_show->value));
         self::assertResponseIsSuccessful();
     }
 }
