@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[Vich\Uploadable]
 class Project extends AbstractEntity implements SlugInterface
@@ -86,10 +85,10 @@ class Project extends AbstractEntity implements SlugInterface
         return $this;
     }
 
-//    TODO:
-//
-//    videoUrl
-//    pdfFile
+    //    TODO:
+    //
+    //    videoUrl
+    //    pdfFile
 
     /**
      * @return Collection<int, ProjectImage>

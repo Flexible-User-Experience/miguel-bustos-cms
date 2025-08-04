@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 trait DescriptionTrait
 {
-//    #[Gedmo\Translatable]
+    //    #[Gedmo\Translatable]
     #[ORM\Column(type: Types::TEXT, length: 4000, nullable: true)]
     protected ?string $description = null;
 

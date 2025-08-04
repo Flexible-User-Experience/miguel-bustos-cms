@@ -72,5 +72,4 @@ abstract class AbstractEntity
     {
         return $this->getId() ?: self::DEFAULT_NAME;
     }
-    
 }

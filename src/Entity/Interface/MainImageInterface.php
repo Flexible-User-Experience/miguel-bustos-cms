@@ -4,7 +4,7 @@ namespace App\Entity\Interface;
 
 use Symfony\Component\HttpFoundation\File\File;
 
-//interface MainImageInterface extends SeoAlternativeImageTextInterface
+// interface MainImageInterface extends SeoAlternativeImageTextInterface
 interface MainImageInterface
 {
     public function getMainImage(): ?string;
