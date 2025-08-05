@@ -27,4 +27,21 @@ class ProjectController extends AbstractController
             'project' => $project,
         ]);
     }
+
+    #[Route(path: RoutesEnum::app_project_workshops_index->value, name: RoutesEnum::app_project_workshops_index->name, methods: [Request::METHOD_GET])]
+    public function workshopsIndex(ProjectRepository $projectRepository): Response
+    {
+        return $this->render('frontend/project/workshops.html.twig', [
+            'workshops' => $projectRepository->findWorkshops(),
+        ]);
+    }
+
+    #[Route(path: RoutesEnum::app_project_illustrations_index->value, name: RoutesEnum::app_project_illustrations_index->name, methods: [Request::METHOD_GET])]
+    public function illustrationsIndex(ProjectRepository $projectRepository): Response
+    {
+        return $this->render('frontend/project/illustrations.html.twig', [
+            'illustrations' => $projectRepository->findIllustrations(),
+        ]);
+    }
+
 }

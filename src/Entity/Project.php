@@ -12,6 +12,7 @@ use App\Interface\SlugInterface;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,9 +45,26 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?Category $category = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
+    private bool $isWorkshop = false;
+
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
+    private bool $isIllustration = true;
+
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+    }
+
+    public function isIllustration(): bool
+    {
+        return $this->isIllustration;
+    }
+
+    public function setIsIllustration(bool $isIllustration): void
+    {
+        $this->isIllustration = $isIllustration;
     }
 
     public function getSubtitle(): ?string
@@ -78,6 +96,7 @@ class Project extends AbstractEntity implements SlugInterface
         return $this->category;
     }
 
+
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
@@ -85,8 +104,17 @@ class Project extends AbstractEntity implements SlugInterface
         return $this;
     }
 
+    public function isWorkshop(): bool
+    {
+        return $this->isWorkshop;
+    }
+
+    public function setIsWorkshop(bool $isWorkshop): void
+    {
+        $this->isWorkshop = $isWorkshop;
+    }
+
     //    TODO:
-    //
     //    videoUrl
     //    pdfFile
 
