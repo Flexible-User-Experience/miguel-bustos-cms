@@ -8,3 +8,6 @@ App\Entity\Project:
     subtitle: 'project_<current()>_subtitle'
     description: '<text()>'
     category: '@category_<numberBetween(1, 5)>'
+    isActive: '<boolean()>'
+    isWorkshop: '<boolean()>'
+    isIllustration: '<boolean()>'
