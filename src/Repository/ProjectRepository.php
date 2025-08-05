@@ -31,6 +31,32 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findWorkshops(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.isActive = :val')
+            ->andWhere('p.isWorkshop = :val')
+            ->setParameter('val', true)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findIllustrations(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.isActive = :val')
+            ->andWhere('p.isIllustration = :val')
+            ->setParameter('val', true)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
     //    public function findOneBySomeField($value): ?Project
     //    {
     //        return $this->createQueryBuilder('p')
