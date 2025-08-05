@@ -65,6 +65,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
         $form
             ->end()
             ->with('admin.controls', ['class' => 'col-md-4'])
+                ->add('isIllustration', BooleanType::class, [
+                    'required' => false,
+                    'transform' => true,
+                ])
+                ->add('isWorkshop', BooleanType::class, [
+                    'required' => false,
+                    'transform' => true,
+                ])
                 ->add('isActive', BooleanType::class, [
                     'required' => false,
                     'transform' => true,
@@ -97,7 +105,13 @@ final class ProjectAdmin extends AbstractBaseAdmin
             )
             ->add('category')
             ->addIdentifier('title')
-            ->add('isActive', 'boolean', [
+            ->add('isIllustration', FieldDescriptionInterface::TYPE_BOOLEAN, [
+                'editable' => true,
+            ])
+            ->add('isWorkshop', FieldDescriptionInterface::TYPE_BOOLEAN, [
+                'editable' => true,
+            ])
+            ->add('isActive', FieldDescriptionInterface::TYPE_BOOLEAN, [
                 'editable' => true,
                 'inverse' => false,
             ])
