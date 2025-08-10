@@ -6,6 +6,8 @@ use App\Admin\AbstractBaseAdmin;
 use App\Entity\Project;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProjectImageAdmin extends AbstractBaseAdmin
@@ -37,7 +39,20 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                     'required' => false,
                 ]
             )
-            // TODO add ALT field
+            ->add(
+                'altImageText',
+                TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'position',
+                NumberType::class,
+                [
+                    'required' => true,
+                ]
+            )
         ;
     }
 }

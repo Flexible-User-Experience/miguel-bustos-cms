@@ -11,6 +11,7 @@ use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
 use App\Entity\Trait\TranslationTrait;
 use App\Entity\Translations\ProjectTranslation;
+use App\Enum\DoctrineEnum;
 use App\Interface\SlugInterface;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -55,6 +56,7 @@ class Project extends AbstractEntity implements SlugInterface
     private ?File $mainImageFile = null;
 
     #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
     private Collection $images;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]

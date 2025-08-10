@@ -56,7 +56,7 @@ final class CategoryAdmin extends AbstractBaseAdmin
             ->add('name')
             ->add(
                 ListMapper::NAME_ACTIONS,
-                null,
+                ListMapper::TYPE_ACTIONS,
                 [
                     'header_style' => 'width:60px',
                     'header_class' => 'text-right',

@@ -23,6 +23,9 @@ sonata_admin:
     templates:
         layout: 'admin/layout.html.twig'
     dashboard:
+        groups:
+            Content:
+                keep_open: true
         blocks:
             - { type: 'sonata.admin.block.admin_list', position: 'left' }
 

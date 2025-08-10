@@ -12,10 +12,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Sonata\Form\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,6 +23,8 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class ProjectAdmin extends AbstractBaseAdmin
 {
+    private const int TEXTAREA_ROWS = 10;
+
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
         return 'projects/project';
@@ -38,10 +40,19 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->with('admin.main_image', ['class' => 'col-md-4'])
+            ->add(
+                'mainImageFile',
+                VichImageType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->end()
             ->with('admin.general', ['class' => 'col-md-4'])
             ->add(
                 'category',
-                ModelType::class,
+                EntityType::class,
                 [
                     'class' => Category::class,
                     'required' => true,
@@ -67,7 +78,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 [
                     'required' => false,
                     'attr' => [
-                        'rows' => 10,
+                        'rows' => self::TEXTAREA_ROWS,
                     ],
                 ]
             )
@@ -93,40 +104,37 @@ final class ProjectAdmin extends AbstractBaseAdmin
                             'required' => false,
                             'field_type' => CKEditorType::class,
                             'attr' => [
-                                'rows' => 10,
+                                'rows' => self::TEXTAREA_ROWS,
                             ],
                         ],
                     ],
                 ]
             )
             ->end()
-            ->with('admin.images', ['class' => 'col-md-4'])
-            ->add(
-                'mainImageFile',
-                VichImageType::class,
-                [
-                    'required' => false,
-                ]
-            )
         ;
         if (!$this->isFormToCreateNewRecord()) {
             $form
+                ->with('admin.images', ['class' => 'col-md-6'])
                 ->add(
                     'images',
                     CollectionType::class,
                     [
+                        'label' => false,
+                        'required' => false,
                         'by_reference' => false,
                         'error_bubbling' => true,
                     ],
                     [
                         'edit' => 'inline',
                         'inline' => 'table',
+                        'sortable' => 'position',
+                        'order' => DoctrineEnum::ASC->value,
                     ]
                 )
+                ->end()
             ;
         }
         $form
-            ->end()
             ->with('admin.controls', ['class' => 'col-md-4'])
             ->add('position', NumberType::class)
             ->add(
@@ -243,7 +251,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
             )
             ->add(
                 ListMapper::NAME_ACTIONS,
-                null,
+                ListMapper::TYPE_ACTIONS,
                 [
                     'header_style' => 'width:86px',
                     'header_class' => 'text-right',

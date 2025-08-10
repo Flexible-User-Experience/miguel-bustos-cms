@@ -2,7 +2,7 @@
 
 namespace App\Entity\Trait;
 
-use App\Entity\Image\AbstractImage;
+use App\Entity\Image\ProjectImage;
 use Doctrine\Common\Collections\Collection;
 
 trait ImagesTrait
@@ -19,7 +19,7 @@ trait ImagesTrait
         return $this;
     }
 
-    public function addImage(AbstractImage $image): self
+    public function addImage(ProjectImage $image): self
     {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
@@ -28,7 +28,7 @@ trait ImagesTrait
         return $this;
     }
 
-    public function removeImage(AbstractImage $image): self
+    public function removeImage(ProjectImage $image): self
     {
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
