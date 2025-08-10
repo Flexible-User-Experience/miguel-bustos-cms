@@ -45,7 +45,7 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash && \
 # Configure and install PHP extensions
 RUN docker-php-ext-configure intl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    docker-php-ext-install \
+    && docker-php-ext-install \
         pdo \
         pdo_sqlite \
         pdo_mysql \
