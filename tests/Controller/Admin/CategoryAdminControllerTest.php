@@ -26,7 +26,7 @@ class CategoryAdminControllerTest extends WebTestCase
         $client = static::getAdminAuthenticatedClient();
         $client->request(Request::METHOD_GET, str_replace('{id}', '100', RoutesEnum::app_admin_category_edit->value));
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
-        $client->request(Request::METHOD_GET, 'admin/categories/1/delete');
+        $client->request(Request::METHOD_GET, 'admin/categories/category/1/delete');
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 

@@ -20,7 +20,10 @@ final class CategoryAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->with('admin.general', ['class' => 'col-md-4'])
             ->add('name', TextType::class)
+            ->end()
+            ->with('admin.translations', ['class' => 'col-md-4'])
             ->add(
                 'translations',
                 GedmoTranslationsType::class,
@@ -36,6 +39,7 @@ final class CategoryAdmin extends AbstractBaseAdmin
                     ],
                 ]
             )
+            ->end()
         ;
     }
 
