@@ -3,16 +3,31 @@
 namespace App\Admin;
 
 use App\Enum\DoctrineEnum;
+use Doctrine\ORM\EntityManagerInterface;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Route\RouteCollectionInterface;
 
 class AbstractBaseAdmin extends AbstractAdmin
 {
+    protected EntityManagerInterface $em;
+
+    public function getEntityManager(): EntityManagerInterface
+    {
+        return $this->em;
+    }
+
+    public function setEntityManager(EntityManagerInterface $em): self
+    {
+        $this->em = $em;
+
+        return $this;
+    }
+
     protected function configureDefaultSortValues(array &$sortValues): void
     {
         $sortValues[DatagridInterface::PAGE] = 1;
-        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::DESC->value;
+        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
         $sortValues[DatagridInterface::SORT_BY] = 'name';
     }
 

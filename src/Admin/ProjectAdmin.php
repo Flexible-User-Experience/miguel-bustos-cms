@@ -3,13 +3,16 @@
 namespace App\Admin;
 
 use App\Entity\Category;
+use App\Enum\DoctrineEnum;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Sonata\Form\Type\BooleanType;
 use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,6 +23,13 @@ final class ProjectAdmin extends AbstractBaseAdmin
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
         return 'projects/project';
+    }
+
+    protected function configureDefaultSortValues(array &$sortValues): void
+    {
+        $sortValues[DatagridInterface::PAGE] = 1;
+        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
+        $sortValues[DatagridInterface::SORT_BY] = 'title'; // TODO sort by position
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -92,7 +102,17 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
-            ->add('category')
+            ->add(
+                'category',
+                ModelFilter::class,
+                [
+                    'field_options' => [
+                        'class' => Category::class,
+                        'choice_label' => 'name',
+                        'query_builder' => $this->getEntityManager()->getRepository(Category::class)->getAllSortedByNameQB(),
+                    ],
+                ]
+            )
             ->add('title')
             ->add('isIllustration')
             ->add('isWorkshop')
@@ -113,7 +133,26 @@ final class ProjectAdmin extends AbstractBaseAdmin
                     ]
                 )
             )
-            ->add('category')
+            ->add(
+                'category',
+                FieldDescriptionInterface::TYPE_MANY_TO_ONE,
+                [
+                    'editable' => false,
+                    'sortable' => true,
+                    'associated_property' => 'name',
+                    'route' => [
+                        'name' => 'edit',
+                    ],
+                    'sort_field_mapping' => [
+                        'fieldName' => 'name',
+                    ],
+                    'sort_parent_association_mappings' => [
+                        [
+                            'fieldName' => 'category',
+                        ],
+                    ],
+                ]
+            )
             ->add('title')
             ->add(
                 'isIllustration',
