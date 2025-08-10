@@ -3,9 +3,7 @@
 namespace App\Admin;
 
 use App\Entity\Translations\CategoryTranslation;
-use App\Enum\DoctrineEnum;
 use App\Form\Type\GedmoTranslationsType;
-use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -17,13 +15,6 @@ final class CategoryAdmin extends AbstractBaseAdmin
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
         return 'categories/category';
-    }
-
-    protected function configureDefaultSortValues(array &$sortValues): void
-    {
-        $sortValues[DatagridInterface::PAGE] = 1;
-        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
-        $sortValues[DatagridInterface::SORT_BY] = 'name';
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -58,13 +49,19 @@ final class CategoryAdmin extends AbstractBaseAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('name')
-            ->add('slug')
-            ->add(ListMapper::NAME_ACTIONS, null, [
-                'actions' => [
-                    'edit' => [],
-                ],
-            ])
+            ->add('name')
+            ->add(
+                ListMapper::NAME_ACTIONS,
+                null,
+                [
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                    'actions' => [
+                        'edit' => [],
+                    ],
+                ]
+            )
         ;
     }
 

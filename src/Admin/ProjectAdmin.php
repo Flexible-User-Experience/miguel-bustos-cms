@@ -3,8 +3,6 @@
 namespace App\Admin;
 
 use App\Entity\Category;
-use App\Enum\DoctrineEnum;
-use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
@@ -24,29 +22,39 @@ final class ProjectAdmin extends AbstractBaseAdmin
         return 'projects/project';
     }
 
-    protected function configureDefaultSortValues(array &$sortValues): void
-    {
-        $sortValues[DatagridInterface::PAGE] = 1;
-        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
-        $sortValues[DatagridInterface::SORT_BY] = 'name';
-    }
-
     protected function configureFormFields(FormMapper $form): void
     {
         $form
             ->with('admin.general', ['class' => 'col-md-4'])
-                ->add('category', ModelType::class, [
+            ->add(
+                'category',
+                ModelType::class,
+                [
                     'class' => Category::class,
                     'required' => false,
-                ])
-                ->add('title', TextType::class, [
-                ])
-                ->add('subtitle', TextType::class, [
+                ]
+            )
+            ->add(
+                'title',
+                TextType::class,
+                [
+                    'required' => true,
+                ]
+            )
+            ->add(
+                'subtitle',
+                TextType::class,
+                [
                     'required' => false,
-                ])
-                ->add('description', TextareaType::class, [
+                ]
+            )
+            ->add(
+                'description',
+                TextareaType::class,
+                [
                     'required' => false,
-                ])
+                ]
+            )
             ->end()
             ->with('admin.images', ['class' => 'col-md-4'])
                 ->add('mainImageFile', VichImageType::class, [
@@ -99,7 +107,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 array_merge(
                     AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
                     [
-                        'template' => 'backend/admin/cells/list/main_image_field.html.twig',
+                        'template' => 'admin/cells/list/main_image_field.html.twig',
                     ]
                 )
             )

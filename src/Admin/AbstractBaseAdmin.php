@@ -13,14 +13,14 @@ class AbstractBaseAdmin extends AbstractAdmin
     {
         $sortValues[DatagridInterface::PAGE] = 1;
         $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::DESC->value;
-        $sortValues[DatagridInterface::SORT_BY] = 'createdAt';
+        $sortValues[DatagridInterface::SORT_BY] = 'name';
     }
 
     protected function configureRoutes(RouteCollectionInterface $collection): void
     {
         parent::configureRoutes($collection);
         $collection
-            ->remove('delete')
+//            ->remove('delete')
             ->remove('batch')
         ;
     }
