@@ -7,6 +7,7 @@ twig:
     form_themes:
         - 'form_themes/adapted_a2lix_translation_form.html.twig'
         - 'form_themes/vich_uploader_fields.html.twig'
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     globals:
         project_title: 'Miguel Bustos CMS'
         customer_name: 'Miguel Bustos'

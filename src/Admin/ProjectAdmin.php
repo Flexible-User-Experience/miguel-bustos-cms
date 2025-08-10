@@ -3,7 +3,9 @@
 namespace App\Admin;
 
 use App\Entity\Category;
+use App\Entity\Translations\CategoryTranslation;
 use App\Enum\DoctrineEnum;
+use App\Form\Type\GedmoTranslationsType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -64,6 +66,37 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 CKEditorType::class,
                 [
                     'required' => false,
+                    'attr' => [
+                        'rows' => 10,
+                    ],
+                ]
+            )
+            ->end()
+            ->with('admin.translations', ['class' => 'col-md-4'])
+            ->add(
+                'translations',
+                GedmoTranslationsType::class,
+                [
+                    'label' => false,
+                    'required' => false,
+                    'translatable_class' => CategoryTranslation::class,
+                    'fields' => [
+                        'title' => [
+                            'required' => true,
+                            'field_type' => TextType::class,
+                        ],
+                        'subtitle' => [
+                            'required' => false,
+                            'field_type' => TextType::class,
+                        ],
+                        'description' => [
+                            'required' => false,
+                            'field_type' => CKEditorType::class,
+                            'attr' => [
+                                'rows' => 10,
+                            ],
+                        ],
+                    ],
                 ]
             )
             ->end()
