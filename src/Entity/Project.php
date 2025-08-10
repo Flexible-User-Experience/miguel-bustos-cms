@@ -51,7 +51,6 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isIllustration = true;
 
-
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -95,7 +94,6 @@ class Project extends AbstractEntity implements SlugInterface
     {
         return $this->category;
     }
-
 
     public function setCategory(?Category $category): static
     {

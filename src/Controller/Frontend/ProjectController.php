@@ -43,5 +43,4 @@ class ProjectController extends AbstractController
             'illustrations' => $projectRepository->findIllustrations(),
         ]);
     }
-
 }

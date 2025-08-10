@@ -55,8 +55,6 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
-
-
     //    public function findOneBySomeField($value): ?Project
     //    {
     //        return $this->createQueryBuilder('p')
