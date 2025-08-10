@@ -8,6 +8,7 @@ use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
 use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
+use App\Entity\Trait\TranslationTrait;
 use App\Entity\Translations\ProjectTranslation;
 use App\Interface\SlugInterface;
 use App\Repository\ProjectRepository;
@@ -30,6 +31,7 @@ class Project extends AbstractEntity implements SlugInterface
     use MainImageTrait;
     use SlugTitleTrait;
     use TitleTrait;
+    use TranslationTrait;
 
     #[Gedmo\Translatable]
     #[ORM\Column(length: 255, nullable: true)]
@@ -38,6 +40,12 @@ class Project extends AbstractEntity implements SlugInterface
     #[Gedmo\Translatable]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
+    private bool $isWorkshop = false;
+
+    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
+    private bool $isIllustration = true;
 
     #[Assert\File(maxSize: '20M', extensions: ['png', 'jpg', 'jpeg'])]
     #[Assert\Image(minWidth: 600)]
@@ -50,15 +58,14 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?Category $category = null;
 
-    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
-    private bool $isWorkshop = false;
-
-    #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
-    private bool $isIllustration = true;
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: ProjectTranslation::class, mappedBy: 'object', cascade: ['persist', 'remove'])]
+    private ?Collection $translations;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->translations = new ArrayCollection();
     }
 
     public function getSubtitle(): ?string
@@ -143,6 +150,25 @@ class Project extends AbstractEntity implements SlugInterface
             if ($projectImage->getProject() === $this) {
                 $projectImage->setProject(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function addTranslation(ProjectTranslation $translation): self
+    {
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $this->translations->add($translation);
+            $translation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(ProjectTranslation $translation): self
+    {
+        if ($this->translations->contains($translation)) {
+            $this->translations->removeElement($translation);
         }
 
         return $this;
