@@ -7,7 +7,7 @@ enum RoutesEnum: string
     // frontend
     case app_frontend_homepage_index = '/';
     case app_project_index = '/project';
-    case app_project_show = '/project/{id}';
+    case app_project_show = '/project/{id}/detail';
     case app_project_illustrations_index = '/project/illustrations';
     case app_project_workshops_index = '/project/workshops';
     // backend
