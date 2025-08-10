@@ -1,0 +1,13 @@
+{% extends 'frontend/base.html.twig' %}
+
+{% block main %}
+    <div class="columns-1 sm:columns-3 md:columns-6 lg:columns-6 xl:columns-8 gap-4 p-4 space-y-4">
+        {% for project in projects %}
+            {% if project.mainImage is not null %}
+                <a href="{{ path('app_project_show', {'id': project.id}) }}">
+                    <img src="{{ vich_uploader_asset(project, 'mainImageFile') }}" alt="{{ project.title }}" class="w-full mb-4" />
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

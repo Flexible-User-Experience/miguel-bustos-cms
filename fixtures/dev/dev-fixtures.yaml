@@ -1,0 +1,21 @@
+App\Entity\Category:
+  category_{1..5}:
+    name: '<word()>'
+
+App\Entity\Translations\CategoryTranslation:
+  category_translation_{1..5}:
+    object: '@category_<current()>'
+    locale: 'en'
+    field: 'name'
+    content: '<word()> en'
+
+App\Entity\Project:
+  project_{1..10}:
+    title: '<sentence()>'
+    subtitle: '<sentence()> subtitle'
+    description: '<text()>'
+    category: '@category_<numberBetween(1, 5)>'
+    isActive: '<boolean()>'
+    isWorkshop: '<boolean()>'
+    isIllustration: '<boolean()>'
+    position: '<current()>'

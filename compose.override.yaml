@@ -1,0 +1,8 @@
+services:
+  www:
+    ports:
+      - "8791:80"
+      - "4633:443"
+  database:
+    ports:
+      - "3317:3306"

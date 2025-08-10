@@ -1,0 +1,40 @@
+services:
+  www:
+    container_name: miguel-bustos-cms-www
+    build: docker/php
+    restart: always
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./docker/ssl/:/etc/apache2/ssl
+      - ./docker/php/vhosts:/etc/apache2/sites-enabled
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./:/var/www/project
+    links:
+      - database
+    depends_on:
+      - database
+    networks:
+      - my_network
+  database:
+    container_name: miguel-bustos-cms-database
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - database_data:/var/lib/mysql
+    networks:
+      - my_network
+
+volumes:
+  database_data:
+
+networks:
+  my_network:

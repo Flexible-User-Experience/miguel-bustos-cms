@@ -1,0 +1,11 @@
+@import "tailwindcss" source("../../");
+
+@source "assets/";
+@source "templates/";
+
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
+
+body {
+    background-color: skyblue;
+}

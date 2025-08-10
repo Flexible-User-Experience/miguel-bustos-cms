@@ -1,0 +1,75 @@
+parameters:
+    default_locale: 'es'
+    locale_i18n: [ 'en' ]
+    locale_i18n_full: [ 'es', 'en' ]
+    short_project_title: 'MB CMS'
+    project_title: 'Miguel Bustos CMS'
+    admin_tag_version: '100000'
+    admin_password: '%env(string:ADMIN_PASSWORD)%'
+    delivery_dev_address: '%env(string:DEV_DELIVERY_ADDRESS)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+          '$kpd': '%kernel.project_dir%'
+          '$locale': '%default_locale%'
+          '$locales': '%locale_i18n_full%'
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+  # Events
+    App\Form\EventListener\DefaultTranslationsListener:
+        arguments:
+            - '@App\Form\Translation\GedmoTranslationForm'
+    App\Form\EventListener\GedmoTranslationsListener:
+        arguments:
+            - '@App\Form\Translation\GedmoTranslationForm'
+    App\Form\Translation\DefaultTranslationForm:
+        arguments:
+            - '@form.registry'
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+    App\Form\Translation\GedmoTranslationForm:
+        arguments:
+            - '@form.registry'
+            - '@Doctrine\Common\Persistence\ManagerRegistry'
+        calls:
+            - setGedmoTranslatableListener: [ '@stof_doctrine_extensions.listener.translatable' ]
+  # Forms
+    App\Form\Type\GedmoTranslationsType:
+        arguments:
+            - '@App\Form\EventListener\GedmoTranslationsListener'
+            - '@App\Form\Translation\GedmoTranslationForm'
+            - '%locale_i18n%'
+            - ~
+        tags:
+            - { name: 'form.type' }
+    App\Form\Type\TranslationsFormsType:
+        arguments:
+            - '%locale_i18n%'
+            - ~
+        tags:
+            - { name: 'form.type' }
+    # Sonata Admins
+    admin.category:
+        class: 'App\Admin\CategoryAdmin'
+        tags:
+            - { name: 'sonata.admin', model_class: 'App\Entity\Category', controller: ~, manager_type: 'orm', group: 'Content', label: 'Categories' }
+        calls:
+          - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
+    admin.project:
+        class: 'App\Admin\ProjectAdmin'
+        tags:
+            - { name: 'sonata.admin', model_class: 'App\Entity\Project', controller: ~, manager_type: 'orm', group: 'Content', label: 'Projects' }
+        calls:
+          - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
+    admin.project_image:
+        class: 'App\Admin\Image\ProjectImageAdmin'
+        tags:
+            - { name: 'sonata.admin', model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: 'orm', group: 'Content', label: 'Pictures', show_in_dashboard: false }
+        calls:
+          - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
