@@ -8,8 +8,8 @@ enum RoutesEnum: string
     case app_frontend_homepage_index = '/';
     case app_project_index = '/project';
     case app_project_show = '/project/{id}';
-    case app_project_workshops_index = '/project/workshops';
     case app_project_illustrations_index = '/project/illustrations';
+    case app_project_workshops_index = '/project/workshops';
     // backend
     case app_admin_login = '/admin/login';
     case app_admin_category_list = '/admin/categories/category/list';

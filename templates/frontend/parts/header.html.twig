@@ -1,18 +1,15 @@
 {% block header %}
     <header class="w-full py-6 px-8 border-b bg-white">
         <div class="flex justify-between items-center max-w-screen-xl mx-auto">
-            <h1 class="text-2xl font-bold">Miguel Bustos</h1>
-
+            <h1 class="text-2xl font-bold">{{ project_title }}</h1>
             <div class="hidden lg:flex items-center space-x-6">
-                <a href="{{ path('app_project_illustrations_index') }}" class="hover:underline">Illustration</a>
-                <a href="{{ path('app_project_workshops_index') }}" class="hover:underline">Workshops</a>
-                <a href="#" class="hover:underline">About</a>
-                <a href="#" class="hover:underline">Contact</a>
-
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations_index.name) }}" class="hover:underline">{{ 'Illustration' | trans }}</a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_workshops_index.name) }}" class="hover:underline">{{ 'Workshops' | trans }}</a>
+                <a href="#" class="hover:underline">{{ 'About' | trans }}</a>
+                <a href="#" class="hover:underline">{{ 'Contact' | trans }}</a>
                 <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="text-2xl w-6">
                     {{ ux_icon('bi:instagram') }}
                 </a>
-
                 <div class="hidden lg:flex items-center space-x-1 text-sm font-semibold">
                     <a href="#" class="hover:underline">EN</a>
                     <span>·</span>

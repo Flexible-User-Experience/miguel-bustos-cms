@@ -9,7 +9,7 @@ twig:
         - 'form_themes/vich_uploader_fields.html.twig'
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     globals:
-        project_title: 'Miguel Bustos CMS'
+        project_title: '%project_title%'
         customer_name: 'Miguel Bustos'
         customer_url: 'https://www.miguel-bustos.com'
         admin_tag_version: '%admin_tag_version%'
