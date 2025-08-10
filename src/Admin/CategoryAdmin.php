@@ -2,7 +2,9 @@
 
 namespace App\Admin;
 
+use App\Entity\Translations\CategoryTranslation;
 use App\Enum\DoctrineEnum;
+use App\Form\Type\GedmoTranslationsType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -28,8 +30,22 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('name', TextType::class, [
-            ])
+            ->add('name', TextType::class)
+            ->add(
+                'translations',
+                GedmoTranslationsType::class,
+                [
+                    'label' => false,
+                    'required' => false,
+                    'translatable_class' => CategoryTranslation::class,
+                    'fields' => [
+                        'name' => [
+                            'required' => true,
+                            'field_type' => TextType::class,
+                        ],
+                    ],
+                ]
+            )
         ;
     }
 

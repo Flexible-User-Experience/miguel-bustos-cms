@@ -43,3 +43,12 @@ testing:
 	$(DOCKER) exec miguel-bustos-cms-www php bin/console doctrine:schema:update --force --env=test
 	$(DOCKER) exec miguel-bustos-cms-www php bin/console hautelook:fixtures:load --no-interaction --env=test
 	$(DOCKER) exec miguel-bustos-cms-www php bin/phpunit
+
+## Developing
+.PHONY: developing
+developing:
+	$(DOCKER) exec miguel-bustos-cms-www php bin/console cache:clear --env=dev
+	$(DOCKER) exec miguel-bustos-cms-www php bin/console doctrine:database:drop --force --env=dev
+	$(DOCKER) exec miguel-bustos-cms-www php bin/console doctrine:database:create --env=dev
+	$(DOCKER) exec miguel-bustos-cms-www php bin/console doctrine:schema:update --force --env=dev
+	$(DOCKER) exec miguel-bustos-cms-www php bin/console hautelook:fixtures:load --no-interaction --env=dev

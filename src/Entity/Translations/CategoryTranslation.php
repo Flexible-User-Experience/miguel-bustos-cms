@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 #[ORM\Entity]
-#[ORM\UniqueConstraint(name: 'lookup_service_unique_idx', columns: ['locale', 'object_id', 'field'])]
+#[ORM\UniqueConstraint(columns: ['locale', 'object_id', 'field'])]
 class CategoryTranslation extends AbstractPersonalTranslation
 {
     #[ORM\JoinColumn(name: 'object_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
