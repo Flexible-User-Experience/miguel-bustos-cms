@@ -3,6 +3,7 @@
 namespace App\Admin;
 
 use App\Entity\Category;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
@@ -11,7 +12,6 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\BooleanType;
 use Sonata\Form\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -31,7 +31,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ModelType::class,
                 [
                     'class' => Category::class,
-                    'required' => false,
+                    'required' => true,
                 ]
             )
             ->add(
@@ -50,7 +50,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'description',
-                TextareaType::class,
+                CKEditorType::class,
                 [
                     'required' => false,
                 ]
@@ -92,8 +92,10 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
-            ->add('title')
             ->add('category')
+            ->add('title')
+            ->add('isIllustration')
+            ->add('isWorkshop')
             ->add('isActive')
         ;
     }
@@ -112,23 +114,50 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 )
             )
             ->add('category')
-            ->addIdentifier('title')
-            ->add('isIllustration', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'editable' => true,
-            ])
-            ->add('isWorkshop', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'editable' => true,
-            ])
-            ->add('isActive', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'editable' => true,
-                'inverse' => false,
-            ])
-            ->add(ListMapper::NAME_ACTIONS, null, [
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                ],
-            ])
+            ->add('title')
+            ->add(
+                'isIllustration',
+                FieldDescriptionInterface::TYPE_BOOLEAN,
+                [
+                    'editable' => true,
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-center',
+                    'row_align' => 'center',
+                ]
+            )
+            ->add(
+                'isWorkshop',
+                FieldDescriptionInterface::TYPE_BOOLEAN,
+                [
+                    'editable' => true,
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-center',
+                    'row_align' => 'center',
+                ]
+            )
+            ->add(
+                'isActive',
+                FieldDescriptionInterface::TYPE_BOOLEAN,
+                [
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-center',
+                    'row_align' => 'center',
+                    'editable' => true,
+                ]
+            )
+            ->add(
+                ListMapper::NAME_ACTIONS,
+                null,
+                [
+                    'header_style' => 'width:86px',
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                    'actions' => [
+                        'show' => [],
+                        'edit' => [],
+                    ],
+                ]
+            )
         ;
     }
 

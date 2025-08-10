@@ -2,13 +2,13 @@
 
 namespace App\Admin\Image;
 
+use App\Admin\AbstractBaseAdmin;
 use App\Entity\Project;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class ProjectImageAdmin extends AbstractAdmin
+class ProjectImageAdmin extends AbstractBaseAdmin
 {
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
@@ -25,14 +25,19 @@ class ProjectImageAdmin extends AbstractAdmin
                     'required' => true,
                     'class' => Project::class,
                     'choice_label' => 'title',
-                    //                    'query_builder' => $this->getRepositoriesManager()->getMor()->findAllSortedByNameQB(),
                     'attr' => [
                         'hidden' => true,
                     ],
                 ]
             )
-            ->add('mainImageFile', VichImageType::class, [
-                'required' => false,
-            ]);
+            ->add(
+                'mainImageFile',
+                VichImageType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            // TODO add ALT field
+        ;
     }
 }
