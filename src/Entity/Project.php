@@ -8,16 +8,19 @@ use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
 use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
+use App\Entity\Translations\ProjectTranslation;
 use App\Interface\SlugInterface;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Gedmo\TranslationEntity(class: ProjectTranslation::class)]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[Vich\Uploadable]
 class Project extends AbstractEntity implements SlugInterface
@@ -28,9 +31,11 @@ class Project extends AbstractEntity implements SlugInterface
     use SlugTitleTrait;
     use TitleTrait;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subtitle = null;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
@@ -54,16 +59,6 @@ class Project extends AbstractEntity implements SlugInterface
     public function __construct()
     {
         $this->images = new ArrayCollection();
-    }
-
-    public function isIllustration(): bool
-    {
-        return $this->isIllustration;
-    }
-
-    public function setIsIllustration(bool $isIllustration): void
-    {
-        $this->isIllustration = $isIllustration;
     }
 
     public function getSubtitle(): ?string
@@ -112,13 +107,20 @@ class Project extends AbstractEntity implements SlugInterface
         $this->isWorkshop = $isWorkshop;
     }
 
+    public function isIllustration(): bool
+    {
+        return $this->isIllustration;
+    }
+
+    public function setIsIllustration(bool $isIllustration): void
+    {
+        $this->isIllustration = $isIllustration;
+    }
+
     //    TODO:
     //    videoUrl
     //    pdfFile
 
-    /**
-     * @return Collection<int, ProjectImage>
-     */
     public function getProjectImages(): Collection
     {
         return $this->images;
@@ -148,6 +150,6 @@ class Project extends AbstractEntity implements SlugInterface
 
     public function __toString(): string
     {
-        return $this->getTitle() ?: '';
+        return $this->getTitle() ?: self::DEFAULT_NAME;
     }
 }
