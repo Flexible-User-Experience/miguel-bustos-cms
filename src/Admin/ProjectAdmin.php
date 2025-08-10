@@ -13,8 +13,9 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
-use Sonata\Form\Type\BooleanType;
 use Sonata\Form\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -67,34 +68,55 @@ final class ProjectAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('admin.images', ['class' => 'col-md-4'])
-                ->add('mainImageFile', VichImageType::class, [
+            ->add(
+                'mainImageFile',
+                VichImageType::class,
+                [
                     'required' => false,
-                ]);
+                ]
+            )
+        ;
         if (!$this->isFormToCreateNewRecord()) {
             $form
-                ->add('images', CollectionType::class, [
-                    'by_reference' => false,
-                    'error_bubbling' => true,
-                ], [
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                ]);
+                ->add(
+                    'images',
+                    CollectionType::class,
+                    [
+                        'by_reference' => false,
+                        'error_bubbling' => true,
+                    ],
+                    [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    ]
+                )
+            ;
         }
         $form
             ->end()
             ->with('admin.controls', ['class' => 'col-md-4'])
-                ->add('isIllustration', BooleanType::class, [
+            ->add('position', NumberType::class)
+            ->add(
+                'isIllustration',
+                CheckboxType::class,
+                [
                     'required' => false,
-                    'transform' => true,
-                ])
-                ->add('isWorkshop', BooleanType::class, [
+                ]
+            )
+            ->add(
+                'isWorkshop',
+                CheckboxType::class,
+                [
                     'required' => false,
-                    'transform' => true,
-                ])
-                ->add('isActive', BooleanType::class, [
+                ]
+            )
+            ->add(
+                'isActive',
+                CheckboxType::class,
+                [
                     'required' => false,
-                    'transform' => true,
-                ])
+                ]
+            )
             ->end()
         ;
     }
