@@ -9,8 +9,6 @@
                             {% set language = 'spanish' | trans %}
                         {% elseif locale == constant('App\\Enum\\LocaleEnum::en') %}
                             {% set language = 'english' | trans %}
-                        {% elseif locale == constant('App\\Enum\\LocaleEnum::de') %}
-                            {% set language = 'german' | trans %}
                         {% endif %}
                         <span class="text-success">{{ language | capitalize }}</span>
                     </a>
