@@ -18,6 +18,10 @@ class ProjectControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, str_replace('{id}', '1', RoutesEnum::app_admin_project_edit->value));
         self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, RoutesEnum::app_admin_project_image_list->value);
+        self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, RoutesEnum::app_admin_project_image_create->value);
+        self::assertResponseIsSuccessful();
     }
 
     public function testForbiddenPages(): void
@@ -26,6 +30,10 @@ class ProjectControllerTest extends WebTestCase
         $client->request(Request::METHOD_GET, str_replace('{id}', '100', RoutesEnum::app_admin_project_edit->value));
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         $client->request(Request::METHOD_GET, 'admin/projects/project/1/delete');
+        self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $client->request(Request::METHOD_GET, str_replace('{id}', '100', RoutesEnum::app_admin_project_image_edit->value));
+        self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $client->request(Request::METHOD_GET, 'admin/projects/image/1/delete');
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 }

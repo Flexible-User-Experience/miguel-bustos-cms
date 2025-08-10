@@ -15,7 +15,6 @@ class HomepageController extends AbstractController
     public function index(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/homepage.html.twig', [
-            // TODO: Filtrar projectes segons estat: actiu...
             'projects' => $projectRepository->findByIsActiveField(),
         ]);
     }

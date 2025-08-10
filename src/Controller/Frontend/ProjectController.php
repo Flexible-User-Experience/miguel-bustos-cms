@@ -12,14 +12,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectController extends AbstractController
 {
-    #[Route(path: RoutesEnum::app_project_index->value, name: RoutesEnum::app_project_index->name, methods: [Request::METHOD_GET])]
-    public function index(ProjectRepository $projectRepository): Response
-    {
-        return $this->render('frontend/project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
-        ]);
-    }
-
     #[Route(path: RoutesEnum::app_project_show->value, name: RoutesEnum::app_project_show->name, methods: [Request::METHOD_GET])]
     public function show(Project $project): Response
     {

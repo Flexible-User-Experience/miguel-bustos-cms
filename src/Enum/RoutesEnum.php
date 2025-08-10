@@ -18,4 +18,7 @@ enum RoutesEnum: string
     case app_admin_project_list = '/admin/projects/project/list';
     case app_admin_project_create = '/admin/projects/project/create';
     case app_admin_project_edit = '/admin/projects/project/{id}/edit';
+    case app_admin_project_image_list = '/admin/projects/image/list';
+    case app_admin_project_image_create = '/admin/projects/image/create';
+    case app_admin_project_image_edit = '/admin/projects/image/{id}/edit';
 }

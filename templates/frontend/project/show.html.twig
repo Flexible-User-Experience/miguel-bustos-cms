@@ -1,20 +1,18 @@
 {% extends 'frontend/base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+{% block title %}{{ project.title }} · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <body class="font-sans bg-white flex justify-center items-start min-h-screen">
     <div class="container flex w-full max-w-7xl p-5 box-border">
-        {# Panell Esquerre #}
         <div class="left-panel flex-none w-80 bg-[#ee5b54] p-8 flex flex-col items-center text-white relative overflow-hidden">
             <div class="bg-[#f7d24a] w-full py-2 text-left text-bold mb-5 box-border">
                 <h1 class="m-0 text-[#333] text-2xl uppercase">{{ project.title }}</h1>
                 <p>{{ project.subtitle }}</p>
             </div>
-            <div class="illustration-grid w-full max-w-[18.75rem] mt-5"> {# Ancho máximo de 300px #}
-                {# Bucle per generar les imatges, simulant la quadrícula #}
-                {% for i in 1..24 %} {# Ajusta el número según cuántas ilustraciones quieras #}
-                    <img src="{{ vich_uploader_asset(project, 'mainImageFile') }}" class="w-full h-auto block">
+            <div class="illustration-grid w-full max-w-[18.75rem] mt-5">
+                <img src="{{ vich_uploader_asset(project, 'mainImageFile') }}" class="w-full h-auto block" alt="{{ project.title }}">
+                {% for image in project.images %}
+                    <img src="{{ vich_uploader_asset(image, 'mainImageFile') }}" class="w-full h-auto block" alt="{{ image.altImage }}">
                 {% endfor %}
             </div>
             <div class="text-left mb-8 text-sm ml-px-20">
@@ -23,70 +21,21 @@
                 <p class="m-0 mb-1">HISTORIES</p>
                 <p class="m-0">Del 30 Març al 29 Abril de 2025</p>
             </div>
-
         </div>
-
-        {# Panell Dret #}
         <div class="right-panel flex-grow pl-12 box-border text-[#333]">
             <h2 class="text-3xl mt-0 mb-5">El circunista</h2>
-
             <div class="mb-8">
                 <h3 class="text-xl mb-2 text-[#555]">A realitzar a compte de:</h3>
                 <p>Nom Empresa<br>CIF: XXXXXXX</p>
             </div>
-
             <div class="mb-8">
                 <h3 class="text-xl mb-2 text-[#555]">Destinatari:</h3>
                 <p>Nom del Destinatari<br>Adreça Destinatari<br>Ciutat, Codi Postal</p>
             </div>
-
             <div class="mb-8">
                 <h3 class="text-xl mb-2 text-[#555]">Data:</h3>
-                <p>{{ "now"|date("d/m/Y") }}</p>
+                <p>{{ 'now' | date('d/m/Y') }}</p>
             </div>
         </div>
     </div>
-    </body>
-    </html>
-
-{#    <h1>Project</h1>#}
-
-{#    <table class="table">#}
-{#        <tbody>#}
-{#            <tr>#}
-{#                <th>Title</th>#}
-{#                <td>{{ project.title }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Subtitle</th>#}
-{#                <td>{{ project.subtitle }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Description</th>#}
-{#                <td>{{ project.description }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ project.id }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>CreatedAt</th>#}
-{#                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>UpdatedAt</th>#}
-{#                <td>{{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : '' }}</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>Slug</th>#}
-{#                <td>{{ project.slug }}</td>#}
-{#            </tr>#}
-{#        </tbody>#}
-{#    </table>#}
-
-    <a href="{{ path('app_project_index') }}">back to list</a>
-
-{#    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>#}
-
-{#    {{ include('project/_delete_form.html.twig') }}#}
 {% endblock %}
