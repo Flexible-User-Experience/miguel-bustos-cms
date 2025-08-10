@@ -3,23 +3,24 @@
 namespace App\Entity;
 
 use App\Entity\Trait\SlugTrait;
+use App\Entity\Translations\CategoryTranslation;
 use App\Interface\SlugInterface;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
+#[Gedmo\TranslationEntity(class: CategoryTranslation::class)]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category extends AbstractEntity implements SlugInterface
 {
     use SlugTrait;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    /**
-     * @var Collection<int, Project>
-     */
     #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'category')]
     private Collection $projects;
 
@@ -40,12 +41,16 @@ class Category extends AbstractEntity implements SlugInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Project>
-     */
     public function getProjects(): Collection
     {
         return $this->projects;
+    }
+
+    public function setProjects(Collection $projects): self
+    {
+        $this->projects = $projects;
+
+        return $this;
     }
 
     public function addProject(Project $project): static
@@ -72,6 +77,6 @@ class Category extends AbstractEntity implements SlugInterface
 
     public function __toString(): string
     {
-        return $this->getName() ?: '';
+        return $this->getName() ?: self::DEFAULT_NAME;
     }
 }
