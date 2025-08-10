@@ -11,7 +11,9 @@ enum RoutesEnum: string
     case app_project_workshops_index = '/project/workshops';
     case app_project_illustrations_index = '/project/illustrations';
     // backend
-    case app_admin_login = 'admin/login';
-    case app_admin_project_list = 'admin/projects/project/list';
-    case app_admin_category_list = 'admin/categories/category/list';
+    case app_admin_login = '/admin/login';
+    case app_admin_category_list = '/admin/categories/category/list';
+    case app_admin_category_create = '/admin/categories/category/create';
+    case app_admin_category_edit = '/admin/categories/category/{id}/edit';
+    case app_admin_project_list = '/admin/projects/project/list';
 }

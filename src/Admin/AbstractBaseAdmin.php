@@ -20,7 +20,7 @@ class AbstractBaseAdmin extends AbstractAdmin
     {
         parent::configureRoutes($collection);
         $collection
-//            ->remove('delete')
+            ->remove('delete')
             ->remove('batch')
         ;
     }
