@@ -5,7 +5,6 @@ namespace App\Admin;
 use App\Entity\Translations\CategoryTranslation;
 use App\Enum\DoctrineEnum;
 use App\Form\Type\GedmoTranslationsType;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -13,7 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class CategoryAdmin extends AbstractAdmin
+final class CategoryAdmin extends AbstractBaseAdmin
 {
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {

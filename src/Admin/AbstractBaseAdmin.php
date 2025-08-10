@@ -2,10 +2,37 @@
 
 namespace App\Admin;
 
+use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\DatagridInterface;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 
 class AbstractBaseAdmin extends AbstractAdmin
 {
+    protected function configureDefaultSortValues(array &$sortValues): void
+    {
+        $sortValues[DatagridInterface::PAGE] = 1;
+        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::DESC->value;
+        $sortValues[DatagridInterface::SORT_BY] = 'createdAt';
+    }
+
+    protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        parent::configureRoutes($collection);
+        $collection
+            ->remove('delete')
+            ->remove('batch')
+        ;
+    }
+
+    public function getExportFormats(): array
+    {
+        return [
+            'csv',
+            'xls',
+        ];
+    }
+
     protected function isFormToCreateNewRecord(): bool
     {
         return !$this->id($this->getSubject());
