@@ -7,9 +7,6 @@ use Doctrine\Common\Collections\Collection;
 
 trait ImagesTrait
 {
-    /**
-     * @return Collection<int, AbstractImage>
-     */
     public function getImages(): Collection
     {
         return $this->images;

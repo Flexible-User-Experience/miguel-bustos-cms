@@ -6,6 +6,7 @@ use App\Entity\Image\ProjectImage;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
+use App\Entity\Trait\PositionTrait;
 use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
 use App\Entity\Trait\TranslationTrait;
@@ -29,6 +30,7 @@ class Project extends AbstractEntity implements SlugInterface
     use IsActiveTrait;
     use ImagesTrait;
     use MainImageTrait;
+    use PositionTrait;
     use SlugTitleTrait;
     use TitleTrait;
     use TranslationTrait;

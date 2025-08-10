@@ -10,6 +10,7 @@
 'Projects': 'Proyectos'
 'Name': 'Nombre'
 'Slug': 'Slug'
+'Position': 'Posición'
 'Actions': 'Acciones'
 'Title': 'Título'
 'Is Illustration': 'Ilustración'
@@ -18,3 +19,5 @@
 'Main Image': 'Imagen destacada'
 'Admin General': 'General'
 'Admin Translations': 'Traducciones'
+'Admin Images': 'Imágenes'
+'Admin Controls': 'Controles'

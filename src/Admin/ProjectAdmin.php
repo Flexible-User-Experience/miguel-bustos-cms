@@ -29,7 +29,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
     {
         $sortValues[DatagridInterface::PAGE] = 1;
         $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
-        $sortValues[DatagridInterface::SORT_BY] = 'title'; // TODO sort by position
+        $sortValues[DatagridInterface::SORT_BY] = 'position';
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -114,6 +114,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ]
             )
             ->add('title')
+            ->add('position')
             ->add('isIllustration')
             ->add('isWorkshop')
             ->add('isActive')
@@ -154,6 +155,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ]
             )
             ->add('title')
+            ->add('position')
             ->add(
                 'isIllustration',
                 FieldDescriptionInterface::TYPE_BOOLEAN,

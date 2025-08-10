@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Project;
+use App\Enum\DoctrineEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -11,21 +13,26 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProjectRepository extends ServiceEntityRepository
 {
+    private const string ALIAS = 'p';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Project::class);
     }
 
-    /**
-     * @return Project[] Returns an array of Project objects
-     */
+    public function findActiveSortedByPositionAndTitleQB(): QueryBuilder
+    {
+        return $this->createQueryBuilder(self::ALIAS)
+            ->where(sprintf('%s.isActive = :val', self::ALIAS))
+            ->setParameter('val', true)
+            ->orderBy(sprintf('%s.position', self::ALIAS), DoctrineEnum::ASC->value)
+            ->addOrderBy(sprintf('%s.title', self::ALIAS), DoctrineEnum::ASC->value)
+        ;
+    }
+
     public function findByIsActiveField(): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.isActive = :val')
-            ->setParameter('val', true)
-            ->orderBy('p.id', 'DESC')
-            ->setMaxResults(20)
+        return $this->findActiveSortedByPositionAndTitleQB()
             ->getQuery()
             ->getResult()
         ;
@@ -33,11 +40,8 @@ class ProjectRepository extends ServiceEntityRepository
 
     public function findWorkshops(): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.isActive = :val')
-            ->andWhere('p.isWorkshop = :val')
-            ->setParameter('val', true)
-            ->orderBy('p.id', 'DESC')
+        return $this->findActiveSortedByPositionAndTitleQB()
+            ->andWhere(sprintf('%s.isWorkshop = :val', self::ALIAS))
             ->getQuery()
             ->getResult()
         ;
@@ -45,23 +49,10 @@ class ProjectRepository extends ServiceEntityRepository
 
     public function findIllustrations(): array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.isActive = :val')
-            ->andWhere('p.isIllustration = :val')
-            ->setParameter('val', true)
-            ->orderBy('p.id', 'DESC')
+        return $this->findActiveSortedByPositionAndTitleQB()
+            ->andWhere(sprintf('%s.isIllustration = :val', self::ALIAS))
             ->getQuery()
             ->getResult()
         ;
     }
-
-    //    public function findOneBySomeField($value): ?Project
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
