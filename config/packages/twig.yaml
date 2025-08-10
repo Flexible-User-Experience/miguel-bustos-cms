@@ -5,6 +5,7 @@ twig:
         '%kernel.project_dir%/assets/styles': 'styles'
         '%kernel.project_dir%/assets/images': 'images'
     form_themes:
+        - 'form_themes/adapted_a2lix_translation_form.html.twig'
         - 'form_themes/vich_uploader_fields.html.twig'
     globals:
         project_title: 'Miguel Bustos CMS'
