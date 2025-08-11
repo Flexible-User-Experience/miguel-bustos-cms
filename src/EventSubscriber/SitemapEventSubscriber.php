@@ -33,7 +33,7 @@ final readonly class SitemapEventSubscriber implements EventSubscriberInterface
             // Locales iterator
             foreach (LocaleEnum::getLocalesArray() as $locale) {
                 // Homepage
-                $url = $this->makeUrl(RoutesEnum::app_frontend_homepage_index->name, $locale);
+                $url = $this->makeUrl(RoutesEnum::app_frontend_homepage->name, $locale);
                 $event
                     ->getUrlContainer()
                     ->addUrl($this->makeUrlConcrete($url), 'default')

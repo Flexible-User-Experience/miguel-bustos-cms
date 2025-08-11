@@ -5,7 +5,7 @@ namespace App\Enum;
 enum RoutesEnum: string
 {
     // frontend
-    case app_frontend_homepage_index = '/';
+    case app_frontend_homepage = '/';
     case app_project_show = '/project/{id}/detail';
     case app_project_illustrations_index = '/illustrations';
     case app_project_workshops_index = '/workshops';

@@ -12,8 +12,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomepageController extends AbstractController
 {
     #[Route(
-        path: RoutesEnum::app_frontend_homepage_index->value,
-        name: RoutesEnum::app_frontend_homepage_index->name,
+        path: RoutesEnum::app_frontend_homepage->value,
+        name: RoutesEnum::app_frontend_homepage->name,
         methods: [Request::METHOD_GET]
     )]
     public function homepage(ProjectRepository $projectRepository): Response
