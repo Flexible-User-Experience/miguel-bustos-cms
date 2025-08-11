@@ -14,7 +14,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProjectController extends AbstractController
 {
     #[Route(
-        path: RoutesEnum::app_project_illustrations->value,
+        path: [
+            LocaleEnum::en => RoutesEnum::app_project_illustrations->value,
+            LocaleEnum::es => RoutesEnum::app_project_illustrations_es->value,
+            LocaleEnum::ca => RoutesEnum::app_project_illustrations_ca->value,
+        ],
         name: RoutesEnum::app_project_illustrations->name,
         methods: [Request::METHOD_GET]
     )]
