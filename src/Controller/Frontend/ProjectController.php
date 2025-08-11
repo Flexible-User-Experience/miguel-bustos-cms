@@ -13,8 +13,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProjectController extends AbstractController
 {
     #[Route(
-        path: RoutesEnum::app_project_workshops_index->value,
-        name: RoutesEnum::app_project_workshops_index->name,
+        path: RoutesEnum::app_project_workshops->value,
+        name: RoutesEnum::app_project_workshops->name,
         methods: [Request::METHOD_GET]
     )]
     public function workshops(ProjectRepository $projectRepository): Response
