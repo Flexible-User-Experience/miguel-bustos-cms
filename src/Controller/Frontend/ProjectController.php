@@ -58,6 +58,10 @@ class ProjectController extends AbstractController
     public function detail(
         #[MapEntity(mapping: ['slug' => 'slug'])] Project $project,
     ): Response {
+        if (false === $project->getIsActive()) {
+            throw $this->createNotFoundException();
+        }
+
         return $this->render('frontend/project/detail.html.twig', [
             'project' => $project,
         ]);

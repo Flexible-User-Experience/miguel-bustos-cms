@@ -11,3 +11,11 @@ App\Entity\Project:
     isActive: '<boolean()>'
     isWorkshop: '<boolean()>'
     isIllustration: '<boolean()>'
+  project_21:
+    title: 'project_21'
+    subtitle: 'project_21_subtitle'
+    description: '<text()>'
+    category: '@category_<numberBetween(1, 5)>'
+    isActive: false
+    isWorkshop: '<boolean()>'
+    isIllustration: '<boolean()>'
