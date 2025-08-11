@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
 use App\Repository\ProjectRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,8 +55,9 @@ class ProjectController extends AbstractController
         name: RoutesEnum::app_project_detail->name,
         methods: [Request::METHOD_GET]
     )]
-    public function detail(Project $project): Response
-    {
+    public function detail(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Project $project,
+    ): Response {
         return $this->render('frontend/project/detail.html.twig', [
             'project' => $project,
         ]);
