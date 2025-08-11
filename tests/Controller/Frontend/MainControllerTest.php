@@ -21,5 +21,7 @@ class MainControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, str_replace('{id}', '1', RoutesEnum::app_project_show->value));
         self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, '/sitemap.default.xml');
+        self::assertResponseIsSuccessful();
     }
 }
