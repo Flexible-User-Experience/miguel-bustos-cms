@@ -37,13 +37,13 @@ class ProjectController extends AbstractController
     }
 
     #[Route(
-        path: RoutesEnum::app_project_show->value,
-        name: RoutesEnum::app_project_show->name,
+        path: RoutesEnum::app_project_detail->value,
+        name: RoutesEnum::app_project_detail->name,
         methods: [Request::METHOD_GET]
     )]
     public function detail(Project $project): Response
     {
-        return $this->render('frontend/project/show.html.twig', [
+        return $this->render('frontend/project/detail.html.twig', [
             'project' => $project,
         ]);
     }
