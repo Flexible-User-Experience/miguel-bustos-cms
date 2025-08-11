@@ -2,7 +2,7 @@
     <header class="w-full py-6 px-8 border-b bg-white">
         <div class="flex justify-between items-center max-w-screen-xl mx-auto">
             <h1 class="text-2xl font-bold"><a href="{{ path(enum('App\\Enum\\RoutesEnum').app_frontend_homepage.name) }}">{{ project_title }}</a></h1>
-            <div class="hidden lg:flex items-center space-x-6">
+            <div class="lg:flex items-center space-x-6">
                 <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations.name) }}" class="hover:underline">{{ 'Illustrations' | trans }}</a>
                 <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_workshops.name) }}" class="hover:underline">{{ 'Workshops' | trans }}</a>
                 <a href="#" class="hover:underline">{{ 'About' | trans }}</a>
@@ -10,12 +10,12 @@
                 <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="text-2xl w-6">
                     {{ ux_icon('bi:instagram') }}
                 </a>
-                <div class="hidden lg:flex items-center space-x-1 text-sm font-semibold">
-                    <a href="#" class="hover:underline">EN</a>
+                <div class="lg:flex items-center space-x-1 text-sm font-semibold">
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::en')})) }}" class="hover:underline">EN</a>
                     <span>·</span>
-                    <a href="#" class="hover:underline">CAT</a>
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::ca')})) }}" class="hover:underline">CAT</a>
                     <span>·</span>
-                    <a href="#" class="hover:underline text-gray-400">ES</a>
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::es')})) }}" class="hover:underline text-gray-400">ES</a>
                 </div>
             </div>
             <div class="lg:hidden flex items-center">
