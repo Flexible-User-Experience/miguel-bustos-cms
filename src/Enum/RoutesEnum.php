@@ -6,13 +6,15 @@ enum RoutesEnum: string
 {
     // frontend
     case app_frontend_homepage = '/';
-    case app_project_detail = '/project/{id}/detail';
     case app_project_illustrations = '/illustrations';
     case app_project_illustrations_es = '/ilustraciones';
     case app_project_illustrations_ca = '/il-lustracions';
     case app_project_workshops = '/workshops';
     case app_project_workshops_es = '/talleres';
     case app_project_workshops_ca = '/tallers';
+    case app_project_detail = '/project/{id}';
+    case app_project_detail_es = '/proyecto/{id}';
+    case app_project_detail_ca = '/projecte/{id}';
     // backend
     case app_admin_login = '/admin/login';
     case app_admin_category_list = '/admin/categories/category/list';

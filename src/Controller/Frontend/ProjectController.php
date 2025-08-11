@@ -46,7 +46,11 @@ class ProjectController extends AbstractController
     }
 
     #[Route(
-        path: RoutesEnum::app_project_detail->value,
+        path: [
+            LocaleEnum::en => RoutesEnum::app_project_detail->value,
+            LocaleEnum::es => RoutesEnum::app_project_detail_es->value,
+            LocaleEnum::ca => RoutesEnum::app_project_detail_ca->value,
+        ],
         name: RoutesEnum::app_project_detail->name,
         methods: [Request::METHOD_GET]
     )]
