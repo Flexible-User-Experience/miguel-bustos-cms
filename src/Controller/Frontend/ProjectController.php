@@ -3,6 +3,7 @@
 namespace App\Controller\Frontend;
 
 use App\Entity\Project;
+use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,18 +14,6 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProjectController extends AbstractController
 {
     #[Route(
-        path: RoutesEnum::app_project_workshops->value,
-        name: RoutesEnum::app_project_workshops->name,
-        methods: [Request::METHOD_GET]
-    )]
-    public function workshops(ProjectRepository $projectRepository): Response
-    {
-        return $this->render('frontend/project/workshops.html.twig', [
-            'workshops' => $projectRepository->findWorkshops(),
-        ]);
-    }
-
-    #[Route(
         path: RoutesEnum::app_project_illustrations->value,
         name: RoutesEnum::app_project_illustrations->name,
         methods: [Request::METHOD_GET]
@@ -33,6 +22,22 @@ class ProjectController extends AbstractController
     {
         return $this->render('frontend/project/illustrations.html.twig', [
             'illustrations' => $projectRepository->findIllustrations(),
+        ]);
+    }
+
+    #[Route(
+        path: [
+            LocaleEnum::en => RoutesEnum::app_project_workshops->value,
+            LocaleEnum::es => RoutesEnum::app_project_workshops_es->value,
+            LocaleEnum::ca => RoutesEnum::app_project_workshops_ca->value,
+        ],
+        name: RoutesEnum::app_project_workshops->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function workshops(ProjectRepository $projectRepository): Response
+    {
+        return $this->render('frontend/project/workshops.html.twig', [
+            'workshops' => $projectRepository->findWorkshops(),
         ]);
     }
 
