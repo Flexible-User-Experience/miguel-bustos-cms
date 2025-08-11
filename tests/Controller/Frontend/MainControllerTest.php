@@ -15,7 +15,7 @@ class MainControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, RoutesEnum::app_frontend_homepage->value);
         self::assertResponseIsSuccessful();
-        $client->request(Request::METHOD_GET, RoutesEnum::app_project_illustrations_index->value);
+        $client->request(Request::METHOD_GET, RoutesEnum::app_project_illustrations->value);
         self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, RoutesEnum::app_project_workshops_index->value);
         self::assertResponseIsSuccessful();

@@ -25,8 +25,8 @@ class ProjectController extends AbstractController
     }
 
     #[Route(
-        path: RoutesEnum::app_project_illustrations_index->value,
-        name: RoutesEnum::app_project_illustrations_index->name,
+        path: RoutesEnum::app_project_illustrations->value,
+        name: RoutesEnum::app_project_illustrations->name,
         methods: [Request::METHOD_GET]
     )]
     public function illustrations(ProjectRepository $projectRepository): Response

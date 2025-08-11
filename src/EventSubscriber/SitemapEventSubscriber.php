@@ -39,7 +39,7 @@ final readonly class SitemapEventSubscriber implements EventSubscriberInterface
                     ->addUrl($this->makeUrlConcrete($url), 'default')
                 ;
                 // Illustrations
-                $url = $this->makeUrl(RoutesEnum::app_project_illustrations_index->name, $locale);
+                $url = $this->makeUrl(RoutesEnum::app_project_illustrations->name, $locale);
                 $event
                     ->getUrlContainer()
                     ->addUrl($this->makeUrlConcrete($url), 'default')
