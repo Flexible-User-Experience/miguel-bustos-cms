@@ -1,8 +1,9 @@
 controllers:
     resource:
-        path: '../src/Controller/Web'
-        namespace: 'App\Controller\Web'
+        path: '../src/Controller/Frontend'
+        namespace: 'App\Controller\Frontend'
     type: 'attribute'
     prefix:
-        es: ''
-        en: 'en'
+        en: ''
+        es: 'es'
+        ca: 'ca'
