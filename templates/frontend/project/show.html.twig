@@ -12,7 +12,7 @@
             <div class="illustration-grid w-full max-w-[18.75rem] mt-5">
                 <img src="{{ vich_uploader_asset(project, 'mainImageFile') }}" class="w-full h-auto block" alt="{{ project.title }}">
                 {% for image in project.images %}
-                    <img src="{{ vich_uploader_asset(image, 'mainImageFile') }}" class="w-full h-auto block" alt="{{ image.altImage }}">
+                    <img src="{{ vich_uploader_asset(image, 'mainImageFile') }}" class="w-full h-auto block" alt="{{ image.altImageText }}">
                 {% endfor %}
             </div>
             <div class="text-left mb-8 text-sm ml-px-20">

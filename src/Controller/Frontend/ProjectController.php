@@ -12,27 +12,39 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectController extends AbstractController
 {
-    #[Route(path: RoutesEnum::app_project_show->value, name: RoutesEnum::app_project_show->name, methods: [Request::METHOD_GET])]
-    public function show(Project $project): Response
-    {
-        return $this->render('frontend/project/show.html.twig', [
-            'project' => $project,
-        ]);
-    }
-
-    #[Route(path: RoutesEnum::app_project_workshops_index->value, name: RoutesEnum::app_project_workshops_index->name, methods: [Request::METHOD_GET])]
-    public function workshopsIndex(ProjectRepository $projectRepository): Response
+    #[Route(
+        path: RoutesEnum::app_project_workshops_index->value,
+        name: RoutesEnum::app_project_workshops_index->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function workshops(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/project/workshops.html.twig', [
             'workshops' => $projectRepository->findWorkshops(),
         ]);
     }
 
-    #[Route(path: RoutesEnum::app_project_illustrations_index->value, name: RoutesEnum::app_project_illustrations_index->name, methods: [Request::METHOD_GET])]
-    public function illustrationsIndex(ProjectRepository $projectRepository): Response
+    #[Route(
+        path: RoutesEnum::app_project_illustrations_index->value,
+        name: RoutesEnum::app_project_illustrations_index->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function illustrations(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/project/illustrations.html.twig', [
             'illustrations' => $projectRepository->findIllustrations(),
+        ]);
+    }
+
+    #[Route(
+        path: RoutesEnum::app_project_show->value,
+        name: RoutesEnum::app_project_show->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function detail(Project $project): Response
+    {
+        return $this->render('frontend/project/show.html.twig', [
+            'project' => $project,
         ]);
     }
 }

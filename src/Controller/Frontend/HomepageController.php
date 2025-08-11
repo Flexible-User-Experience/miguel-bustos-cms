@@ -11,8 +11,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {
-    #[Route(path: RoutesEnum::app_frontend_homepage_index->value, name: RoutesEnum::app_frontend_homepage_index->name, methods: [Request::METHOD_GET])]
-    public function index(ProjectRepository $projectRepository): Response
+    #[Route(
+        path: RoutesEnum::app_frontend_homepage_index->value,
+        name: RoutesEnum::app_frontend_homepage_index->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function homepage(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/homepage.html.twig', [
             'projects' => $projectRepository->findByIsActiveField(),
