@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\TranslationTrait;
+use App\Entity\Traits\NameTrait;
 use App\Entity\Translations\CategoryTranslation;
 use App\Interface\SlugInterface;
 use App\Repository\CategoryRepository;
@@ -19,6 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['slug'])]
 class Category extends AbstractEntity implements SlugInterface
 {
+    use NameTrait;
     use SlugTrait;
     use TranslationTrait;
 
@@ -37,18 +39,6 @@ class Category extends AbstractEntity implements SlugInterface
     {
         $this->projects = new ArrayCollection();
         $this->translations = new ArrayCollection();
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getProjects(): Collection
