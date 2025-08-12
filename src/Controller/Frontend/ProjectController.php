@@ -5,6 +5,7 @@ namespace App\Controller\Frontend;
 use App\Entity\Project;
 use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
+use App\Enum\UserRoleEnum;
 use App\Repository\ProjectRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +61,9 @@ class ProjectController extends AbstractController
         ProjectRepository $projectRepository,
     ): Response {
         if (false === $project->getIsActive()) {
-            throw $this->createNotFoundException();
+            if (!$this->isGranted(UserRoleEnum::ROLE_ADMIN)) {
+                throw $this->createNotFoundException();
+            }
         }
 
         return $this->render('frontend/project/detail.html.twig', [
