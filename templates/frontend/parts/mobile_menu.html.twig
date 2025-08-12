@@ -1,4 +1,4 @@
-<div class="lg:hidden absolute hidden flex flex-col items-center text-3xl py-8 bg-white/75 overflow-hidden gap-y-4 z-10 w-full h-screen" data-toggle-menu-target="menu">
+<div class="lg:hidden absolute hidden flex flex-col items-center text-3xl py-8 bg-white/75 overflow-hidden gap-y-4 z-10 w-full h-screen" {{ stimulus_target('toggle-menu', 'menu') }}>
     <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations.name) }}" class="hover:underline p-2{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_illustrations.name %} underline font-bold{% endif %}">{{ 'Illustrations' | trans }}</a>
     <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_workshops.name) }}" class="hover:underline p-2{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_workshops.name %} underline font-bold{% endif %}">{{ 'Workshops' | trans }}</a>
     <a href="#" class="hover:underline p-2">{{ 'About' | trans }}</a>
