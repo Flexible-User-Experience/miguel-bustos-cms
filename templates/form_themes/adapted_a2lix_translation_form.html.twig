@@ -5,12 +5,12 @@
                 {% set locale = translationsFields.vars.name %}
                 <li {% if loop.first %}class="active"{% endif %}>
                     <a href="javascript:void(0)" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
-                        {% if locale == constant('App\\Enum\\LocaleEnum::es') %}
-                            {% set language = 'spanish' | trans %}
-                        {% elseif locale == constant('App\\Enum\\LocaleEnum::en') %}
+                        {% if locale == constant('App\\Enum\\LocaleEnum::en') %}
                             {% set language = 'english' | trans %}
+                        {% elseif locale == constant('App\\Enum\\LocaleEnum::ca') %}
+                            {% set language = 'catalan' | trans %}
                         {% endif %}
-                        <span class="text-success">{{ language | capitalize }}</span>
+                        <span class="text-primary">{{ language | capitalize }}</span>
                     </a>
                 </li>
             {% endfor %}
