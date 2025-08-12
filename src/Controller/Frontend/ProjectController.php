@@ -60,10 +60,8 @@ class ProjectController extends AbstractController
         #[MapEntity(mapping: ['slug' => 'slug'])] Project $project,
         ProjectRepository $projectRepository,
     ): Response {
-        if (false === $project->getIsActive()) {
-            if (!$this->isGranted(UserRoleEnum::ROLE_ADMIN)) {
-                throw $this->createNotFoundException();
-            }
+        if ((false === $project->getIsActive()) && !$this->isGranted(UserRoleEnum::ROLE_ADMIN)) {
+            throw $this->createNotFoundException();
         }
 
         return $this->render('frontend/project/detail.html.twig', [
