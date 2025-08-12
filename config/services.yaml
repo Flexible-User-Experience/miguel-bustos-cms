@@ -64,7 +64,7 @@ services:
     admin.project:
         class: 'App\Admin\ProjectAdmin'
         tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Project', controller: ~, manager_type: 'orm', group: 'Content', label: 'Projects' }
+            - { name: 'sonata.admin', model_class: 'App\Entity\Project', controller: 'App\Controller\Admin\ProjectAdminController', manager_type: 'orm', group: 'Content', label: 'Projects' }
         calls:
           - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
     admin.project_image:
