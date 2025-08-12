@@ -11,11 +11,31 @@ App\Entity\Translations\CategoryTranslation:
 
 App\Entity\Project:
   project_{1..10}:
-    title: '<sentence()>'
-    subtitle: '<sentence()> subtitle'
-    description: '<text()>'
-    category: '@category_<numberBetween(1, 5)>'
-    isActive: '<boolean()>'
-    isWorkshop: '<boolean()>'
-    isIllustration: '<boolean()>'
-    position: '<current()>'
+    title: <sentence(5)>
+    isActive: <boolean()>
+    position: <current()>
+    subtitle: <sentence(10)>
+    description: <paragraph()>
+    isWorkshop: <boolean()>
+    isIllustration: true
+    mainImage: 'project_main_image_<current()>.jpg'
+
+  project_illustration_1:
+    title: "Carnaval de Barcelona"
+    isActive: true
+    position: 1
+    isIllustration: true
+    isWorkshop: false
+    subtitle: "Il·lustració per a l'Ajuntament de Barcelona"
+    description: "Disseny de la campanya gràfica del Carnaval."
+    mainImage: 'carnaval.jpg'
+
+  project_workshop_1:
+    title: "Taller d'il·lustració"
+    isActive: true
+    position: 2
+    isWorkshop: true
+    isIllustration: false
+    subtitle: "Introducció a la il·lustració digital"
+    description: "Curs pràctic de 30 hores sobre il·lustració digital amb Procreate."
+    mainImage: 'workshop.jpg'
