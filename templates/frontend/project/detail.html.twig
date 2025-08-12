@@ -12,8 +12,8 @@
 
         <div class="col-span-2 grid gap-y-4">
             <img src="{{ vich_uploader_asset(project, 'mainImageFile') }}" alt="{{ project.title }}" />
-            {% if project_images %}
-                {% for image in project_images %}
+            {% if project.images | length > 0 %}
+                {% for image in project.images %}
                     <img src="{{ vich_uploader_asset(image, 'mainImageFile') }}" alt="hola!" />
                 {% endfor %}
             {% endif %}
