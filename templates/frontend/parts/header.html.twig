@@ -11,11 +11,11 @@
                     {{ ux_icon('bi:instagram') }}
                 </a>
                 <div class="flex items-center space-x-1 text-sm font-semibold">
-                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::en')})) }}" class="hover:underline">EN</a>
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::en')})) }}" class="hover:underline{% if app.request.locale == constant('App\\Enum\\LocaleEnum::en') %} text-gray-600{% endif %}">EN</a>
                     <span>·</span>
-                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::ca')})) }}" class="hover:underline">CAT</a>
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::ca')})) }}" class="hover:underline{% if app.request.locale == constant('App\\Enum\\LocaleEnum::ca') %} text-gray-600{% endif %}">CAT</a>
                     <span>·</span>
-                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::es')})) }}" class="hover:underline text-gray-400">ES</a>
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::es')})) }}" class="hover:underline{% if app.request.locale == constant('App\\Enum\\LocaleEnum::es') %} text-gray-600{% endif %}">ES</a>
                 </div>
             </div>
             <div class="lg:hidden flex items-center">
