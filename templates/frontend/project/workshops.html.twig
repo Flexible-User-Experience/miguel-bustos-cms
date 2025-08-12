@@ -2,4 +2,6 @@
 
 {% block title %}{{ 'Workshops' | trans }} · {{ parent() }}{% endblock %}
 
-{% block main %}{% endblock %}
+{% block main %}
+    {% include 'frontend/parts/projects_grid.html.twig' %}
+{% endblock %}

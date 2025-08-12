@@ -26,7 +26,7 @@ class ProjectController extends AbstractController
     public function illustrations(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/project/illustrations.html.twig', [
-            'illustrations' => $projectRepository->findIllustrations(),
+            'projects' => $projectRepository->findIllustrations(),
         ]);
     }
 
@@ -42,7 +42,7 @@ class ProjectController extends AbstractController
     public function workshops(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/project/workshops.html.twig', [
-            'workshops' => $projectRepository->findWorkshops(),
+            'projects' => $projectRepository->findWorkshops(),
         ]);
     }
 
@@ -57,6 +57,7 @@ class ProjectController extends AbstractController
     )]
     public function detail(
         #[MapEntity(mapping: ['slug' => 'slug'])] Project $project,
+        ProjectRepository $projectRepository,
     ): Response {
         if (false === $project->getIsActive()) {
             throw $this->createNotFoundException();
@@ -64,6 +65,8 @@ class ProjectController extends AbstractController
 
         return $this->render('frontend/project/detail.html.twig', [
             'project' => $project,
+            'project_images' => $project->getProjectImages(),
+            'projects' => $projectRepository->findByIsActiveField(),
         ]);
     }
 }

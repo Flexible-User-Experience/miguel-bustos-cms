@@ -10,7 +10,7 @@ App\Entity\Translations\CategoryTranslation:
     content: '<word()> en'
 
 App\Entity\Project:
-  project_{1..10}:
+  project_{1..18}:
     title: <sentence(5)>
     isActive: <boolean()>
     position: <current()>
@@ -20,8 +20,8 @@ App\Entity\Project:
     isIllustration: true
     mainImage: 'project_main_image_<current()>.jpg'
 
-  project_illustration_1:
-    title: "Carnaval de Barcelona"
+  project_19:
+    title: "project_1"
     isActive: true
     position: 1
     isIllustration: true
@@ -30,7 +30,7 @@ App\Entity\Project:
     description: "Disseny de la campanya gràfica del Carnaval."
     mainImage: 'carnaval.jpg'
 
-  project_workshop_1:
+  project_20:
     title: "Taller d'il·lustració"
     isActive: true
     position: 2
@@ -39,3 +39,12 @@ App\Entity\Project:
     subtitle: "Introducció a la il·lustració digital"
     description: "Curs pràctic de 30 hores sobre il·lustració digital amb Procreate."
     mainImage: 'workshop.jpg'
+
+  project_21:
+    title: 'project_21'
+    subtitle: 'project_21_subtitle'
+    description: '<text()>'
+    category: '@category_<numberBetween(1, 5)>'
+    isActive: false
+    isWorkshop: '<boolean()>'
+    isIllustration: '<boolean()>'
