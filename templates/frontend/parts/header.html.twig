@@ -1,7 +1,7 @@
 {% block header %}
     <header class="w-full bg-white" data-controller="toggle-menu">
         <div class="border-b w-full">
-            <div class="flex justify-between items-center max-w-screen-xl mx-auto py-6 px-8">
+            <div class="flex justify-between items-center max-w-screen-xl mx-auto py-6 px-4">
                 <h1 class="text-2xl font-bold"><a href="{{ path(enum('App\\Enum\\RoutesEnum').app_frontend_homepage.name) }}">{{ project_title }}</a></h1>
                 <div class="hidden lg:flex items-center space-x-6">
                     <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations.name) }}" class="hover:underline">{{ 'Illustrations' | trans }}</a>
