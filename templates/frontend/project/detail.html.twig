@@ -6,7 +6,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4 max-w-screen-xl mx-auto">
         <div>
             <h2 class="text-xl font-bold">{{ project.title }}</h2>
-            <p>{{ project.description }}</p>
+            <h3>{{ project.subtitle }}</h3>
+            <p>{{ project.description|raw }}</p>
         </div>
 
         <div class="col-span-2 grid gap-y-4">
@@ -18,5 +19,5 @@
             {% endif %}
         </div>
     </div>
-    {% include '/frontend/parts/projects_grid.html.twig' %}
+    {% include 'frontend/parts/projects_grid.html.twig' %}
 {% endblock %}
