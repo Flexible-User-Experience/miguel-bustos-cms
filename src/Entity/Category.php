@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\TranslationTrait;
-use App\Entity\Traits\NameTrait;
+use App\Entity\Trait\NameTrait;
 use App\Entity\Translations\CategoryTranslation;
 use App\Interface\SlugInterface;
 use App\Repository\CategoryRepository;

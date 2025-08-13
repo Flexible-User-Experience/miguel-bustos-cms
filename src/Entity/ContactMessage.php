@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\EmailTrait;
-use App\Entity\Traits\MobileNumberTrait;
-use App\Entity\Traits\NameTrait;
+use App\Entity\Trait\EmailTrait;
+use App\Entity\Trait\MobileNumberTrait;
+use App\Entity\Trait\NameTrait;
 use App\Repository\ContactMessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
