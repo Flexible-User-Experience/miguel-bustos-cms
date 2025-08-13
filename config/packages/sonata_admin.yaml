@@ -11,6 +11,7 @@ sonata_admin:
         use_stickyforms: true
         use_bootlint: false
         js_debug: false
+        form_type: 'standard'
         default_admin_route: 'edit'
         default_translation_domain: 'messages'
         default_icon: 'fas fa-folder'
