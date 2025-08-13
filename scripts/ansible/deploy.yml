@@ -13,8 +13,7 @@
     ansistrano_keep_releases: 3
     # ansistrano shared resources
     ansistrano_shared_paths:
-      - "public/documents"
-      - "public/images"
+      - "public/uploads"
       - "var/log"
       - "var/database"
     ansistrano_shared_files: []
