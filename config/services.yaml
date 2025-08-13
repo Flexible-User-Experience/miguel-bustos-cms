@@ -18,10 +18,6 @@ services:
           '$locales': '%locale_i18n_full%'
     App\:
         resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
   # Events
     App\Form\EventListener\DefaultTranslationsListener:
         arguments:

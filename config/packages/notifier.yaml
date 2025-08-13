@@ -8,4 +8,4 @@ framework:
             medium: [ 'email' ]
             low: [ 'email' ]
         admin_recipients:
-            - { email: '%customer_delivery_address%' }
+            - { email: '%delivery_dev_address%' }
