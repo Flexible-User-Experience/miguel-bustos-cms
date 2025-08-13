@@ -1,9 +1,9 @@
 parameters:
     default_locale: 'es'
-    locale_i18n: [ 'en' ]
-    locale_i18n_full: [ 'es', 'en' ]
+    locale_i18n: [ 'en', 'ca' ]
+    locale_i18n_full: [ 'es', 'en', 'ca' ]
     short_project_title: 'MB CMS'
-    project_title: 'Miguel Bustos CMS'
+    project_title: 'Miguel Bustos'
     admin_tag_version: '100000'
     admin_password: '%env(string:ADMIN_PASSWORD)%'
     delivery_dev_address: '%env(string:DEV_DELIVERY_ADDRESS)%'
@@ -18,10 +18,6 @@ services:
           '$locales': '%locale_i18n_full%'
     App\:
         resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
   # Events
     App\Form\EventListener\DefaultTranslationsListener:
         arguments:
@@ -64,7 +60,7 @@ services:
     admin.project:
         class: 'App\Admin\ProjectAdmin'
         tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Project', controller: ~, manager_type: 'orm', group: 'Content', label: 'Projects' }
+            - { name: 'sonata.admin', model_class: 'App\Entity\Project', controller: 'App\Controller\Admin\ProjectAdminController', manager_type: 'orm', group: 'Content', label: 'Projects' }
         calls:
           - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
     admin.project_image:

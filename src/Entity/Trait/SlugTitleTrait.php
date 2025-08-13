@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 trait SlugTitleTrait
 {
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true, nullable: false)]
     #[Gedmo\Slug(fields: ['title'])]
     protected string $slug;
 

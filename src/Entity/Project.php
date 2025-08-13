@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -26,6 +27,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Gedmo\TranslationEntity(class: ProjectTranslation::class)]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[Vich\Uploadable]
+#[UniqueEntity(fields: ['slug'])]
 class Project extends AbstractEntity implements SlugInterface
 {
     use IsActiveTrait;

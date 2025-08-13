@@ -2,7 +2,7 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{{ project_title }}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {# TODO replace favicon #}
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,14 +15,12 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="h-full flex flex-col min-h-screen text-gray-900" style='font-family: "Inter", sans-serif;"'> {# TODO remove style attribute #}
-        {% block header %}
-            {% include '@App/frontend/parts/header.html.twig' %}
-        {% endblock %}
+    <body class="h-full flex flex-col min-h-screen text-gray-900" style="font-family: Inter, sans-serif;"> {# TODO remove style attribute #}
+        {% include 'frontend/parts/header.html.twig' %}
         <div class="flex flex-1 min-h-0">
-        <main class="flex-1 overflow-y-auto p-6">
-            {% block main %}{% endblock %}
-        </main>
+            <main class="flex-1 overflow-y-auto p-6 bg-white">
+                {% block main %}{% endblock %}
+            </main>
         </div>
         <footer class="bg-white border-t px-4 py-2 text-center text-sm">
             {% block footer %}{% endblock %}

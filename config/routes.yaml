@@ -1,5 +1,9 @@
 controllers:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+        path: '../src/Controller/Frontend'
+        namespace: 'App\Controller\Frontend'
+    type: 'attribute'
+    prefix:
+        en: ''
+        es: 'es'
+        ca: 'ca'

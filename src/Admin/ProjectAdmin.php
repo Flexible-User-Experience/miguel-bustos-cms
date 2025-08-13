@@ -135,7 +135,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
             ;
         }
         $form
-            ->with('admin.controls', ['class' => 'col-md-4'])
+            ->with('admin.controls', ['class' => 'col-md-3'])
             ->add('position', NumberType::class)
             ->add(
                 'isIllustration',

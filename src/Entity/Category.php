@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\TranslationTrait;
+use App\Entity\Trait\NameTrait;
 use App\Entity\Translations\CategoryTranslation;
 use App\Interface\SlugInterface;
 use App\Repository\CategoryRepository;
@@ -11,12 +12,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Gedmo\TranslationEntity(class: CategoryTranslation::class)]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[UniqueEntity(fields: ['slug'])]
 class Category extends AbstractEntity implements SlugInterface
 {
+    use NameTrait;
     use SlugTrait;
     use TranslationTrait;
 
@@ -35,18 +39,6 @@ class Category extends AbstractEntity implements SlugInterface
     {
         $this->projects = new ArrayCollection();
         $this->translations = new ArrayCollection();
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getProjects(): Collection

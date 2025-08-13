@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Frontend;
 use App\Enum\RoutesEnum;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MainControllerTest extends WebTestCase
 {
@@ -13,13 +14,24 @@ class MainControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request(Request::METHOD_GET, RoutesEnum::app_admin_login->value);
         self::assertResponseIsSuccessful();
-        $client->request(Request::METHOD_GET, RoutesEnum::app_frontend_homepage_index->value);
+        $client->request(Request::METHOD_GET, RoutesEnum::app_frontend_homepage->value);
         self::assertResponseIsSuccessful();
-        $client->request(Request::METHOD_GET, RoutesEnum::app_project_illustrations_index->value);
+        $client->request(Request::METHOD_GET, RoutesEnum::app_project_illustrations->value);
         self::assertResponseIsSuccessful();
-        $client->request(Request::METHOD_GET, RoutesEnum::app_project_workshops_index->value);
+        $client->request(Request::METHOD_GET, RoutesEnum::app_project_workshops->value);
         self::assertResponseIsSuccessful();
-        $client->request(Request::METHOD_GET, str_replace('{id}', '1', RoutesEnum::app_project_show->value));
+        $client->request(Request::METHOD_GET, str_replace('{slug}', 'project-1', RoutesEnum::app_project_detail->value));
         self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, '/sitemap.xml');
+        self::assertResponseIsSuccessful();
+        $client->request(Request::METHOD_GET, '/sitemap.default.xml');
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testForbiddenPages(): void
+    {
+        $client = static::createClient();
+        $client->request(Request::METHOD_GET, str_replace('{slug}', 'project-21', RoutesEnum::app_project_detail->value));
+        self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 }

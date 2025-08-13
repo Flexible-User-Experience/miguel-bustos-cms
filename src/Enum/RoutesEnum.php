@@ -5,11 +5,16 @@ namespace App\Enum;
 enum RoutesEnum: string
 {
     // frontend
-    case app_frontend_homepage_index = '/';
-    case app_project_index = '/project';
-    case app_project_show = '/project/{id}/detail';
-    case app_project_illustrations_index = '/project/illustrations';
-    case app_project_workshops_index = '/project/workshops';
+    case app_frontend_homepage = '/';
+    case app_project_illustrations = '/illustrations';
+    case app_project_illustrations_es = '/ilustraciones';
+    case app_project_illustrations_ca = '/il-lustracions';
+    case app_project_workshops = '/workshops';
+    case app_project_workshops_es = '/talleres';
+    case app_project_workshops_ca = '/tallers';
+    case app_project_detail = '/project/{slug}';
+    case app_project_detail_es = '/proyecto/{slug}';
+    case app_project_detail_ca = '/projecte/{slug}';
     // backend
     case app_admin_login = '/admin/login';
     case app_admin_category_list = '/admin/categories/category/list';
