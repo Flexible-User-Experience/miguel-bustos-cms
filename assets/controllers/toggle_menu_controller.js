@@ -1,12 +1,8 @@
 import { Controller } from '@hotwired/stimulus';
 
+/* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static targets = ["menu", "iconList", "iconX"];
-
-    connect() {
-        // En connect, assegurem que la icona inicial és la de la llista i la "X" està amagada.
-        // Això és opcional si les classes ja estan definides a l'HTML.
-    }
+    static targets = [ 'menu', 'iconList', 'iconX' ];
 
     toggle() {
         this.menuTarget.classList.toggle('hidden');
