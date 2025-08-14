@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Entity\ContactMessage;
 use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
 use App\Repository\ProjectRepository;
@@ -33,9 +34,20 @@ class HomepageController extends AbstractController
         name: RoutesEnum::app_contact->name,
         methods: [Request::METHOD_GET]
     )]
-    public function contact(): Response
+    public function contact(Request $request): Response
     {
-        return $this->render('frontend/contact.html.twig');
+        $contactMessage = new ContactMessage();
+        $form = $this->createForm(ContactMessage::class, $contactMessage);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Your message has been sent successfully!');
+
+            return $this->redirectToRoute(RoutesEnum::app_contact->name, [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('frontend/contact.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route(
