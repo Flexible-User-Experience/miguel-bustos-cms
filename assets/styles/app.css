@@ -9,3 +9,13 @@
 @theme {
     --font-display: 'Inter', sans-serif;
 }
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
+}
