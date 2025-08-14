@@ -4,7 +4,7 @@ parameters:
     locale_i18n_full: [ 'es', 'en', 'ca' ]
     short_project_title: 'MB CMS'
     project_title: 'Miguel Bustos'
-    admin_tag_version: '100000'
+    admin_tag_version: '100001'
     admin_password: '%env(string:ADMIN_PASSWORD)%'
     delivery_dev_address: '%env(string:DEV_DELIVERY_ADDRESS)%'
 
