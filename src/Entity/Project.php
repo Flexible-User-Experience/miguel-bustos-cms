@@ -57,6 +57,7 @@ class Project extends AbstractEntity implements SlugInterface
     #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
     private ?File $mainImageFile = null;
 
+    #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
     private Collection $images;
