@@ -27,7 +27,7 @@
             {% if project.images | length > 0 %}
                 {% for image in project.images %}
                     {% if image.mainImage is not null %}
-                        <img src="{{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('1200xY') }}" alt="{{ image.altImageText }}" /> {# TODO load src sets to better responsiveness #}
+                        <img src="{{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('1200xY') }}" alt="{% if image.altImageText %}{{ image.altImageText }}{% else %}{{ project.title }}{% endif %}" /> {# TODO load src sets to better responsiveness #}
                     {% endif %}
                 {% endfor %}
             {% endif %}
