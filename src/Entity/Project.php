@@ -52,11 +52,12 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isIllustration = true;
 
-    #[Assert\File(maxSize: '20M', extensions: ['png', 'jpg', 'jpeg'])]
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
     #[Assert\Image(minWidth: 600)]
     #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
     private ?File $mainImageFile = null;
 
+    #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
     private Collection $images;

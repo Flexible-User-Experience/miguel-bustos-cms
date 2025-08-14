@@ -1,9 +1,9 @@
 <div class="columns-1 sm:columns-3 md:columns-6 lg:columns-6 xl:columns-8 gap-4 p-4 space-y-4">
     {% for project in projects %}
-        {% if project.mainImage is not null %}
+        {% if project.mainImage is not null and project.isActive %}
             <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_detail.name, {'slug': project.slug}) }}" class="relative group block">
                 <div class="relative overflow-hidden">
-                    <img src="{{ vich_uploader_asset(project, 'mainImageFile') }}" alt="{{ project.title }}" class="w-full transition-transform duration-300 group-hover:scale-110" />
+                    <img src="{{ vich_uploader_asset(project, 'mainImageFile') | imagine_filter('585xY') }}" alt="{{ project.title }}" class="w-full transition-transform duration-300 group-hover:scale-110" /> {# TODO load src sets to better responsiveness #}
                     <div class="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-85">
                         <h2 class="text-sky-500 text-lg md:text-xl font-bold text-center p-4">{{ project.title }}</h2>
                     </div>

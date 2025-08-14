@@ -36,14 +36,15 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                 'mainImageFile',
                 VichImageType::class,
                 [
-                    'required' => false,
+                    'required' => $this->isFormToCreateNewRecord(),
+                    'help' => 'Secondary Image File Helper',
                 ]
             )
             ->add(
                 'altImageText',
                 TextType::class,
                 [
-                    'required' => false,
+                    'required' => true,
                 ]
             )
             ->add(
