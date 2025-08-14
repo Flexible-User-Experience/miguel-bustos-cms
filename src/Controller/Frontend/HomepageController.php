@@ -22,4 +22,14 @@ class HomepageController extends AbstractController
             'projects' => $projectRepository->findByIsActiveField(),
         ]);
     }
+
+    #[Route(
+        path: RoutesEnum::app_contact->value,
+        name: RoutesEnum::app_contact->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function contact(): Response
+    {
+        return $this->render('frontend/contact.html.twig');
+    }
 }

@@ -15,6 +15,7 @@ enum RoutesEnum: string
     case app_project_detail = '/project/{slug}';
     case app_project_detail_es = '/proyecto/{slug}';
     case app_project_detail_ca = '/projecte/{slug}';
+    case app_contact = '/contact';
     // backend
     case app_admin_login = '/admin/login';
     case app_admin_category_list = '/admin/categories/category/list';
