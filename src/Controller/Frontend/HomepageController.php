@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +25,11 @@ class HomepageController extends AbstractController
     }
 
     #[Route(
-        path: RoutesEnum::app_contact->value,
+        path: [
+            LocaleEnum::en => RoutesEnum::app_contact->value,
+            LocaleEnum::es => RoutesEnum::app_contact_es->value,
+            LocaleEnum::ca => RoutesEnum::app_contact_ca->value,
+        ],
         name: RoutesEnum::app_contact->name,
         methods: [Request::METHOD_GET]
     )]
@@ -34,7 +39,11 @@ class HomepageController extends AbstractController
     }
 
     #[Route(
-        path: RoutesEnum::app_about_me->value,
+        path: [
+            LocaleEnum::en => RoutesEnum::app_about_me->value,
+            LocaleEnum::es => RoutesEnum::app_about_me_es->value,
+            LocaleEnum::ca => RoutesEnum::app_about_me_ca->value,
+        ],
         name: RoutesEnum::app_about_me->name,
         methods: [Request::METHOD_GET]
     )]

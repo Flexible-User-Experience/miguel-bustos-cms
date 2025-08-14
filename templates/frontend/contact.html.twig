@@ -1,7 +1,9 @@
 {% extends 'frontend/base.html.twig' %}
 
- {% block main %}
-<div class="w-full max-w-screen-xl p-4 space-y-4 mx-auto">
-    <h1>Contact form page!</h1>
-</div>
+{% block title %}{{ 'Contact' | trans }} · {{ parent() }}{% endblock %}
+
+{% block main %}
+    <div class="w-full max-w-screen-xl p-4 space-y-4 mx-auto">
+        <h1>{{ 'Contact form page!' | trans }}</h1>
+    </div>
 {% endblock %}
