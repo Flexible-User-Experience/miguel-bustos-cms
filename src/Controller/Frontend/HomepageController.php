@@ -32,4 +32,14 @@ class HomepageController extends AbstractController
     {
         return $this->render('frontend/contact.html.twig');
     }
+
+    #[Route(
+        path: RoutesEnum::app_about_me->value,
+        name: RoutesEnum::app_about_me->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function aboutMe(): Response
+    {
+        return $this->render('frontend/about_me.html.twig');
+    }
 }

@@ -5,7 +5,7 @@
             <div class="hidden lg:flex items-center space-x-6">
                 <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_illustrations.name %} underline font-bold{% endif %}">{{ 'Illustrations' | trans }}</a>
                 <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_workshops.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_workshops.name %} underline font-bold{% endif %}">{{ 'Workshops' | trans }}</a>
-                <a href="#" class="hover:underline">{{ 'About' | trans }}</a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_about_me.name) }}" class="hover:underline">{{ 'About' | trans }}</a>
                 <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_contact.name) }}" class="hover:underline">{{ 'Contact' | trans }}</a>
                 <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="text-2xl w-6 mx-6">
                     {{ ux_icon('bi:instagram') }}
