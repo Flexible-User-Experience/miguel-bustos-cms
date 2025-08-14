@@ -113,7 +113,7 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.85",
+        "friendsofphp/php-cs-fixer": "^3.86",
         "hautelook/alice-bundle": "^2.15",
         "phpunit/phpunit": "^12.3",
         "roave/security-advisories": "dev-latest",
