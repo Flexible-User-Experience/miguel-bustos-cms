@@ -19,3 +19,7 @@
     font-family: "Inter";
     src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
 }
+
+body {
+    font-family: 'Inter', sans-serif;
+}
