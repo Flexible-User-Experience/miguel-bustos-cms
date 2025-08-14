@@ -22,7 +22,4 @@ return [
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
-    '@hotwired/turbo' => [
-        'version' => '8.0.13',
-    ],
 ];
