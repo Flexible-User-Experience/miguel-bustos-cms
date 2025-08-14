@@ -1,7 +1,7 @@
 <div class="columns-1 sm:columns-3 md:columns-6 lg:columns-6 xl:columns-8 gap-4 p-4 space-y-4">
     {% for project in projects %}
         {% if project.mainImage is not null and project.isActive %}
-            <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_detail.name, {'slug': project.slug}) }}">
+            <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_detail.name, {'slug': project.slug}) }}" class="flex">
                 <div class="relative overflow-hidden">
                     <img
                         srcset="{{ vich_uploader_asset(project, 'mainImageFile') | imagine_filter('w_360') }} 360w,
