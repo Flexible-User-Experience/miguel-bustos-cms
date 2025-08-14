@@ -5,6 +5,7 @@ namespace App\Controller\Frontend;
 use App\Entity\ContactMessage;
 use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
+use App\Form\Type\ContactMessageFormType;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class HomepageController extends AbstractController
     public function contact(Request $request): Response
     {
         $contactMessage = new ContactMessage();
-        $form = $this->createForm(ContactMessage::class, $contactMessage);
+        $form = $this->createForm(ContactMessageFormType::class, $contactMessage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash('success', 'Your message has been sent successfully!');

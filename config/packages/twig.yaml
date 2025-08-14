@@ -5,6 +5,7 @@ twig:
         '%kernel.project_dir%/assets/styles': 'styles'
         '%kernel.project_dir%/assets/images': 'images'
     form_themes:
+        - 'tailwind_2_layout.html.twig'
         - 'form_themes/adapted_a2lix_translation_form.html.twig'
         - 'form_themes/vich_uploader_fields.html.twig'
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
