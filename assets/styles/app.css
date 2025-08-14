@@ -6,6 +6,20 @@
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 
+@theme {
+    --font-display: 'Inter', sans-serif;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
 body {
-    background-color: skyblue;
+    font-family: 'Inter', sans-serif;
 }
