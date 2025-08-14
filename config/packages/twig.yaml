@@ -5,12 +5,14 @@ twig:
         '%kernel.project_dir%/assets/styles': 'styles'
         '%kernel.project_dir%/assets/images': 'images'
     form_themes:
+        - 'tailwind_2_layout.html.twig'
         - 'form_themes/adapted_a2lix_translation_form.html.twig'
         - 'form_themes/vich_uploader_fields.html.twig'
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     globals:
         project_title: '%project_title%'
         customer_name: 'Miguel Bustos'
+        customer_mobile_phone: '%customer_mobile_phone%'
         customer_url: 'https://www.miguel-bustos.com'
         admin_tag_version: '%admin_tag_version%'
         developer_name: 'Flux'

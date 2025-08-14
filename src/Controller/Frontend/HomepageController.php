@@ -2,7 +2,10 @@
 
 namespace App\Controller\Frontend;
 
+use App\Entity\ContactMessage;
+use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
+use App\Form\Type\ContactMessageFormType;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,17 +27,36 @@ class HomepageController extends AbstractController
     }
 
     #[Route(
-        path: RoutesEnum::app_contact->value,
+        path: [
+            LocaleEnum::en => RoutesEnum::app_contact->value,
+            LocaleEnum::es => RoutesEnum::app_contact_es->value,
+            LocaleEnum::ca => RoutesEnum::app_contact_ca->value,
+        ],
         name: RoutesEnum::app_contact->name,
         methods: [Request::METHOD_GET]
     )]
-    public function contact(): Response
+    public function contact(Request $request): Response
     {
-        return $this->render('frontend/contact.html.twig');
+        $contactMessage = new ContactMessage();
+        $form = $this->createForm(ContactMessageFormType::class, $contactMessage);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Your message has been sent successfully!');
+
+            return $this->redirectToRoute(RoutesEnum::app_contact->name, [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('frontend/contact.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route(
-        path: RoutesEnum::app_about_me->value,
+        path: [
+            LocaleEnum::en => RoutesEnum::app_about_me->value,
+            LocaleEnum::es => RoutesEnum::app_about_me_es->value,
+            LocaleEnum::ca => RoutesEnum::app_about_me_ca->value,
+        ],
         name: RoutesEnum::app_about_me->name,
         methods: [Request::METHOD_GET]
     )]
