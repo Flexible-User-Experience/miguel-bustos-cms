@@ -26,6 +26,7 @@
 'Alt Image Text': 'Texto Alternativo de Imagen'
 'Main Image': 'Imagen destacada'
 'Main Image File': 'Archivo de imagen'
+'Main Image File Helper': 'Tipo de archivo admitido JPEG o PNG hasta 10MB. Ancho de imagen mínimo: 600px.'
 'Images': 'Imágenes'
 'Admin General': 'General'
 'Admin Main Image': 'Imagen Destacada'

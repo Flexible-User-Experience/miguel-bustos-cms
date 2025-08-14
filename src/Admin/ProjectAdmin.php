@@ -45,7 +45,8 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 'mainImageFile',
                 VichImageType::class,
                 [
-                    'required' => false,
+                    'required' => $this->isFormToCreateNewRecord(),
+                    'help' => 'Main Image File Helper',
                 ]
             )
             ->end()
