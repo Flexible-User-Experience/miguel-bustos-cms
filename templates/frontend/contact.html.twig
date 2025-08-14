@@ -5,6 +5,17 @@
 {% block main %}
     <div class="w-full max-w-screen-xl p-4 space-y-4 mx-auto">
         <h1>{{ 'Contact form page!' | trans }}</h1>
-        {{ form(form) }}
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.mobileNumber) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.message) }}
+            {{ form_row(form.send, {'attr': {'class': 'px-4 py-2 bg-cyan-300 hover:bg-cyan-600 cursor-pointer'}}) }}
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
+        <p class="mt-4 text-xl text-gray-600">{{ 'WhatsApp Helper' | trans }}</p>
+        <a href="https://wa.me/34{{ customer_mobile_phone | replace({' ': ''}) }}?text={{ 'WhatsApp Message Send' | trans }}" target="_blank" aria-label="WhatsApp" class="mt-6 inline-flex items-center gap-x-2 bg-brand hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded transition">
+            {{ ux_icon('bi:whatsapp', {'class': 'w-6 h-6'}) }} {{ 'WhatsApp CTA' | trans }}
+        </a>
     </div>
 {% endblock %}
