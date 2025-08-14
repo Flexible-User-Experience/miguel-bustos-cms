@@ -16,73 +16,44 @@ liip_imagine:
         format: 'webp'
     filter_sets:
         cache: ~
-        3500xY:
-            quality: 75
-            filters:
-                thumbnail: { size: [ 3500, null ], mode: 'outbound' }
-        2400xY:
-            quality: 75
-            filters:
-                thumbnail: { size: [ 2400, null ], mode: 'outbound' }
-        1200xY:
-            quality: 75
-            filters:
-                thumbnail: { size: [ 1200, null ], mode: 'outbound' }
-        960xY:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 960, null ], mode: 'outbound' }
-        585xY:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 585, null ], mode: 'outbound' }
-        500xY:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 500, null ], mode: 'outbound' }
-        480xY:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 480, null ], mode: 'outbound' }
-        480x620:
-            quality: 100
-            filters:
-                thumbnail: { size: [ 480, 620 ], mode: 'outbound' }
-        231x50:
-            quality: 80
-            filters:
-                thumbnail: { size: [ 231, 50 ], mode: 'outbound' }
-        200xY:
-            quality: 90
-            filters:
-                thumbnail: { size: [ 200, null ], mode: 'outbound' }
-        200xY_BW:
-            quality: 90
-            filters:
-                thumbnail: { size: [ 200, null ], mode: 'outbound' }
-                grayscale: ~
-        150xY:
-            quality: 90
-            filters:
-                thumbnail: { size: [ 150, null ], mode: 'outbound' }
-        150xY_BW:
-            quality: 90
-            filters:
-                thumbnail: { size: [ 150, null ], mode: 'outbound' }
-                grayscale: ~
-        140x140:
-            quality: 90
-            filters:
-                thumbnail: { size: [ 140, 140 ], mode: 'outbound' }
-        132x50:
-            quality: 85
-            filters:
-                thumbnail: { size: [ 132, 50 ], mode: 'outbound' }
-        100xY:
-            quality: 95
-            filters:
-                thumbnail: { size: [ 100, null ], mode: 'outbound' }
         60x60:
             quality: 95
             filters:
                 thumbnail: { size: [ 60, 60 ], mode: 'outbound' }
+        # --- Filtres per a Imatges Responsive (només amplada) ---
+
+        # Mida base per a mòbils petits (1x i 2x)
+        w_360:
+            filters: { thumbnail: { size: [ 360, null ], mode: inset } }
+        w_720:
+            filters: { thumbnail: { size: [ 720, null ], mode: inset } }
+
+        # Mida per a mòbils grans (1x i 2x)
+        w_576:
+            filters: { thumbnail: { size: [ 576, null ], mode: inset } }
+        w_1152:
+            filters: { thumbnail: { size: [ 1152, null ], mode: inset } }
+
+        # Mida per a tauletes (1x i 2x)
+        w_768:
+            filters: { thumbnail: { size: [ 768, null ], mode: inset } }
+        w_1536:
+            filters: { thumbnail: { size: [ 1536, null ], mode: inset } }
+
+        # Mida per a portàtils / escriptori petit (1x i 2x)
+        w_992:
+            filters: { thumbnail: { size: [ 992, null ], mode: inset } }
+        w_1984:
+            filters: { thumbnail: { size: [ 1984, null ], mode: inset } }
+
+        # Mida per a escriptori estàndard (1x i 2x)
+        w_1200:
+            filters: { thumbnail: { size: [ 1200, null ], mode: inset } }
+        w_2400:
+            filters: { thumbnail: { size: [ 2400, null ], mode: inset } }
+
+        # Opcional: una mida extra gran per a pantalles amples
+        w_1600:
+            filters: { thumbnail: { size: [ 1600, null ], mode: inset } }
+        w_3200:
+            filters: { thumbnail: { size: [ 3200, null ], mode: inset } }

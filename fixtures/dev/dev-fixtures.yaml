@@ -18,7 +18,6 @@ App\Entity\Project:
     description: <paragraph()>
     isWorkshop: <boolean()>
     isIllustration: true
-    mainImage: 'project_main_image_<current()>.jpg'
 
   project_illustration_1:
     title: "Carnaval de Barcelona"
@@ -28,7 +27,6 @@ App\Entity\Project:
     isWorkshop: false
     subtitle: "Il·lustració per a l'Ajuntament de Barcelona"
     description: "Disseny de la campanya gràfica del Carnaval."
-    mainImage: 'carnaval.jpg'
 
   project_workshop_1:
     title: "Taller d'il·lustració"
@@ -38,4 +36,3 @@ App\Entity\Project:
     isIllustration: false
     subtitle: "Introducció a la il·lustració digital"
     description: "Curs pràctic de 30 hores sobre il·lustració digital amb Procreate."
-    mainImage: 'workshop.jpg'
