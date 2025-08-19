@@ -3,10 +3,10 @@
         <div class="flex justify-between items-center max-w-screen-xl mx-auto py-6 px-8 lg:px-4">
             <h1 class="text-2xl font-bold"><a href="{{ path(enum('App\\Enum\\RoutesEnum').app_frontend_homepage.name) }}">{{ project_title }}</a></h1>
             <div class="hidden lg:flex items-center space-x-6">
-                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_illustrations.name %} underline font-bold{% endif %}">{{ 'Illustrations' | trans }}</a>
-                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_workshops.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_workshops.name %} underline font-bold{% endif %}">{{ 'Workshops' | trans }}</a>
-                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_about_me.name) }}" class="hover:underline">{{ 'About' | trans }}</a>
-                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_contact.name) }}" class="hover:underline">{{ 'Contact' | trans }}</a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_illustrations.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_illustrations.name %} font-bold{% endif %}">{{ 'Illustrations' | trans }}</a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_workshops.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_project_workshops.name %} font-bold{% endif %}">{{ 'Workshops' | trans }}</a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_about_me.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_about_me.name %} font-bold{% endif %}">{{ 'About' | trans }}</a>
+                <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_contact.name) }}" class="hover:underline{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_contact.name %} font-bold{% endif %}">{{ 'Contact' | trans }}</a>
                 <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="text-2xl w-6 mx-6">
                     {{ ux_icon('bi:instagram') }}
                 </a>
