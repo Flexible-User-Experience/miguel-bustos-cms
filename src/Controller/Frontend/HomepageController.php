@@ -37,6 +37,7 @@ class HomepageController extends AbstractController
     )]
     public function contact(Request $request): Response
     {
+//        $this->addFlash('success', 'Your message has been sent successfully!');
         $contactMessage = new ContactMessage();
         $form = $this->createForm(ContactMessageFormType::class, $contactMessage);
         $form->handleRequest($request);
