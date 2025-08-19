@@ -22,9 +22,10 @@ fos_ck_editor:
         app_custom_half_height_config:
             height: '200px'
             toolbar:
-                - [ 'Bold', 'Italic', 'Underline', 'Strikethrough', '-', 'BulletedList', 'NumberedList', '-', 'Link', 'Unlink' ]
+                - [ 'Bold', 'Italic', 'Underline', 'Strikethrough', '-', 'BulletedList', 'NumberedList', '-', 'Link', 'Unlink', '-', 'Iframe' ] #, 'Source' ]
             versionCheck: false
             autoParagraph: false
+            extraAllowedContent: 'iframe[*]; embed[*]; object[*]'
     plugins:
         justify:
             path: '/build/ckeditor/plugins/justify/'

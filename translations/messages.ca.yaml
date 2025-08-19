@@ -42,3 +42,6 @@
 'english': 'Inglés'
 'spanish': 'Español'
 'catalan': 'Catalan'
+'Cta Button Label': 'Texto Botón de Acción'
+'Cta Button Link': 'Enlace Botón de Acción'
+'Cta Button Link Help': 'Solamente se permiten enlaces que empiecen por "https://"'
