@@ -47,6 +47,14 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[Gedmo\Translatable]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ctaButtonLabel = null;
+
+    #[Assert\Url]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $ctaButtonLink = null;
+
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isWorkshop = false;
 
@@ -103,6 +111,30 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCtaButtonLabel(): ?string
+    {
+        return $this->ctaButtonLabel;
+    }
+
+    public function setCtaButtonLabel(?string $ctaButtonLabel): static
+    {
+        $this->ctaButtonLabel = $ctaButtonLabel;
+
+        return $this;
+    }
+
+    public function getCtaButtonLink(): ?string
+    {
+        return $this->ctaButtonLink;
+    }
+
+    public function setCtaButtonLink(?string $ctaButtonLink): static
+    {
+        $this->ctaButtonLink = $ctaButtonLink;
 
         return $this;
     }
