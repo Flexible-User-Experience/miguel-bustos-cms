@@ -10,6 +10,18 @@ abstract class AbstractEntity
 {
     public const string DEFAULT_NAME = '---';
     public const string DEFAULT_DATETIME = 'd/m/Y H:i';
+    public const string DEFAULT_CURRENCY_STRING = 'EUR';
+    public const string DEFAULT_CURRENCY_SYMBOL = '€';
+    public const string DEFAULT_SERIAL_NUMBER_SEPARATOR = '/';
+    public const string DEFAULT_NULL_STRING = '---';
+    public const string DEFAULT_NULL_DATE_STRING = '--/--/----';
+    public const string DEFAULT_NULL_DATETIME_STRING = '--/--/---- --:--';
+    public const string DATE_PICKER_TYPE_FORMAT = 'dd/MM/yyyy';
+    public const string DATE_FORM_TYPE_FORMAT = 'd/M/y';
+    public const string DATE_STRING_FORMAT = 'd/m/Y';
+    public const string DATETIME_STRING_FORMAT = 'd/m/Y H:i';
+    public const string DATABASE_DATE_STRING_FORMAT = 'Y-m-d';
+    public const string DATABASE_DATETIME_STRING_FORMAT = 'Y-m-d H:i:s';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

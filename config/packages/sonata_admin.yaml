@@ -27,6 +27,8 @@ sonata_admin:
         groups:
             Content:
                 keep_open: true
+            Contact:
+                keep_open: true
         blocks:
             - { type: 'sonata.admin.block.admin_list', position: 'left' }
 
