@@ -26,7 +26,14 @@ class ProjectImage extends AbstractEntity implements ExtraImageInterfaceImage
 
     #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
     #[Assert\Image(minWidth: 1200)]
-    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
+    #[Vich\UploadableField(
+        mapping: 'projects_photos',
+        fileNameProperty: 'mainImage',
+        size: 'size',
+        mimeType: 'mimeType',
+        originalName: 'originalName',
+        dimensions: 'dimensions'
+    )]
     private ?File $mainImageFile = null;
 
     #[ORM\JoinColumn(nullable: false)]

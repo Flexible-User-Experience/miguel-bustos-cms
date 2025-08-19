@@ -54,7 +54,14 @@ class Project extends AbstractEntity implements SlugInterface
 
     #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
     #[Assert\Image(minWidth: 600)]
-    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
+    #[Vich\UploadableField(
+        mapping: 'projects_photos',
+        fileNameProperty: 'mainImage',
+        size: 'size',
+        mimeType: 'mimeType',
+        originalName: 'originalName',
+        dimensions: 'dimensions'
+    )]
     private ?File $mainImageFile = null;
 
     #[Assert\Valid]
