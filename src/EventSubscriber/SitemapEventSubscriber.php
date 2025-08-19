@@ -51,7 +51,7 @@ final readonly class SitemapEventSubscriber implements EventSubscriberInterface
                 ;
                 // projects
                 /* @var Project $project */
-                foreach ($this->pr->getActiveAndShowInFrontendSortedByPosition() as $project) {
+                foreach ($this->pr->findActiveSortedByPositionAndTitle() as $project) {
                     $url = $this->makeUrl(
                         RoutesEnum::app_project_detail->name,
                         $locale,

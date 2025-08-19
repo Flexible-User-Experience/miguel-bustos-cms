@@ -22,7 +22,7 @@ class HomepageController extends AbstractController
     public function homepage(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/homepage.html.twig', [
-            'projects' => $projectRepository->findByIsActiveField(),
+            'projects' => $projectRepository->findActiveSortedByPositionAndTitle(),
         ]);
     }
 
