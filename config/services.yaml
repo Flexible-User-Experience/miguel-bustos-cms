@@ -17,12 +17,10 @@ services:
         autowire: true
         autoconfigure: true
         bind:
-          '$kpd': '%kernel.project_dir%'
-          '$locale': '%default_locale%'
           '$locales': '%locale_i18n_full%'
     App\:
         resource: '../src/'
-  # Events
+    # Events
     App\Form\EventListener\DefaultTranslationsListener:
         arguments:
             - '@App\Form\Translation\GedmoTranslationForm'
@@ -39,7 +37,7 @@ services:
             - '@Doctrine\Common\Persistence\ManagerRegistry'
         calls:
             - setGedmoTranslatableListener: [ '@stof_doctrine_extensions.listener.translatable' ]
-  # Forms
+    # Forms
     App\Form\Type\GedmoTranslationsType:
         arguments:
             - '@App\Form\EventListener\GedmoTranslationsListener'
