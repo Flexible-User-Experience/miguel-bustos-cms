@@ -1,3 +1,6 @@
+imports:
+    - { resource: 'admins.yaml' }
+
 parameters:
     default_locale: 'es'
     locale_i18n: [ 'en', 'ca' ]
@@ -51,22 +54,3 @@ services:
             - ~
         tags:
             - { name: 'form.type' }
-    # Sonata Admins
-    admin.category:
-        class: 'App\Admin\CategoryAdmin'
-        tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Category', controller: ~, manager_type: 'orm', group: 'Content', label: 'Categories' }
-        calls:
-          - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
-    admin.project:
-        class: 'App\Admin\ProjectAdmin'
-        tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Project', controller: 'App\Controller\Admin\ProjectAdminController', manager_type: 'orm', group: 'Content', label: 'Projects' }
-        calls:
-          - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
-    admin.project_image:
-        class: 'App\Admin\Image\ProjectImageAdmin'
-        tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: 'orm', group: 'Content', label: 'Pictures', show_in_dashboard: false }
-        calls:
-          - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]

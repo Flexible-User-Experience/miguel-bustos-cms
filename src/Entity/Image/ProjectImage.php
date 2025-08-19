@@ -3,7 +3,7 @@
 namespace App\Entity\Image;
 
 use App\Entity\AbstractEntity;
-use App\Entity\Interface\ExtraImageInterfaceImage;
+use App\Entity\Interface\ImageInterface;
 use App\Entity\Project;
 use App\Entity\Trait\MainImageTrait;
 use App\Entity\Trait\PositionTrait;
@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProjectImageRepository::class)]
 #[Vich\Uploadable]
-class ProjectImage extends AbstractEntity implements ExtraImageInterfaceImage
+class ProjectImage extends AbstractEntity implements ImageInterface
 {
     use MainImageTrait;
     use PositionTrait;
@@ -26,7 +26,14 @@ class ProjectImage extends AbstractEntity implements ExtraImageInterfaceImage
 
     #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
     #[Assert\Image(minWidth: 1200)]
-    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
+    #[Vich\UploadableField(
+        mapping: 'projects_photos',
+        fileNameProperty: 'mainImage',
+        size: 'size',
+        mimeType: 'mimeType',
+        originalName: 'originalName',
+        dimensions: 'dimensions'
+    )]
     private ?File $mainImageFile = null;
 
     #[ORM\JoinColumn(nullable: false)]
