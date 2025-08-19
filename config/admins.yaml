@@ -20,6 +20,6 @@ services:
     admin.contact_message:
         class: 'App\Admin\ContactMessageAdmin'
         tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\ContactMessage', controller: 'App\Controller\Admin\ContactMessageAdminController', manager_type: 'orm', group: 'Contact', label: 'Contact Message' }
+            - { name: 'sonata.admin', model_class: 'App\Entity\ContactMessage', controller: 'App\Controller\Admin\ContactMessageAdminController', manager_type: 'orm', group: 'Contact', label: 'Contact Message', show_in_dashboard: false }
         calls:
             - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
