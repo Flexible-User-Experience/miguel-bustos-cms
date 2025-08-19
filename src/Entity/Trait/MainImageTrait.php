@@ -11,7 +11,7 @@ trait MainImageTrait
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $mainImage = null;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     protected ?int $size = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
@@ -20,7 +20,7 @@ trait MainImageTrait
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     protected ?string $originalName = null;
 
-    #[ORM\Column(type: Types::JSON, length: 255, nullable: true)]
+    #[ORM\Column(type: Types::JSON, nullable: true)]
     protected ?array $dimensions = null;
 
     public function getMainImage(): ?string
