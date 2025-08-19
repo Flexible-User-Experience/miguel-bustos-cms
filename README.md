@@ -1,7 +1,7 @@
 Miguel Bustos webapp v1.0
 =========================
 
-A fresh new Symfony 6.4 LTS webapp project to manage Miguel Bustos website.
+A fresh new Symfony 7.4 LTS webapp project to manage Miguel Bustos website.
 
 ---
 

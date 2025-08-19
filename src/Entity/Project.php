@@ -52,7 +52,7 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isIllustration = true;
 
-    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
     #[Assert\Image(minWidth: 600)]
     #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
     private ?File $mainImageFile = null;
