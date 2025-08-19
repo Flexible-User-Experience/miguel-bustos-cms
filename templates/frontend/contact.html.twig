@@ -10,7 +10,15 @@
             {{ form_row(form.mobileNumber) }}
             {{ form_row(form.email) }}
             {{ form_row(form.message) }}
-            {{ form_row(form.send, {'attr': {'class': 'mb-6 px-4 py-2 bg-cyan-300 hover:bg-cyan-600 transition cursor-pointer'}}) }}
+{#            {{ form_row(form.send, {'attr': {'class': 'mb-6 px-4 py-2 bg-cyan-300 hover:bg-cyan-600 transition cursor-pointer'}}) }}#}
+            <div class="mb-6">
+                <button
+                    type="submit"
+                    class="mb-6 px-4 py-2 bg-cyan-300 hover:bg-cyan-600 flex items-center gap-2 transition cursor-pointer"
+                >
+                    {{ ux_icon('bi:send', {'class': 'w-4 h-4'}) }} {{ 'Send' | trans }}
+                </button>
+            </div>
             {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
