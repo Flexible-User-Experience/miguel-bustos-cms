@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Entity\Interface\ImageInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigTest;
 
@@ -11,7 +12,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigTest('instance_of', $this->isInstanceOf(...)),
-            new TwigTest('is_gif_file_format', $this->isGifFileFormat(...)),
+            new TwigTest('gif_file_format', $this->isGifFileFormat(...)),
         ];
     }
 
@@ -20,18 +21,13 @@ class AppExtension extends AbstractExtension
         return new \ReflectionClass($instance)->isInstance($var);
     }
 
-    public function isGifFileFormat(Project $filename): bool
+    public function isGifFileFormat(ImageInterface $image): bool
     {
-        // 1. Fast check: by file extension
-        if ('gif' === strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
+        if ('image/gif' === strtolower($image->getMimeType())) {
             return true;
         }
-
-        // 2. (Optional) Safer check: by mime type if file exists
-        if (is_file($filename)) {
-            $mime = mime_content_type($filename);
-
-            return 'image/gif' === $mime;
+        if ('gif' === strtolower(pathinfo($image->getOriginalName(), PATHINFO_EXTENSION))) {
+            return true;
         }
 
         return false;
