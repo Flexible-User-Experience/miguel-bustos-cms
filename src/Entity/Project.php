@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Image\ProjectImage;
+use App\Entity\Interface\ImageInterface;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -28,7 +29,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[Vich\Uploadable]
 #[UniqueEntity(fields: ['slug'])]
-class Project extends AbstractEntity implements SlugInterface
+class Project extends AbstractEntity implements ImageInterface, SlugInterface
 {
     use IsActiveTrait;
     use ImagesTrait;

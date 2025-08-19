@@ -20,7 +20,7 @@ class AppExtension extends AbstractExtension
         return new \ReflectionClass($instance)->isInstance($var);
     }
 
-    public function isGifFileFormat(string $filename): bool
+    public function isGifFileFormat(Project $filename): bool
     {
         // 1. Fast check: by file extension
         if ('gif' === strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
