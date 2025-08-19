@@ -96,7 +96,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 UrlType::class,
                 [
                     'required' => false,
-                    'help' => 'ctaButtonLinkHelp',
+                    'help' => 'Cta Button Link Help',
                 ]
             )
             ->end()
@@ -129,6 +129,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                         ],
                         'ctaButtonLabel' => [
                             'required' => false,
+                            'label' => 'Cta Button Label',
                             'field_type' => TextType::class,
                         ],
                     ],
