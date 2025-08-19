@@ -1,13 +1,47 @@
 App\Entity\Category:
   category_{1..5}:
-    name: 'category_<current()>'
+    name: '<word()>'
+
+App\Entity\Translations\CategoryTranslation:
+  category_translation_{1..5}:
+    object: '@category_<current()>'
+    locale: 'en'
+    field: 'name'
+    content: '<word()> en'
 
 App\Entity\Project:
-  project_{1..20}:
-    title: 'project_<current()>'
-    subtitle: 'project_<current()>_subtitle'
+  project_{1..18}:
+    title: <sentence(5)>
+    isActive: <boolean()>
+    position: <current()>
+    subtitle: <sentence(10)>
+    description: <paragraph()>
+    isWorkshop: <boolean()>
+    isIllustration: true
+
+  project_19:
+    title: "project_1"
+    isActive: true
+    position: 1
+    isIllustration: true
+    isWorkshop: false
+    subtitle: "Il·lustració per a l'Ajuntament de Barcelona"
+    description: "Disseny de la campanya gràfica del Carnaval."
+
+  project_20:
+    title: "Taller d'il·lustració"
+    isActive: true
+    position: 2
+    isWorkshop: true
+    isIllustration: false
+    subtitle: "Introducció a la il·lustració digital"
+    description: "Curs pràctic de 30 hores sobre il·lustració digital amb Procreate."
+
+  project_21:
+    title: 'project_21'
+    subtitle: 'project_21_subtitle'
     description: '<text()>'
     category: '@category_<numberBetween(1, 5)>'
-    isActive: '<boolean()>'
+    isActive: false
     isWorkshop: '<boolean()>'
     isIllustration: '<boolean()>'

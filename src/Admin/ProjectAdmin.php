@@ -3,22 +3,28 @@
 namespace App\Admin;
 
 use App\Entity\Category;
+use App\Entity\Translations\CategoryTranslation;
 use App\Enum\DoctrineEnum;
+use App\Form\Type\GedmoTranslationsType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\Form\Type\BooleanType;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Sonata\Form\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class ProjectAdmin extends AbstractBaseAdmin
 {
+    private const int TEXTAREA_ROWS = 10;
+
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
         return 'projects/project';
@@ -28,55 +34,131 @@ final class ProjectAdmin extends AbstractBaseAdmin
     {
         $sortValues[DatagridInterface::PAGE] = 1;
         $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
-        $sortValues[DatagridInterface::SORT_BY] = 'name';
+        $sortValues[DatagridInterface::SORT_BY] = 'position';
     }
 
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->with('admin.general', ['class' => 'col-md-4'])
-                ->add('category', ModelType::class, [
-                    'class' => Category::class,
-                    'required' => false,
-                ])
-                ->add('title', TextType::class, [
-                ])
-                ->add('subtitle', TextType::class, [
-                    'required' => false,
-                ])
-                ->add('description', TextareaType::class, [
-                    'required' => false,
-                ])
+            ->with('admin.main_image', ['class' => 'col-md-4'])
+            ->add(
+                'mainImageFile',
+                VichImageType::class,
+                [
+                    'required' => $this->isFormToCreateNewRecord(),
+                    'help' => 'Main Image File Helper',
+                ]
+            )
             ->end()
-            ->with('admin.images', ['class' => 'col-md-4'])
-                ->add('mainImageFile', VichImageType::class, [
+            ->with('admin.general', ['class' => 'col-md-4'])
+            ->add(
+                'category',
+                EntityType::class,
+                [
+                    'class' => Category::class,
+                    'required' => true,
+                ]
+            )
+            ->add(
+                'title',
+                TextType::class,
+                [
+                    'required' => true,
+                ]
+            )
+            ->add(
+                'subtitle',
+                TextType::class,
+                [
                     'required' => false,
-                ]);
+                ]
+            )
+            ->add(
+                'description',
+                CKEditorType::class,
+                [
+                    'required' => false,
+                    'attr' => [
+                        'rows' => self::TEXTAREA_ROWS,
+                    ],
+                ]
+            )
+            ->end()
+            ->with('admin.translations', ['class' => 'col-md-4'])
+            ->add(
+                'translations',
+                GedmoTranslationsType::class,
+                [
+                    'label' => false,
+                    'required' => false,
+                    'translatable_class' => CategoryTranslation::class,
+                    'fields' => [
+                        'title' => [
+                            'required' => true,
+                            'field_type' => TextType::class,
+                        ],
+                        'subtitle' => [
+                            'required' => false,
+                            'field_type' => TextType::class,
+                        ],
+                        'description' => [
+                            'required' => false,
+                            'field_type' => CKEditorType::class,
+                            'attr' => [
+                                'rows' => self::TEXTAREA_ROWS,
+                            ],
+                        ],
+                    ],
+                ]
+            )
+            ->end()
+        ;
         if (!$this->isFormToCreateNewRecord()) {
             $form
-                ->add('images', CollectionType::class, [
-                    'by_reference' => false,
-                    'error_bubbling' => true,
-                ], [
-                    'edit' => 'inline',
-                    'inline' => 'table',
-                ]);
+                ->with('admin.images', ['class' => 'col-md-6'])
+                ->add(
+                    'images',
+                    CollectionType::class,
+                    [
+                        'label' => false,
+                        'required' => false,
+                        'by_reference' => false,
+                        'error_bubbling' => true,
+                    ],
+                    [
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                        'sortable' => 'position',
+                        'order' => DoctrineEnum::ASC->value,
+                    ]
+                )
+                ->end()
+            ;
         }
         $form
-            ->end()
-            ->with('admin.controls', ['class' => 'col-md-4'])
-                ->add('isIllustration', BooleanType::class, [
+            ->with('admin.controls', ['class' => 'col-md-3'])
+            ->add('position', NumberType::class)
+            ->add(
+                'isIllustration',
+                CheckboxType::class,
+                [
                     'required' => false,
-                    'transform' => true,
-                ])
-                ->add('isWorkshop', BooleanType::class, [
+                ]
+            )
+            ->add(
+                'isWorkshop',
+                CheckboxType::class,
+                [
                     'required' => false,
-                    'transform' => true,
-                ])
-                ->add('isActive', BooleanType::class, [
+                ]
+            )
+            ->add(
+                'isActive',
+                CheckboxType::class,
+                [
                     'required' => false,
-                    'transform' => true,
-                ])
+                ]
+            )
             ->end()
         ;
     }
@@ -84,8 +166,21 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
+            ->add(
+                'category',
+                ModelFilter::class,
+                [
+                    'field_options' => [
+                        'class' => Category::class,
+                        'choice_label' => 'name',
+                        'query_builder' => $this->getEntityManager()->getRepository(Category::class)->getAllSortedByNameQB(),
+                    ],
+                ]
+            )
             ->add('title')
-            ->add('category')
+            ->add('position')
+            ->add('isIllustration')
+            ->add('isWorkshop')
             ->add('isActive')
         ;
     }
@@ -99,28 +194,75 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 array_merge(
                     AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
                     [
-                        'template' => 'backend/admin/cells/list/main_image_field.html.twig',
+                        'template' => 'admin/cells/list/main_image_field.html.twig',
                     ]
                 )
             )
-            ->add('category')
-            ->addIdentifier('title')
-            ->add('isIllustration', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'editable' => true,
-            ])
-            ->add('isWorkshop', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'editable' => true,
-            ])
-            ->add('isActive', FieldDescriptionInterface::TYPE_BOOLEAN, [
-                'editable' => true,
-                'inverse' => false,
-            ])
-            ->add(ListMapper::NAME_ACTIONS, null, [
-                'actions' => [
-                    'show' => [],
-                    'edit' => [],
-                ],
-            ])
+            ->add(
+                'category',
+                FieldDescriptionInterface::TYPE_MANY_TO_ONE,
+                [
+                    'editable' => false,
+                    'sortable' => true,
+                    'associated_property' => 'name',
+                    'route' => [
+                        'name' => 'edit',
+                    ],
+                    'sort_field_mapping' => [
+                        'fieldName' => 'name',
+                    ],
+                    'sort_parent_association_mappings' => [
+                        [
+                            'fieldName' => 'category',
+                        ],
+                    ],
+                ]
+            )
+            ->add('title')
+            ->add('position')
+            ->add(
+                'isIllustration',
+                FieldDescriptionInterface::TYPE_BOOLEAN,
+                [
+                    'editable' => true,
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-center',
+                    'row_align' => 'center',
+                ]
+            )
+            ->add(
+                'isWorkshop',
+                FieldDescriptionInterface::TYPE_BOOLEAN,
+                [
+                    'editable' => true,
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-center',
+                    'row_align' => 'center',
+                ]
+            )
+            ->add(
+                'isActive',
+                FieldDescriptionInterface::TYPE_BOOLEAN,
+                [
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-center',
+                    'row_align' => 'center',
+                    'editable' => true,
+                ]
+            )
+            ->add(
+                ListMapper::NAME_ACTIONS,
+                ListMapper::TYPE_ACTIONS,
+                [
+                    'header_style' => 'width:86px',
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                    'actions' => [
+                        'show' => [],
+                        'edit' => [],
+                    ],
+                ]
+            )
         ;
     }
 

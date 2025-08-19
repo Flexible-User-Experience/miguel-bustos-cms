@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 trait SlugTrait
 {
     #[Gedmo\Slug(fields: ['name'])]
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    #[ORM\Column(type: Types::STRING, length: 255, unique: true, nullable: false)]
     private string $slug;
 
     public function getSlug(): string

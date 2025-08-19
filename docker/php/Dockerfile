@@ -36,12 +36,16 @@ RUN a2enmod rewrite headers ssl
 
 # Install Composer
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
-   mv composer.phar /usr/local/bin/composer
+    mv composer.phar /usr/local/bin/composer
+
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash && \
+    mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
 # Configure and install PHP extensions
 RUN docker-php-ext-configure intl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    docker-php-ext-install \
+    && docker-php-ext-install \
         pdo \
         pdo_sqlite \
         pdo_mysql \

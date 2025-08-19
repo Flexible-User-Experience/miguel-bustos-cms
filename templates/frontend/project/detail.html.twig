@@ -1,0 +1,52 @@
+{% extends 'frontend/base.html.twig' %}
+
+{% block title %}{{ project.title }} · {{ parent() }}{% endblock %}
+
+{% block main %}
+    {% if not project.isActive %}
+        <div class="grid grid-cols-1 p-4 mx-auto">
+            <div class="backdrop-blur-md bg-yellow-50 border border-yellow-200 rounded-2xl p-5 flex gap-6 items-center">
+                <div class="flex-none">
+                    <div class="w-6 h-6 rounded-xl flex items-center justify-center">
+                        {{ ux_icon('bi:info-circle', {'class': 'text-yellow-900'}) }}
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h1 class="text-yellow-900 text-lg">{{ 'Page Under Construction Warning' | trans }}</h1>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4 max-w-screen-xl mx-auto">
+        <div>
+            <h2 class="text-xl font-bold">{{ project.title }}</h2>
+            {% if project.subtitle %}<h3 class="mt-3 italic font-light">{{ project.subtitle }}</h3>{% endif %}
+            {% if project.description %}<p class="mt-3">{{ project.description | raw }}</p>{% endif %}
+        </div>
+        <div class="col-span-2 grid gap-y-4">
+            {% if project.images | length > 0 %}
+                {% for image in project.images %}
+                    {% if image.mainImage is not null %}
+                        <img
+                            srcset="{{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_360') }} 360w,
+                                {{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_576') }} 576w,
+                                {{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_720') }} 720w,
+                                {{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_768') }} 768w,
+                                {{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_992') }} 992w,
+                                {{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_1152') }} 1152w,
+                                {{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_1200') }} 1200w"
+                            sizes="(min-width: 1200px) 800px,
+                                (min-width: 992px) 650px,
+                                (min-width: 768px) 500px,
+                                90vw"
+                            class="w-full transition-transform duration-300 group-hover:scale-110"
+                            src="{{ vich_uploader_asset(image, 'mainImageFile') | imagine_filter('w_576') }}"
+                            alt="{% if image.altImageText %}{{ image.altImageText }}{% else %}{{ project.title }}{% endif %}"
+                        >
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% include 'frontend/parts/projects_grid.html.twig' %}
+{% endblock %}

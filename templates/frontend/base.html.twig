@@ -2,13 +2,9 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}Miguel Bustos{% endblock %}</title>
-        {# TODO: Replace favicon #}
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{{ project_title }}{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {# TODO replace favicon #}
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
         {% endblock %}
@@ -16,30 +12,14 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="h-full flex flex-col min-h-screen text-gray-900" style='font-family: "Inter", sans-serif;"'>
-        <header class="w-full py-6 px-8 flex justify-between items-center border-b bg-white">
-            {% block header %}
-                <h1 class="text-2xl font-bold">Miguel Bustos</h1>
-                <nav class="space-x-6 text-sm font-medium">
-                    <a href="#" class="hover:underline">Illustration</a>
-                    <a href="#" class="hover:underline">Workshops</a>
-                    <a href="#" class="hover:underline">About</a>
-                    <a href="#" class="hover:underline">Contact</a>
-                    <a href="https://www.instagram.com/miguel.bustos/" target="_blank">
-                        {{ ux_icon('bi:instagram') }}
-                    </a>
-                    <a href="https://www.instagram.com/miguel.bustos/" target="_blank">
-                        {{ ux_icon('bi:list') }}
-                    </a>
-                </nav>
-            {% endblock %}
-        </header>
+    <body class="h-full flex flex-col min-h-screen text-gray-900">
+        {% include 'frontend/parts/header.html.twig' %}
         <div class="flex flex-1 min-h-0">
-            <main class="flex-1 overflow-y-auto p-6">
+            <main class="flex-1 overflow-y-auto p-6 bg-white">
                 {% block main %}{% endblock %}
             </main>
         </div>
-        <footer class="bg-white border-t px-4 py-2 text-center text-sm">
+        <footer class="bg-white px-4 py-2 text-center text-sm">
             {% block footer %}{% endblock %}
         </footer>
     </body>

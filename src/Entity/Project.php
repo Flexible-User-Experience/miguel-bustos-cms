@@ -6,44 +6,45 @@ use App\Entity\Image\ProjectImage;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
+use App\Entity\Trait\PositionTrait;
 use App\Entity\Trait\SlugTitleTrait;
 use App\Entity\Trait\TitleTrait;
+use App\Entity\Trait\TranslationTrait;
+use App\Entity\Translations\ProjectTranslation;
+use App\Enum\DoctrineEnum;
 use App\Interface\SlugInterface;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Gedmo\TranslationEntity(class: ProjectTranslation::class)]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[Vich\Uploadable]
+#[UniqueEntity(fields: ['slug'])]
 class Project extends AbstractEntity implements SlugInterface
 {
     use IsActiveTrait;
     use ImagesTrait;
     use MainImageTrait;
+    use PositionTrait;
     use SlugTitleTrait;
     use TitleTrait;
+    use TranslationTrait;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subtitle = null;
 
+    #[Gedmo\Translatable]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
-
-    #[Assert\File(maxSize: '20M', extensions: ['png', 'jpg', 'jpeg'])]
-    #[Assert\Image(minWidth: 600)]
-    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
-    private ?File $mainImageFile = null;
-
-    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private Collection $images;
-
-    #[ORM\ManyToOne(inversedBy: 'projects')]
-    private ?Category $category = null;
 
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isWorkshop = false;
@@ -51,20 +52,27 @@ class Project extends AbstractEntity implements SlugInterface
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isIllustration = true;
 
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg'])]
+    #[Assert\Image(minWidth: 600)]
+    #[Vich\UploadableField(mapping: 'projects_photos', fileNameProperty: 'mainImage')]
+    private ?File $mainImageFile = null;
+
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
+    private Collection $images;
+
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?Category $category = null;
+
+    #[Assert\Valid]
+    #[ORM\OneToMany(targetEntity: ProjectTranslation::class, mappedBy: 'object', cascade: ['persist', 'remove'])]
+    private ?Collection $translations;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-    }
-
-    public function isIllustration(): bool
-    {
-        return $this->isIllustration;
-    }
-
-    public function setIsIllustration(bool $isIllustration): void
-    {
-        $this->isIllustration = $isIllustration;
+        $this->translations = new ArrayCollection();
     }
 
     public function getSubtitle(): ?string
@@ -96,7 +104,6 @@ class Project extends AbstractEntity implements SlugInterface
         return $this->category;
     }
 
-
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
@@ -114,13 +121,20 @@ class Project extends AbstractEntity implements SlugInterface
         $this->isWorkshop = $isWorkshop;
     }
 
+    public function isIllustration(): bool
+    {
+        return $this->isIllustration;
+    }
+
+    public function setIsIllustration(bool $isIllustration): void
+    {
+        $this->isIllustration = $isIllustration;
+    }
+
     //    TODO:
     //    videoUrl
     //    pdfFile
 
-    /**
-     * @return Collection<int, ProjectImage>
-     */
     public function getProjectImages(): Collection
     {
         return $this->images;
@@ -148,8 +162,27 @@ class Project extends AbstractEntity implements SlugInterface
         return $this;
     }
 
+    public function addTranslation(ProjectTranslation $translation): self
+    {
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $this->translations->add($translation);
+            $translation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(ProjectTranslation $translation): self
+    {
+        if ($this->translations->contains($translation)) {
+            $this->translations->removeElement($translation);
+        }
+
+        return $this;
+    }
+
     public function __toString(): string
     {
-        return $this->getTitle() ?: '';
+        return $this->getTitle() ?: self::DEFAULT_NAME;
     }
 }

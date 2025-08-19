@@ -2,34 +2,44 @@
 
 namespace App\Admin;
 
-use App\Enum\DoctrineEnum;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Datagrid\DatagridInterface;
+use App\Entity\Translations\CategoryTranslation;
+use App\Form\Type\GedmoTranslationsType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class CategoryAdmin extends AbstractAdmin
+final class CategoryAdmin extends AbstractBaseAdmin
 {
     public function generateBaseRoutePattern(bool $isChildAdmin = false): string
     {
         return 'categories/category';
     }
 
-    protected function configureDefaultSortValues(array &$sortValues): void
-    {
-        $sortValues[DatagridInterface::PAGE] = 1;
-        $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
-        $sortValues[DatagridInterface::SORT_BY] = 'name';
-    }
-
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->add('name', TextType::class, [
-            ])
+            ->with('admin.general', ['class' => 'col-md-4'])
+            ->add('name', TextType::class)
+            ->end()
+            ->with('admin.translations', ['class' => 'col-md-4'])
+            ->add(
+                'translations',
+                GedmoTranslationsType::class,
+                [
+                    'label' => false,
+                    'required' => false,
+                    'translatable_class' => CategoryTranslation::class,
+                    'fields' => [
+                        'name' => [
+                            'required' => true,
+                            'field_type' => TextType::class,
+                        ],
+                    ],
+                ]
+            )
+            ->end()
         ;
     }
 
@@ -43,13 +53,19 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list): void
     {
         $list
-            ->addIdentifier('name')
-            ->add('slug')
-            ->add(ListMapper::NAME_ACTIONS, null, [
-                'actions' => [
-                    'edit' => [],
-                ],
-            ])
+            ->add('name')
+            ->add(
+                ListMapper::NAME_ACTIONS,
+                ListMapper::TYPE_ACTIONS,
+                [
+                    'header_style' => 'width:60px',
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                    'actions' => [
+                        'edit' => [],
+                    ],
+                ]
+            )
         ;
     }
 

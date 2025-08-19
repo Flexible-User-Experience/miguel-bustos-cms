@@ -3,8 +3,11 @@
 namespace App\Controller\Frontend;
 
 use App\Entity\Project;
+use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
+use App\Enum\UserRoleEnum;
 use App\Repository\ProjectRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,36 +15,58 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ProjectController extends AbstractController
 {
-    #[Route(path: RoutesEnum::app_project_index->value, name: RoutesEnum::app_project_index->name, methods: [Request::METHOD_GET])]
-    public function index(ProjectRepository $projectRepository): Response
-    {
-        return $this->render('frontend/project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
-        ]);
-    }
-
-    #[Route(path: RoutesEnum::app_project_show->value, name: RoutesEnum::app_project_show->name, methods: [Request::METHOD_GET])]
-    public function show(Project $project): Response
-    {
-        return $this->render('frontend/project/show.html.twig', [
-            'project' => $project,
-        ]);
-    }
-
-    #[Route(path: RoutesEnum::app_project_workshops_index->value, name: RoutesEnum::app_project_workshops_index->name, methods: [Request::METHOD_GET])]
-    public function workshopsIndex(ProjectRepository $projectRepository): Response
-    {
-        return $this->render('frontend/project/workshops.html.twig', [
-            'workshops' => $projectRepository->findWorkshops(),
-        ]);
-    }
-
-    #[Route(path: RoutesEnum::app_project_illustrations_index->value, name: RoutesEnum::app_project_illustrations_index->name, methods: [Request::METHOD_GET])]
-    public function illustrationsIndex(ProjectRepository $projectRepository): Response
+    #[Route(
+        path: [
+            LocaleEnum::en => RoutesEnum::app_project_illustrations->value,
+            LocaleEnum::es => RoutesEnum::app_project_illustrations_es->value,
+            LocaleEnum::ca => RoutesEnum::app_project_illustrations_ca->value,
+        ],
+        name: RoutesEnum::app_project_illustrations->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function illustrations(ProjectRepository $projectRepository): Response
     {
         return $this->render('frontend/project/illustrations.html.twig', [
-            'illustrations' => $projectRepository->findIllustrations(),
+            'projects' => $projectRepository->findIllustrations(),
         ]);
     }
 
+    #[Route(
+        path: [
+            LocaleEnum::en => RoutesEnum::app_project_workshops->value,
+            LocaleEnum::es => RoutesEnum::app_project_workshops_es->value,
+            LocaleEnum::ca => RoutesEnum::app_project_workshops_ca->value,
+        ],
+        name: RoutesEnum::app_project_workshops->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function workshops(ProjectRepository $projectRepository): Response
+    {
+        return $this->render('frontend/project/workshops.html.twig', [
+            'projects' => $projectRepository->findWorkshops(),
+        ]);
+    }
+
+    #[Route(
+        path: [
+            LocaleEnum::en => RoutesEnum::app_project_detail->value,
+            LocaleEnum::es => RoutesEnum::app_project_detail_es->value,
+            LocaleEnum::ca => RoutesEnum::app_project_detail_ca->value,
+        ],
+        name: RoutesEnum::app_project_detail->name,
+        methods: [Request::METHOD_GET]
+    )]
+    public function detail(
+        #[MapEntity(mapping: ['slug' => 'slug'])] Project $project,
+        ProjectRepository $projectRepository,
+    ): Response {
+        if ((false === $project->getIsActive()) && !$this->isGranted(UserRoleEnum::ROLE_ADMIN)) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('frontend/project/detail.html.twig', [
+            'project' => $project,
+            'projects' => $projectRepository->findByIsActiveField(),
+        ]);
+    }
 }

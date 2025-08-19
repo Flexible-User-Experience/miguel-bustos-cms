@@ -40,14 +40,9 @@
         {{- form_widget(form.file) -}}
         {%- if image_uri -%}
             <a href="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" download>
-                <img class="img-responsive" src="{{ asset_helper is same as(true) ? asset(image_uri) : image_uri }}" alt="" />
+                <img class="img-responsive" src="{{ (asset_helper is same as(true) ? asset(image_uri) : image_uri) | imagine_filter('200xY') }}" alt="" />
             </a>
         {%- endif -%}
-{#        {%- if download_uri -%}#}
-{#            <a class="btn btn-warning btn-xs mt-1" href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>#}
-{#                <i class="fa fa-cloud-download fa-fw"></i>  {{ 'Download' | trans }}#}
-{#            </a>#}
-{#        {%- endif -%}#}
         {%- if form.delete is defined and form.vars.object is instance_of('App\\Entity\\Project') -%}
             {{- form_row(form.delete) -}}
         {%- endif -%}

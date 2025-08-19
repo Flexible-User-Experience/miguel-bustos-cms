@@ -1,4 +1,7 @@
 @import "tailwindcss" source("../../");
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 @source "assets/";
 @source "templates/";
@@ -6,6 +9,20 @@
 @plugin "@tailwindcss/typography";
 @plugin "@tailwindcss/forms";
 
+@theme {
+    --font-display: 'Inter', sans-serif;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
 body {
-    background-color: skyblue;
+    font-family: 'Inter', sans-serif;
 }
