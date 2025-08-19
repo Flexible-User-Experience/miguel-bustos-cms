@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 final class ProjectAdmin extends AbstractBaseAdmin
@@ -83,6 +84,21 @@ final class ProjectAdmin extends AbstractBaseAdmin
                     ],
                 ]
             )
+            ->add(
+                'ctaButtonLabel',
+                TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'ctaButtonLink',
+                UrlType::class,
+                [
+                    'required' => false,
+                    'help' => 'ctaButtonLinkHelp',
+                ]
+            )
             ->end()
             ->with('admin.translations', [
                 'class' => 'col-md-4',
@@ -110,6 +126,10 @@ final class ProjectAdmin extends AbstractBaseAdmin
                             'attr' => [
                                 'rows' => self::TEXTAREA_ROWS,
                             ],
+                        ],
+                        'ctaButtonLabel' => [
+                            'required' => false,
+                            'field_type' => TextType::class,
                         ],
                     ],
                 ]
@@ -181,6 +201,9 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ]
             )
             ->add('title')
+            ->add('subtitle')
+            ->add('description')
+            ->add('ctaButtonLabel')
             ->add('position')
             ->add('isIllustration')
             ->add('isWorkshop')
