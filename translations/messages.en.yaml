@@ -1,4 +1,4 @@
-'Illustrations': 'Illustrations'
+'Illustrations': 'Illustration'
 'Workshops': 'Workshops'
 'About': 'About me'
 'Contact': 'Contact'
@@ -32,6 +32,7 @@
 'Admin General': 'General'
 'Admin Main Image': 'Imagen Miniatura Portada'
 'Admin Translations': 'Traducciones'
+'admin.translations_help': 'Solamente hay que rellenar los campos de traducción cuando el texto traducido sea diferente del texto que aparece en el idioma original.'
 'Admin Images': 'Imágenes Adicionales Detalle'
 'Admin Controls': 'Controles'
 'Download': 'Descargar'

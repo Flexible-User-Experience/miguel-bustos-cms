@@ -20,40 +20,31 @@ liip_imagine:
             quality: 95
             filters:
                 thumbnail: { size: [ 60, 60 ], mode: 'outbound' }
-        # --- Filtres per a Imatges Responsive (només amplada) ---
-
-        # Mida base per a mòbils petits (1x i 2x)
+        200xY:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 200, null ], mode: 'outbound' }
         w_360:
-            filters: { thumbnail: { size: [ 360, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 360, null ], mode: 'inset' } }
         w_720:
-            filters: { thumbnail: { size: [ 720, null ], mode: inset } }
-
-        # Mida per a mòbils grans (1x i 2x)
+            filters: { thumbnail: { size: [ 720, null ], mode: 'inset' } }
         w_576:
-            filters: { thumbnail: { size: [ 576, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 576, null ], mode: 'inset' } }
         w_1152:
-            filters: { thumbnail: { size: [ 1152, null ], mode: inset } }
-
-        # Mida per a tauletes (1x i 2x)
+            filters: { thumbnail: { size: [ 1152, null ], mode: 'inset' } }
         w_768:
-            filters: { thumbnail: { size: [ 768, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 768, null ], mode: 'inset' } }
         w_1536:
-            filters: { thumbnail: { size: [ 1536, null ], mode: inset } }
-
-        # Mida per a portàtils / escriptori petit (1x i 2x)
+            filters: { thumbnail: { size: [ 1536, null ], mode: 'inset' } }
         w_992:
-            filters: { thumbnail: { size: [ 992, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 992, null ], mode: 'inset' } }
         w_1984:
-            filters: { thumbnail: { size: [ 1984, null ], mode: inset } }
-
-        # Mida per a escriptori estàndard (1x i 2x)
+            filters: { thumbnail: { size: [ 1984, null ], mode: 'inset' } }
         w_1200:
-            filters: { thumbnail: { size: [ 1200, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 1200, null ], mode: 'inset' } }
         w_2400:
-            filters: { thumbnail: { size: [ 2400, null ], mode: inset } }
-
-        # Opcional: una mida extra gran per a pantalles amples
+            filters: { thumbnail: { size: [ 2400, null ], mode: 'inset' } }
         w_1600:
-            filters: { thumbnail: { size: [ 1600, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 1600, null ], mode: 'inset' } }
         w_3200:
-            filters: { thumbnail: { size: [ 3200, null ], mode: inset } }
+            filters: { thumbnail: { size: [ 3200, null ], mode: 'inset' } }

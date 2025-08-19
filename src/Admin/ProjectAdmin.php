@@ -84,7 +84,10 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ]
             )
             ->end()
-            ->with('admin.translations', ['class' => 'col-md-4'])
+            ->with('admin.translations', [
+                'class' => 'col-md-4',
+                'description' => 'admin.translations_help',
+            ])
             ->add(
                 'translations',
                 GedmoTranslationsType::class,
