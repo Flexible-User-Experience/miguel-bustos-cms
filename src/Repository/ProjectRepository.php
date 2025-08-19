@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Project;
 use App\Enum\DoctrineEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -30,12 +31,14 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByIsActiveField(): array
+    public function findActiveSortedByPositionAndTitleQ(): Query
     {
-        return $this->findActiveSortedByPositionAndTitleQB()
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->findActiveSortedByPositionAndTitleQB()->getQuery();
+    }
+
+    public function findActiveSortedByPositionAndTitle(): array
+    {
+        return $this->findActiveSortedByPositionAndTitleQ()->getResult();
     }
 
     public function findWorkshops(): array

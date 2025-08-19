@@ -66,7 +66,7 @@ class ProjectController extends AbstractController
 
         return $this->render('frontend/project/detail.html.twig', [
             'project' => $project,
-            'projects' => $projectRepository->findByIsActiveField(),
+            'projects' => $projectRepository->findActiveSortedByPositionAndTitle(),
         ]);
     }
 }

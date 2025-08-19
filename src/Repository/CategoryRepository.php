@@ -13,6 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
+    private const string ALIAS = 'c';
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
@@ -20,6 +22,6 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function getAllSortedByNameQB(): QueryBuilder
     {
-        return $this->createQueryBuilder('c')->orderBy('c.name', DoctrineEnum::ASC->value);
+        return $this->createQueryBuilder(self::ALIAS)->orderBy(sprintf('%s.name', self::ALIAS), DoctrineEnum::ASC->value);
     }
 }

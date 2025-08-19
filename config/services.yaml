@@ -8,7 +8,7 @@ parameters:
     short_project_title: 'MB CMS'
     project_title: 'Miguel Bustos'
     customer_mobile_phone: '%env(string:CUSTOMER_MOBILE_PHONE)%'
-    admin_tag_version: '100004'
+    admin_tag_version: '100005'
     admin_password: '%env(string:ADMIN_PASSWORD)%'
     delivery_dev_address: '%env(string:DEV_DELIVERY_ADDRESS)%'
 
@@ -17,12 +17,10 @@ services:
         autowire: true
         autoconfigure: true
         bind:
-          '$kpd': '%kernel.project_dir%'
-          '$locale': '%default_locale%'
           '$locales': '%locale_i18n_full%'
     App\:
         resource: '../src/'
-  # Events
+    # Events
     App\Form\EventListener\DefaultTranslationsListener:
         arguments:
             - '@App\Form\Translation\GedmoTranslationForm'
@@ -39,7 +37,7 @@ services:
             - '@Doctrine\Common\Persistence\ManagerRegistry'
         calls:
             - setGedmoTranslatableListener: [ '@stof_doctrine_extensions.listener.translatable' ]
-  # Forms
+    # Forms
     App\Form\Type\GedmoTranslationsType:
         arguments:
             - '@App\Form\EventListener\GedmoTranslationsListener'

@@ -8,4 +8,6 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
+
+    public const string DEV_ENV = 'dev';
 }

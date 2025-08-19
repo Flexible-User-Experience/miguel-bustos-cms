@@ -23,10 +23,10 @@ class AppExtension extends AbstractExtension
 
     public function isGifFileFormat(ImageInterface $image): bool
     {
-        if ('image/gif' === strtolower($image->getMimeType())) {
+        if ('image/gif' === strtolower($image->getMimeType() ?: '')) {
             return true;
         }
-        if ('gif' === strtolower(pathinfo($image->getOriginalName(), PATHINFO_EXTENSION))) {
+        if ('gif' === strtolower(pathinfo($image->getOriginalName() ?: '', PATHINFO_EXTENSION))) {
             return true;
         }
 

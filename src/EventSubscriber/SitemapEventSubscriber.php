@@ -2,10 +2,10 @@
 
 namespace App\EventSubscriber;
 
-//use App\Entity\Service;
+use App\Entity\Project;
 use App\Enum\LocaleEnum;
 use App\Enum\RoutesEnum;
-//use App\Repository\ServiceRepository;
+use App\Repository\ProjectRepository;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,7 +15,7 @@ final readonly class SitemapEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private UrlGeneratorInterface $router,
-//        private ServiceRepository $sr,
+        private ProjectRepository $pr,
     ) {
     }
 
@@ -30,33 +30,33 @@ final readonly class SitemapEventSubscriber implements EventSubscriberInterface
     {
         $section = $event->getSection();
         if (is_null($section) || 'default' === $section) {
-            // Locales iterator
             foreach (LocaleEnum::getLocalesArray() as $locale) {
-                // Homepage
+                // homepage
                 $url = $this->makeUrl(RoutesEnum::app_frontend_homepage->name, $locale);
                 $event
                     ->getUrlContainer()
                     ->addUrl($this->makeUrlConcrete($url), 'default')
                 ;
-                // Illustrations
+                // illustrations
                 $url = $this->makeUrl(RoutesEnum::app_project_illustrations->name, $locale);
                 $event
                     ->getUrlContainer()
                     ->addUrl($this->makeUrlConcrete($url), 'default')
                 ;
-                // Workshops
+                // workshops
                 $url = $this->makeUrl(RoutesEnum::app_project_workshops->name, $locale);
                 $event
                     ->getUrlContainer()
                     ->addUrl($this->makeUrlConcrete($url), 'default')
                 ;
-                /** @var Service $service /
-                foreach ($this->sr->getActiveAndShowInFrontendSortedByPosition() as $service) {
+                // projects
+                /* @var Project $project */
+                foreach ($this->pr->findActiveSortedByPositionAndTitle() as $project) {
                     $url = $this->makeUrl(
-                        RoutesEnum::app_web_service_detail_route,
+                        RoutesEnum::app_project_detail->name,
                         $locale,
                         [
-                            'slug' => $service->getSlug(),
+                            'slug' => $project->getSlug(),
                         ]
                     );
                     $event
@@ -64,18 +64,17 @@ final readonly class SitemapEventSubscriber implements EventSubscriberInterface
                         ->addUrl($this->makeUrlConcrete($url), 'default')
                     ;
                 }
-                // Other stuff
-                $url = $this->makeUrl(RoutesEnum::app_web_contact_us_route, $locale);
+                // other pages
+                $url = $this->makeUrl(RoutesEnum::app_contact->name, $locale);
                 $event
                     ->getUrlContainer()
-                    ->addUrl($this->makeUrlConcrete($url, 0.1), 'default')
+                    ->addUrl($this->makeUrlConcrete($url), 'default')
                 ;
-                $url = $this->makeUrl(RoutesEnum::app_web_privacy_policy_route, $locale);
+                $url = $this->makeUrl(RoutesEnum::app_about_me->name, $locale);
                 $event
                     ->getUrlContainer()
-                    ->addUrl($this->makeUrlConcrete($url, 0.1), 'default')
+                    ->addUrl($this->makeUrlConcrete($url), 'default')
                 ;
-                 */
             }
         }
     }
