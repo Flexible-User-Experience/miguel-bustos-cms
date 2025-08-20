@@ -1,4 +1,4 @@
-<div class="columns-1 sm:columns-3 md:columns-6 lg:columns-6 xl:columns-8 gap-4 [column-fill:_balance] space-y-4">
+<div class="{% if project is defined %}columns-2{% else %} columns-1 {% endif %} sm:columns-3 md:columns-6 lg:columns-6 xl:columns-8 gap-2 [column-fill:_balance] space-y-4">
     {% for project in projects %}
         {% if project.mainImage is not null and project.isActive %}
             <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_project_detail.name, {'slug': project.slug}) }}" class="relative group block">
