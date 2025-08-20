@@ -18,8 +18,8 @@
                     <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::es')})) }}" class="hover:underline{% if app.request.locale == constant('App\\Enum\\LocaleEnum::es') %} text-gray-600{% endif %}">ES</a>
                 </div>
             </div>
-            <div class="lg:hidden flex items-center">
-                <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="text-2xl w-6 me-6">
+            <div class="lg:hidden flex items-center block text-center">
+                <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="flex items-center justify-center text-2xl w-16 h-16 p-4">
                     {{ ux_icon('bi:instagram') }}
                 </a>
                 <button type="button" class="text-3xl w-16 p-3" {{ stimulus_action('toggle-menu', 'toggle') }}>
