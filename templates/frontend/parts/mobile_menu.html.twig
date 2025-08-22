@@ -4,7 +4,9 @@
     <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_about_me.name) }}" class="hover:underline p-2{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_about_me.name %} font-bold{% endif %}">{{ 'About' | trans }}</a>
     <a href="{{ path(enum('App\\Enum\\RoutesEnum').app_contact.name) }}" class="hover:underline p-2{% if app.current_route == enum('App\\Enum\\RoutesEnum').app_contact.name %} font-bold{% endif %}">{{ 'Contact' | trans }}</a>
     <hr class="border-b border border-black-500 w-64">
-    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::en')})) }}" class="hover:underline p-2{% if app.request.locale == constant('App\\Enum\\LocaleEnum::en') %} text-gray-600{% endif %}">EN</a>
-    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::ca')})) }}" class="hover:underline p-2{% if app.request.locale == constant('App\\Enum\\LocaleEnum::ca') %} text-gray-600{% endif %}">CAT</a>
-    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::es')})) }}" class="hover:underline p-2{% if app.request.locale == constant('App\\Enum\\LocaleEnum::es') %} text-gray-600{% endif %}">ES</a>
+    <div class="flex flex-col text-center text-gray-600 space-y-4">
+        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::en')})) }}" class="hover:underline p-2{% if app.request.locale == constant('App\\Enum\\LocaleEnum::en') %} font-bold text-black{% endif %}">EN</a>
+        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::ca')})) }}" class="hover:underline p-2{% if app.request.locale == constant('App\\Enum\\LocaleEnum::ca') %} font-bold text-black{% endif %}">CAT</a>
+        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params') | merge({'_locale': constant('App\\Enum\\LocaleEnum::es')})) }}" class="hover:underline p-2{% if app.request.locale == constant('App\\Enum\\LocaleEnum::es') %} font-bold text-black{% endif %}">ES</a>
+    </div>
 </div>
