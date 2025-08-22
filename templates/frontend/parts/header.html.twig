@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="lg:hidden flex items-center block text-center">
-                <a href="https://www.instagram.com/miguel.bustos/" target="_blank" class="flex items-center justify-center text-2xl w-16 h-16 p-4">
-                    {{ ux_icon('bi:instagram') }}
+                <a href="https://www.instagram.com/miguel.bustos/" target="_blank">
+                    {{ ux_icon('bi:instagram', { 'class': 'p-4 w-16 h-16' }) }}
                 </a>
                 <button type="button" class="text-3xl w-16 p-3" {{ stimulus_action('toggle-menu', 'toggle') }}>
                     <span {{ stimulus_target('toggle-menu', 'iconList') }}>{{ ux_icon('bi:list') }}</span>
