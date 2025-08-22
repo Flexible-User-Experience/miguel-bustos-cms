@@ -69,3 +69,13 @@
 'Message': 'Mensaje'
 'General': 'General'
 'Controls': 'Controles'
+am:
+    greeting:
+        p1: 'Hi!'
+        p2: 'I''m Miguel Bustos, half illustrator / half graphic designer.'
+        p3: 'For any question or just to say hello, this is my mail:'
+    represented_by: 'Represented by'
+    awards: 'Awards'
+    exhibitions: 'Exhibitions'
+    publications: 'Publications'
+    agreements: 'Has been a pleasure to work with:'

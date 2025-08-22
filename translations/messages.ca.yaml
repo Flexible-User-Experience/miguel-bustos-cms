@@ -69,3 +69,13 @@
 'Message': 'Mensaje'
 'General': 'General'
 'Controls': 'Controles'
+am:
+    greeting:
+        p1: 'Hola!'
+        p2: 'Sóc en Miguel Bustos, mig il·lustrador / mig dissenyador gràfic.'
+        p3: 'Per a qualsevol consulta o simplement per saludar, aquest és el meu correu:'
+    represented_by: 'Representat per'
+    awards: 'Premis'
+    exhibitions: 'Exposicions'
+    publications: 'Publicacions'
+    agreements: 'Ha estat un plaer treballar amb:'
