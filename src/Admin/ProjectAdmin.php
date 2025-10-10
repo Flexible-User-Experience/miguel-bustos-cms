@@ -41,11 +41,21 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
-            ->with('admin.main_image', ['class' => 'col-md-4'])
+            ->with('admin.main_image', ['class' => 'col-md-4', 'label' => 'Images'])
             ->add(
                 'mainImageFile',
                 VichImageType::class,
                 [
+                    'label' => 'admin.main_image',
+                    'required' => $this->isFormToCreateNewRecord(),
+                    'help' => 'Main Image File Helper',
+                ]
+            )
+            ->add(
+                'awardImageFile',
+                VichImageType::class,
+                [
+                    'label' => 'admin.award_image',
                     'required' => $this->isFormToCreateNewRecord(),
                     'help' => 'Main Image File Helper',
                 ]

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Image\ProjectImage;
 use App\Entity\Interface\ImageInterface;
+use App\Entity\Trait\AwardImageTrait;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -31,6 +32,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[UniqueEntity(fields: ['slug'])]
 class Project extends AbstractEntity implements ImageInterface, SlugInterface
 {
+    use AwardImageTrait;
     use IsActiveTrait;
     use ImagesTrait;
     use MainImageTrait;
@@ -72,6 +74,18 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
         dimensions: 'dimensions'
     )]
     private ?File $mainImageFile = null;
+
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
+    #[Assert\Image(minWidth: 600)]
+    #[Vich\UploadableField(
+        mapping: 'projects_photos',
+        fileNameProperty: 'awardImage',
+        size: 'awardSize',
+        mimeType: 'awardMimeType',
+        originalName: 'awardOriginalName',
+        dimensions: 'awardDimensions'
+    )]
+    private ?File $awardImageFile = null;
 
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
@@ -170,10 +184,6 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     {
         $this->isIllustration = $isIllustration;
     }
-
-    //    TODO:
-    //    videoUrl
-    //    pdfFile
 
     public function getProjectImages(): Collection
     {

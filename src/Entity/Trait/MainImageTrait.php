@@ -28,6 +28,13 @@ trait MainImageTrait
         return $this->mainImage;
     }
 
+    public function setMainImage(?string $mainImage): self
+    {
+        $this->mainImage = $mainImage;
+
+        return $this;
+    }
+
     public function getSize(): ?int
     {
         return $this->size;
@@ -66,13 +73,6 @@ trait MainImageTrait
     public function setDimensions(?array $dimensions): void
     {
         $this->dimensions = $dimensions;
-    }
-
-    public function setMainImage(?string $mainImage): self
-    {
-        $this->mainImage = $mainImage;
-
-        return $this;
     }
 
     public function getMainImageFile(): ?File
