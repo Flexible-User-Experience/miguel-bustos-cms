@@ -11,6 +11,7 @@
 
 @theme {
     --font-display: 'Inter', sans-serif;
+    --text-base: 1.125rem;
 }
 
 @font-face {
