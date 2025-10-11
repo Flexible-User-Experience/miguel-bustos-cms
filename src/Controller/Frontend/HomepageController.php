@@ -10,17 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class HomepageController extends AbstractController
+final class HomepageController extends AbstractController
 {
+    public function __construct(
+        private readonly ProjectRepository $projectRepository
+    ) {}
+
     #[Route(
         path: RoutesEnum::app_frontend_homepage->value,
         name: RoutesEnum::app_frontend_homepage->name,
         methods: [Request::METHOD_GET]
     )]
-    public function homepage(ProjectRepository $projectRepository): Response
+    public function homepage(): Response
     {
         return $this->render('frontend/homepage.html.twig', [
-            'projects' => $projectRepository->findActiveSortedByPositionAndTitle(),
+            'projects' => $this->projectRepository->findActiveSortedByPositionAndTitle(),
         ]);
     }
 
@@ -35,7 +39,9 @@ class HomepageController extends AbstractController
     )]
     public function contact(): Response
     {
-        return $this->render('frontend/contact.html.twig');
+        return $this->render('frontend/contact.html.twig', [
+            'projects' => $this->projectRepository->findActiveSortedByPositionAndTitle(),
+        ]);
     }
 
     #[Route(
@@ -51,6 +57,8 @@ class HomepageController extends AbstractController
         Request $request,
     ): Response
     {
-        return $this->render(sprintf('frontend/about_me_%s.html.twig', $request->getLocale()));
+        return $this->render(sprintf('frontend/about_me_%s.html.twig', $request->getLocale()), [
+            'projects' => $this->projectRepository->findActiveSortedByPositionAndTitle(),
+        ]);
     }
 }
