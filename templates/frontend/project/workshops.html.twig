@@ -3,5 +3,5 @@
 {% block title %}{{ 'Workshops' | trans }} · {{ parent() }}{% endblock %}
 
 {% block main %}
-    {% include 'frontend/parts/projects_grid.html.twig' %}
+    {% include 'frontend/parts/projects_grid.html.twig' with { 'show_divider': false } %}
 {% endblock %}
