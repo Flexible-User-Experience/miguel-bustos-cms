@@ -3,45 +3,98 @@
 {% block title %}{{ 'About' | trans }} · {{ parent() }}{% endblock %}
 
 {% block main %}
-    <h1>ES</h1>
-    <div class="w-full max-w-screen-xl p-4 space-y-6 mx-auto">
-        <p>
-            {{ 'am.greeting.p1' | trans }}<br>
-            {{ 'am.greeting.p2' | trans }}<br>
-            {{ 'am.greeting.p3' | trans }}<br>
-            <a href="mailto:{{ customer_email }}" class="underline">{{ customer_email }}</a>
-        </p>
-        <p>
-            {{ 'am.represented_by' | trans }} <a href="https://www.howdoyoudoagency.com/" target="_blank" class="underline">How do you do agency</a>
-        </p>
-        <p>
-            <span class="underline">{{ 'am.awards' | trans }}</span><br>
-            <span class="italic">Word Illustration Awards. (Shorlisted)</span>. Mercats de Barcelona. 2022.<br>
-            <span class="italic">Premi Junceda 2020</span> (coberta de llibre). Guanyador, amb l'obra "Col·lecció diccionaris Espasa". 2020.<br>
-            <span class="italic">Word Illustration Awards. (Shorlisted)</span>. Llibre "Mogollón. 2018.<br>
-            <span class="italic">Premi Junceda 2016</span> (Publicitat). Guanyador, amb l'obra autoeditada "All my best". 2016.<br>
-            <span class="italic">Ebrergent 2015</span>, Art Jove de les Terres de l'Ebre. Lo Pati; Centre d'art de les Terres de l'Ebre.<br>
-            <span class="italic">Premi Junceda 2014</span> (categoria comic). Guanyador, amb l'obra "El Senyor Romaní". 2014.<br>
-            <span class="italic">Beca Carnet Jove Connecta't al còmic</span> 2012.
-        </p>
-        <p>
-            <span class="underline">{{ 'am.exhibitions' | trans }}</span><br>
-            2015 <span class="italic">Ebrergent</span>, Lo Pati; Centre d'Art Terres de l'Ebre, Amposta<br>
-            2015 <span class="italic">Cósmiko</span>, Circuito de ilustración de Valencia, Madame Min, Valencia.<br>
-            2014 <span class="italic">Criatures Visuals</span>, Galeria Mitte, Barcelona.<br>
-            2013 <span class="italic">Homentage a Josep Maria Pujol</span>. Eina, Espai Barra de Ferro. Barcelona.<br>
-            2010 <span class="italic">Diary Art, Moleskine</span>. Cripta del FAD, Barcelona.
-        </p>
-        <p>
-            <span class="underline">{{ 'am.publications' | trans }}</span><br>
-            "El Senyor Romaní". Editores de tebeos, 2013.<br>
-            "Humor se escribe con lápiz". Tires còmiques publicades a eljueves. 2012—2013.<br>
-            "Elestafador". Col·laborador habitual amb el magazine online.
-        </p>
-        <p>
-            <span class="underline">{{ 'am.agreements' | trans }}</span><br>
-            Washington Post, fnac, Seat, Ajuntament de Barcelona, Guia Michelin...
-        </p>
-        <img src="{{ asset('images/capgros_670.jpg') }}" alt="{{ customer_name }}" class="w-full lg:w-1/2">
+    <div class="w-full max-w-screen-xl p-4 mx-auto text-base">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="order-first md:order-last space-y-6">
+                    <img src="{{ asset('images/capgros_670.jpg') }}" alt="{{ customer_name }}" class="w-full">
+                </div>
+                <div class="order-last md:order-first space-y-6">
+                    <h4 class="text-3xl md:text-4xl font-bold">Hola!</h4>
+                    <p>
+                        Em dic Miguel Bustos i soc un il·lustrador que treballa des de Barcelona.
+                    </p>
+                    <p>
+                        Soc d'un poble on hi ha fàbriques de mobles i el vent bufa molt fort. Tot i que vaig estudiar disseny gràfic, a dia d'avui em de- dico a la il·lustració. Res em fa més feliç que estar imprimint al taller de serigrafia o dibuixant <em>xistes malos</em> sota el nom de <a href="https://www.instagram.com/humor_se_escribe_con_lapiz/" class="underline hover:text-cyan-600 transition-colors duration-300">humor se escribe con lápiz</a>, el meu alter ego.
+                    </p>
+                    <p>
+                        A banda de la il·lustració, fa anys que combino la meva activitat professional d'il·lustrador amb la docència a EINA, Centre Universitari d'Art i Disseny (Barcelona). També realitzo tallers fora del context acadèmic, sovint per a públic infantil.
+                    </p>
+                    <p>
+                        Si tens qualsevol pregunta o simplement vols saludar, ves a l'apartat <a href="{{ path('app_contact') }}" class="underline hover:text-cyan-600 transition-colors duration-300">contacte</a>.
+                    </p>
+                    <p>
+                        Representat a nivell internacional per:<br>
+                        <a href="https://www.howdoyoudoagency.com/" target="_blank" class="underline hover:text-cyan-600 transition-colors duration-300">How do you do agency</a>
+                    </p>
+                    <h4 class="text-3xl md:text-4xl font-bold mt-6">Alguns clients</h4>
+                    <p>
+                        He tingut la sort i el plaer de poder treballar en diferents àmbits amb clients com:
+                    </p>
+                    <p>
+                        Washington Post, Elpais, Volkswagen, Fondation Louis Vuitton, Fnac, German Historical Museum, Ajuntament de Barcelona, Creu Roja, Seat, Institut for Bioengineering Catalonia, Oregon Health ans Science University, Conde Nast Traveller, Anorak Magazine, Magazine Georges, Graou Magazine, Cavall fort, Time Out Barcelona i molts altres.
+                    </p>
+                    <p>
+                        Ah, i també amb una companyia sueca de mobles (de la qual, per contracte, no en puc dir el nom).
+                    </p>
+                    <h4 class="text-3xl md:text-4xl font-bold mt-6">Premis</h4>
+                    <p>
+                        Society of Illustrators NY, 2024. Gold Medal.<br>
+                        World illustration Awards, 2024. Highly Commended.<br>
+                        World illustration Awards, 2023. Shortlisted.<br>
+                        World illustration Awards, 2022. Longlisted.<br>
+                        World illustration Awards, 2018. Shortlisted<br>
+                        Junceda award, 2024. Awarded<br>
+                        Junceda award, 2023. Awarded<br>
+                        Junceda award, 2020. Awarded<br>
+                        Junceda award, 2016. Awarded<br>
+                        Junceda award, 2014. Awarded
+                    </p>
+                    <h4 class="text-3xl md:text-4xl font-bold mt-6">Llibres</h4>
+                    <p>
+                        <strong>PLAY: Canciones para leer en familia</strong><br>
+                        (editorial Mediterrània, Spain, 2024)<br><br>
+                        <strong>How it works: Electricity</strong><br>
+                        (Usborne Publishing, 2023)<br><br>
+                        <strong>Le grand bazar</strong><br>
+                        (Gautier Languereau, France, 2023)<br><br>
+                        <strong>Humor se escribe con lápiz</strong><br>
+                        (editorial Pepitas, Spain, 2022)<br><br>
+                        <strong>Sona el violí</strong><br>
+                        (editorial Casals, Spain, 2022)<br><br>
+                        <strong>Recht und Gesetze - Einfach verstehen!</strong><br>
+                        (Usborne Publishing, 2022)<br><br>
+                        <strong>Law for beginners</strong><br>
+                        (Usborne Publishing, 2021)<br><br>
+                        <strong>Museus de les comarques de Tarragona i les Terres de l'Ebre</strong><br>
+                        (editorial Mediterrània, Spain, 2021)<br><br>
+                        <strong>How Art Works</strong><br>
+                        (Usborne Publishing, 2020)<br><br>
+                        <strong>Be amazing. by Chris Hoy</strong><br>
+                        (Walker books, 2020)<br><br>
+                        <strong>Tots sis</strong><br>
+                        (Jollibre, 2020)<br><br>
+                        <strong>Bruce Lee. Little People BIG DREAMS</strong><br>
+                        (Quarto Kids, 2019)<br><br>
+                        <strong>Bruce Lee. (col·lección Pequeño & Grande)</strong><br>
+                        (ed Alba, 2019)<br><br>
+                        <strong>Ana Frank</strong><br>
+                        (ed, pepitas de oro, 2019)<br><br>
+                        <strong>M, le grand livre du Guide Michelin</strong><br>
+                        (Ed la martinière, 2019)<br><br>
+                        <strong>Beste Freunde: Ein Such-Buch</strong><br>
+                        (Prestel Verlag, Germany, 2018)<br><br>
+                        <strong>Bucketloads of Friends</strong><br>
+                        (Prestel Publishing, 2018)<br><br>
+                        <strong>Mogollón</strong><br>
+                        (Mosquito books, Spain, 2017)<br><br>
+                        <strong>Catalunya triomfant</strong><br>
+                        (Roca editorial, Spain, 2016)<br><br>
+                        <strong>El senyor Romaní</strong><br>
+                        (EDT, Spain, 2013)
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
