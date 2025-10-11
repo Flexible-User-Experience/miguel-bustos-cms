@@ -1,5 +1,5 @@
 {% extends 'frontend/base.html.twig' %}
 
 {% block main %}
-    {% include 'frontend/parts/projects_grid.html.twig' %}
+    {% include 'frontend/parts/projects_grid.html.twig' with { 'show_divider': false } %}
 {% endblock %}
