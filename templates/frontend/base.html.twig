@@ -46,5 +46,10 @@
         <footer class="bg-white px-4 py-2 text-center text-sm">
             {% block footer %}{% endblock %}
         </footer>
+        <div class="border-t w-full">
+            <div class="flex justify-between items-center mx-auto lg:py-4 px-5 lg:px-4">
+                <span class="text-black">&copy; {{ 'now' | date('Y') }} {{ customer_name }}</span>
+            </div>
+        </div>
     </body>
 </html>
