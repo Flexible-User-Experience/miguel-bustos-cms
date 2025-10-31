@@ -79,6 +79,7 @@ am:
     exhibitions: 'Exposiciones'
     publications: 'Publicaciones'
     agreements: 'Ha sido un placer trabajar con:'
+    social_networks: 'Redes Sociales'
 admin:
     main_image: 'Imagen Miniatura Portada'
     award_image: 'Imagen Premio'
