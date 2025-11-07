@@ -142,6 +142,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
                             'label' => 'Cta Button Label',
                             'field_type' => TextType::class,
                         ],
+                        'caption' => [
+                            'required' => false,
+                            'label' => 'Caption',
+                            'field_type' => TextType::class,
+                            'row_attr' => [
+                                'hidden' => true,
+                            ]
+                        ],
                     ],
                 ]
             )
