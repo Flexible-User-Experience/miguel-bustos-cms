@@ -48,7 +48,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     private ?string $subtitle = null;
 
     #[Gedmo\Translatable]
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, length: 4000, nullable: true)]
     private ?string $description = null;
 
     #[Gedmo\Translatable]
