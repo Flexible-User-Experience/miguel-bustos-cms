@@ -55,7 +55,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ctaButtonLabel = null;
 
-    #[Assert\Url(protocols: ['https'])]
+    #[Assert\Url(protocols: ['https'], requireTld: true)]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ctaButtonLink = null;
 
