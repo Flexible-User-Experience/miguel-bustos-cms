@@ -3,7 +3,6 @@
 namespace App\Admin\Image;
 
 use App\Admin\AbstractBaseAdmin;
-use App\Entity\Category;
 use App\Entity\Project;
 use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
@@ -127,6 +126,13 @@ class ProjectImageAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'altImageText',
+                null,
+                [
+                    'editable' => true,
+                ]
+            )
+            ->add(
+                'caption',
                 null,
                 [
                     'editable' => true,
