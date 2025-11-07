@@ -101,6 +101,17 @@ class ProjectImageAdmin extends AbstractBaseAdmin
     {
         $list
             ->add(
+                'main image',
+                FieldDescriptionInterface::TYPE_HTML,
+                array_merge(
+                    AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
+                    [
+                        'label' => 'Extra Picture',
+                        'template' => 'admin/cells/list/project_image_field.html.twig',
+                    ]
+                )
+            )
+            ->add(
                 'project',
                 FieldDescriptionInterface::TYPE_MANY_TO_ONE,
                 [
@@ -119,17 +130,6 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                         ],
                     ],
                 ]
-            )
-            ->add(
-                'main image',
-                FieldDescriptionInterface::TYPE_HTML,
-                array_merge(
-                    AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
-                    [
-                        'label' => 'Extra Picture',
-                        'template' => 'admin/cells/list/project_image_field.html.twig',
-                    ]
-                )
             )
             ->add(
                 'altImageText',
