@@ -89,6 +89,18 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     )]
     private ?File $awardImageFile = null;
 
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
+    #[Assert\Image(minWidth: 600)]
+    #[Vich\UploadableField(
+        mapping: 'projects_photos',
+        fileNameProperty: 'awardImage2',
+        size: 'awardSize2',
+        mimeType: 'awardMimeType2',
+        originalName: 'awardOriginalName2',
+        dimensions: 'awardDimensions2'
+    )]
+    private ?File $awardImageFile2 = null;
+
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
