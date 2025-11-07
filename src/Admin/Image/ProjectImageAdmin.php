@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -28,6 +29,12 @@ class ProjectImageAdmin extends AbstractBaseAdmin
         $sortValues[DatagridInterface::PAGE] = 1;
         $sortValues[DatagridInterface::SORT_ORDER] = DoctrineEnum::ASC->value;
         $sortValues[DatagridInterface::SORT_BY] = 'project.position';
+    }
+
+    protected function configureRoutes(RouteCollectionInterface $collection): void
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('batch');
     }
 
     protected function configureFormFields(FormMapper $form): void
@@ -144,6 +151,19 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                 [
                     'header_class' => 'text-right',
                     'row_align' => 'right',
+                ]
+            )
+            ->add(
+                ListMapper::NAME_ACTIONS,
+                ListMapper::TYPE_ACTIONS,
+                [
+                    'header_style' => 'width:186px',
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                    'actions' => [
+                        'edit' => [],
+                        'delete' => [],
+                    ],
                 ]
             )
         ;
