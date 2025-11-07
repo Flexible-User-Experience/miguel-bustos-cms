@@ -8,6 +8,8 @@ use App\Entity\Project;
 use App\Enum\DoctrineEnum;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -82,6 +84,46 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                         'query_builder' => $this->getEntityManager()->getRepository(Project::class)->findAllSortedByPositionAndTitleQB(),
                     ],
                 ]
+            )
+            ->add('altImageText')
+            ->add('caption')
+            ->add('position')
+        ;
+    }
+
+    protected function configureListFields(ListMapper $list): void
+    {
+        $list
+            ->add(
+                'project',
+                FieldDescriptionInterface::TYPE_MANY_TO_ONE,
+                [
+                    'editable' => false,
+                    'sortable' => true,
+                    'associated_property' => 'title',
+                    'route' => [
+                        'name' => 'edit',
+                    ],
+                    'sort_field_mapping' => [
+                        'fieldName' => 'altImageText',
+                    ],
+                    'sort_parent_association_mappings' => [
+                        [
+                            'fieldName' => 'project',
+                        ],
+                    ],
+                ]
+            )
+            ->add(
+                'main image',
+                FieldDescriptionInterface::TYPE_HTML,
+                array_merge(
+                    AbstractBaseAdmin::get60x60CenteredImageNotEditableListFieldDescriptionOptionsArray(),
+                    [
+                        'label' => 'Extra Picture',
+                        'template' => 'admin/cells/list/project_image_field.html.twig',
+                    ]
+                )
             )
         ;
     }
