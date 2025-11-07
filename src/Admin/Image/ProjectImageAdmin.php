@@ -125,6 +125,21 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                     ]
                 )
             )
+            ->add(
+                'altImageText',
+                null,
+                [
+                    'editable' => true,
+                ]
+            )
+            ->add(
+                'position',
+                null,
+                [
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                ]
+            )
         ;
     }
 }

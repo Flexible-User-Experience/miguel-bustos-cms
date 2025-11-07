@@ -273,7 +273,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ]
             )
             ->add('title')
-            ->add('position')
+            ->add(
+                'position',
+                null,
+                [
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                ]
+            )
             ->add(
                 'isIllustration',
                 FieldDescriptionInterface::TYPE_BOOLEAN,
