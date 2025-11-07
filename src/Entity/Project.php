@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Image\ProjectImage;
 use App\Entity\Interface\ImageInterface;
 use App\Entity\Trait\AwardImageTrait;
+use App\Entity\Trait\CaptionTrait;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -33,6 +34,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Project extends AbstractEntity implements ImageInterface, SlugInterface
 {
     use AwardImageTrait;
+    use CaptionTrait;
     use IsActiveTrait;
     use ImagesTrait;
     use MainImageTrait;
@@ -53,7 +55,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ctaButtonLabel = null;
 
-    #[Assert\Url(protocols: ['https'])]
+    #[Assert\Url(protocols: ['https'], requireTld: true)]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ctaButtonLink = null;
 
@@ -86,6 +88,18 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
         dimensions: 'awardDimensions'
     )]
     private ?File $awardImageFile = null;
+
+    #[Assert\File(maxSize: '10M', extensions: ['png', 'jpg', 'jpeg', 'gif'])]
+    #[Assert\Image(minWidth: 600)]
+    #[Vich\UploadableField(
+        mapping: 'projects_photos',
+        fileNameProperty: 'awardImage2',
+        size: 'awardSize2',
+        mimeType: 'awardMimeType2',
+        originalName: 'awardOriginalName2',
+        dimensions: 'awardDimensions2'
+    )]
+    private ?File $awardImageFile2 = null;
 
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ProjectImage::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
