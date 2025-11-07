@@ -8,6 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 trait CaptionTrait
 {
+    #[Gedmo\Translatable]
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $caption = null;
 

@@ -5,6 +5,7 @@ namespace App\Entity\Image;
 use App\Entity\AbstractEntity;
 use App\Entity\Interface\ImageInterface;
 use App\Entity\Project;
+use App\Entity\Trait\CaptionTrait;
 use App\Entity\Trait\MainImageTrait;
 use App\Entity\Trait\PositionTrait;
 use App\Repository\Image\ProjectImageRepository;
@@ -18,6 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class ProjectImage extends AbstractEntity implements ImageInterface
 {
+    use CaptionTrait;
     use MainImageTrait;
     use PositionTrait;
 

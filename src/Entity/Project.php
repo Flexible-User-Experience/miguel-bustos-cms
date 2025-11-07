@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Image\ProjectImage;
 use App\Entity\Interface\ImageInterface;
 use App\Entity\Trait\AwardImageTrait;
+use App\Entity\Trait\CaptionTrait;
 use App\Entity\Trait\ImagesTrait;
 use App\Entity\Trait\IsActiveTrait;
 use App\Entity\Trait\MainImageTrait;
@@ -33,6 +34,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Project extends AbstractEntity implements ImageInterface, SlugInterface
 {
     use AwardImageTrait;
+    use CaptionTrait;
     use IsActiveTrait;
     use ImagesTrait;
     use MainImageTrait;
