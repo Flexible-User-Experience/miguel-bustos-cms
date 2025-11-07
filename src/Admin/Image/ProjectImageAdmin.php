@@ -4,7 +4,9 @@ namespace App\Admin\Image;
 
 use App\Admin\AbstractBaseAdmin;
 use App\Entity\Project;
+use App\Entity\Translations\CategoryTranslation;
 use App\Enum\DoctrineEnum;
+use App\Form\Type\GedmoTranslationsType;
 use Sonata\AdminBundle\Datagrid\DatagridInterface;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -40,6 +42,7 @@ class ProjectImageAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $form): void
     {
         $form
+            ->with('admin.main_image', ['class' => 'col-md-4', 'label' => 'Images'])
             ->add(
                 'project',
                 EntityType::class,
@@ -60,13 +63,46 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                     'help' => 'Secondary Image File Helper',
                 ]
             )
+            ->end()
+            ->with('admin.general', ['class' => 'col-md-4'])
             ->add(
                 'altImageText',
                 TextType::class,
                 [
-                    'required' => true,
+                    'required' => false,
                 ]
             )
+            ->add(
+                'caption',
+                TextType::class,
+                [
+                    'required' => false,
+                ]
+            )
+
+            ->end()
+            ->with('admin.translations', [
+                'class' => 'col-md-4',
+                'description' => 'admin.translations_help',
+            ])
+            ->add(
+                'translations',
+                GedmoTranslationsType::class,
+                [
+                    'label' => false,
+                    'required' => false,
+                    'translatable_class' => CategoryTranslation::class,
+                    'fields' => [
+                        'caption' => [
+                            'required' => false,
+                            'label' => 'Caption',
+                            'field_type' => TextType::class,
+                        ],
+                    ],
+                ]
+            )
+            ->end()
+            ->with('admin.controls', ['class' => 'col-md-3'])
             ->add(
                 'position',
                 NumberType::class,
@@ -74,6 +110,7 @@ class ProjectImageAdmin extends AbstractBaseAdmin
                     'required' => true,
                 ]
             )
+            ->end()
         ;
     }
 
