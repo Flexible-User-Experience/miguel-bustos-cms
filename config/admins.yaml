@@ -14,7 +14,7 @@ services:
     admin.project_image:
         class: 'App\Admin\Image\ProjectImageAdmin'
         tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: 'orm', group: 'Content', label: 'Pictures', show_in_dashboard: false }
+            - { name: 'sonata.admin', model_class: 'App\Entity\Image\ProjectImage', controller: ~, manager_type: 'orm', group: 'Content', label: 'Extra Pictures' }
         calls:
             - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
 #    admin.contact_message:
