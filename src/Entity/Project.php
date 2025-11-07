@@ -106,7 +106,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
     private Collection $images;
 
-    #[ORM\ManyToOne(inversedBy: 'projects')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'projects')]
     private ?Category $category = null;
 
     #[Assert\Valid]

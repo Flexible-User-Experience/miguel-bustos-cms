@@ -60,6 +60,15 @@ final class ProjectAdmin extends AbstractBaseAdmin
                     'help' => 'Main Image File Helper',
                 ]
             )
+            ->add(
+                'awardImageFile2',
+                VichImageType::class,
+                [
+                    'label' => 'admin.award_image_2',
+                    'required' => false,
+                    'help' => 'Main Image File Helper',
+                ]
+            )
             ->end()
             ->with('admin.general', ['class' => 'col-md-4'])
             ->add(
@@ -67,7 +76,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 [
                     'class' => Category::class,
-                    'required' => true,
+                    'required' => false,
                 ]
             )
             ->add(

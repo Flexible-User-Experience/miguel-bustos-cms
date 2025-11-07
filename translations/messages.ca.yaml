@@ -82,4 +82,5 @@ am:
     social_networks: 'Xarxes Socials'
 admin:
     main_image: 'Imagen Miniatura Portada'
-    award_image: 'Imagen Premio'
+    award_image: 'Imagen 1 Premio'
+    award_image_2: 'Imagen 2 Premio'
