@@ -23,22 +23,42 @@
             {% if project.subtitle %}<h3 class="mt-3 italic font-light">{{ project.subtitle }}</h3>{% endif %}
             {% if project.description %}<p class="mt-3">{{ project.description | raw }}</p>{% endif %}
             {% if project.awardImage is not null %}
-                <img
-                    srcset="{{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_360') }} 360w,
-                        {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_576') }} 576w,
-                        {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_720') }} 720w,
-                        {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_768') }} 768w,
-                        {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_992') }} 992w,
-                        {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_1152') }} 1152w,
-                        {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_1200') }} 1200w"
-                    sizes="(min-width: 1200px) 800px,
-                        (min-width: 992px) 650px,
-                        (min-width: 768px) 500px,
-                        90vw"
-                    class="w-1/2 transition-transform duration-300 group-hover:scale-110 mt-3"
-                    src="{{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_576') }}"
-                    alt="{{ project.title }}"
-                >
+                <div class="flex gap-2 mt-3">
+                    <img
+                        srcset="{{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_360') }} 360w,
+                            {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_576') }} 576w,
+                            {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_720') }} 720w,
+                            {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_768') }} 768w,
+                            {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_992') }} 992w,
+                            {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_1152') }} 1152w,
+                            {{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_1200') }} 1200w"
+                        sizes="(min-width: 1200px) 800px,
+                            (min-width: 992px) 650px,
+                            (min-width: 768px) 500px,
+                            90vw"
+                        class="w-1/2 transition-transform duration-300 group-hover:scale-110 mt-3"
+                        src="{{ vich_uploader_asset(project, 'awardImageFile') | imagine_filter('w_576') }}"
+                        alt="{{ project.title }}"
+                    >
+                    {% if project.awardImage2 is not null %}
+                        <img
+                            srcset="{{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_360') }} 360w,
+                            {{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_576') }} 576w,
+                            {{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_720') }} 720w,
+                            {{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_768') }} 768w,
+                            {{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_992') }} 992w,
+                            {{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_1152') }} 1152w,
+                            {{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_1200') }} 1200w"
+                            sizes="(min-width: 1200px) 800px,
+                            (min-width: 992px) 650px,
+                            (min-width: 768px) 500px,
+                            90vw"
+                            class="w-1/2 transition-transform duration-300 group-hover:scale-110 mt-3"
+                            src="{{ vich_uploader_asset(project, 'awardImageFile2') | imagine_filter('w_576') }}"
+                            alt="{{ project.title }}"
+                        >
+                    {% endif %}
+                </div>
             {% endif %}
             {% if project.ctaButtonLabel and project.ctaButtonLink %}
                 <a target="_blank" class="inline-block mt-6 px-4 py-2 bg-cyan-300 hover:bg-cyan-600 transition cursor-pointer" href="{{ project.ctaButtonLink }}">{{ project.ctaButtonLabel }}</a>

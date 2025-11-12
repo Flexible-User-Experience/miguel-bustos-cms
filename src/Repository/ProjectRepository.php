@@ -21,6 +21,14 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    public function findAllSortedByPositionAndTitleQB(): QueryBuilder
+    {
+        return $this->createQueryBuilder(self::ALIAS)
+            ->orderBy(sprintf('%s.position', self::ALIAS), DoctrineEnum::ASC->value)
+            ->addOrderBy(sprintf('%s.title', self::ALIAS), DoctrineEnum::ASC->value)
+        ;
+    }
+
     public function findActiveSortedByPositionAndTitleQB(): QueryBuilder
     {
         return $this->createQueryBuilder(self::ALIAS)

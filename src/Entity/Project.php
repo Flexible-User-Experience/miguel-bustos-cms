@@ -48,7 +48,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     private ?string $subtitle = null;
 
     #[Gedmo\Translatable]
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, length: 4000, nullable: true)]
     private ?string $description = null;
 
     #[Gedmo\Translatable]
@@ -106,7 +106,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\OrderBy(['position' => DoctrineEnum::ASC->value])]
     private Collection $images;
 
-    #[ORM\ManyToOne(inversedBy: 'projects')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'projects')]
     private ?Category $category = null;
 
     #[Assert\Valid]

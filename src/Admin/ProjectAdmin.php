@@ -56,7 +56,16 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 VichImageType::class,
                 [
                     'label' => 'admin.award_image',
-                    'required' => $this->isFormToCreateNewRecord(),
+                    'required' => false,
+                    'help' => 'Main Image File Helper',
+                ]
+            )
+            ->add(
+                'awardImageFile2',
+                VichImageType::class,
+                [
+                    'label' => 'admin.award_image_2',
+                    'required' => false,
                     'help' => 'Main Image File Helper',
                 ]
             )
@@ -67,7 +76,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 [
                     'class' => Category::class,
-                    'required' => true,
+                    'required' => false,
                 ]
             )
             ->add(
@@ -142,6 +151,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
                             'label' => 'Cta Button Label',
                             'field_type' => TextType::class,
                         ],
+                        'caption' => [
+                            'required' => false,
+                            'label' => 'Caption',
+                            'field_type' => TextType::class,
+                            'row_attr' => [
+                                'hidden' => true,
+                            ]
+                        ],
                     ],
                 ]
             )
@@ -149,7 +166,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
         ;
         if (!$this->isFormToCreateNewRecord()) {
             $form
-                ->with('admin.images', ['class' => 'col-md-6'])
+                ->with('admin.images', ['class' => 'col-md-12'])
                 ->add(
                     'images',
                     CollectionType::class,
@@ -256,7 +273,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 ]
             )
             ->add('title')
-            ->add('position')
+            ->add(
+                'position',
+                null,
+                [
+                    'header_class' => 'text-right',
+                    'row_align' => 'right',
+                ]
+            )
             ->add(
                 'isIllustration',
                 FieldDescriptionInterface::TYPE_BOOLEAN,
