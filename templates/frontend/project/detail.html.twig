@@ -92,6 +92,9 @@
                                 alt="{% if image.altImageText %}{{ image.altImageText }}{% else %}{{ project.title }}{% endif %}"
                             >
                         {% endif %}
+                        {% if image.caption %}
+                            <span class="mb-2">{{ image.caption }}</span>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             {% endif %}
