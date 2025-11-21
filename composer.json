@@ -10,7 +10,7 @@
         "beberlei/doctrineextensions": "^1.5",
         "doctrine/dbal": "^3.10",
         "doctrine/doctrine-bundle": "^2.18",
-        "doctrine/doctrine-migrations-bundle": "^3.6",
+        "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^3.5",
         "friendsofsymfony/ckeditor-bundle": "^2.6",
         "league/commonmark": "^2.7",
@@ -113,7 +113,7 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.89",
+        "friendsofphp/php-cs-fixer": "^3.90",
         "hautelook/alice-bundle": "^2.16",
         "phpunit/phpunit": "^12.4",
         "roave/security-advisories": "dev-latest",
