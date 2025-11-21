@@ -277,6 +277,7 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 'position',
                 null,
                 [
+                    'editable' => true,
                     'header_class' => 'text-right',
                     'row_align' => 'right',
                 ]
