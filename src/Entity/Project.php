@@ -59,6 +59,10 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ctaButtonLink = null;
 
+    #[Assert\Url(protocols: ['https'], requireTld: true)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $vimeoLink = null;
+
     #[ORM\Column(type: Types::BOOLEAN, nullable: false)]
     private bool $isWorkshop = false;
 
@@ -163,6 +167,18 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     public function setCtaButtonLink(?string $ctaButtonLink): static
     {
         $this->ctaButtonLink = $ctaButtonLink;
+
+        return $this;
+    }
+
+    public function getVimeoLink(): ?string
+    {
+        return $this->vimeoLink;
+    }
+
+    public function setVimeoLink(?string $vimeoLink): static
+    {
+        $this->vimeoLink = $vimeoLink;
 
         return $this;
     }
