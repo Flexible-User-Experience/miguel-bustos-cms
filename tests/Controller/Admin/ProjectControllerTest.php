@@ -3,6 +3,7 @@
 namespace App\Tests\Controller\Admin;
 
 use App\Enum\RoutesEnum;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,7 @@ class ProjectControllerTest extends WebTestCase
 {
     public function testSuccessPages(): void
     {
-        $client = CategoryAdminControllerTest::getAdminAuthenticatedClient();
+        $client = self::getAdminAuthenticatedClient();
         $client->request(Request::METHOD_GET, RoutesEnum::app_admin_project_list->value);
         self::assertResponseIsSuccessful();
         $client->request(Request::METHOD_GET, RoutesEnum::app_admin_project_create->value);
@@ -26,7 +27,7 @@ class ProjectControllerTest extends WebTestCase
 
     public function testForbiddenPages(): void
     {
-        $client = CategoryAdminControllerTest::getAdminAuthenticatedClient();
+        $client = self::getAdminAuthenticatedClient();
         $client->request(Request::METHOD_GET, str_replace('{id}', '100', RoutesEnum::app_admin_project_edit->value));
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         $client->request(Request::METHOD_GET, 'admin/projects/project/1/delete');
@@ -35,5 +36,13 @@ class ProjectControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         $client->request(Request::METHOD_GET, 'admin/projects/image/1/delete');
         self::assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public static function getAdminAuthenticatedClient(): KernelBrowser
+    {
+        return WebTestCase::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW' => 'admin',
+        ]);
     }
 }
