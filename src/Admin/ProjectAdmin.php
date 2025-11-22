@@ -11,7 +11,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -105,6 +104,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 [
                     'required' => false,
                     'help' => 'Cta Button Link Help',
+                ]
+            )
+            ->add(
+                'vimeoLink',
+                UrlType::class,
+                [
+                    'required' => false,
+                    'help' => 'Vimeo Link Help',
                 ]
             )
             ->end()
@@ -289,17 +296,6 @@ final class ProjectAdmin extends AbstractBaseAdmin
                     ],
                 ]
             )
-        ;
-    }
-
-    protected function configureShowFields(ShowMapper $show): void
-    {
-        $show
-            ->add('title')
-            ->add('subtitle')
-            ->add('description')
-            ->add('mainImageFile')
-            ->add('isActive')
         ;
     }
 }
