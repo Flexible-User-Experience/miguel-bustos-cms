@@ -6,7 +6,7 @@
                 <div class="relative overflow-hidden">
                     {% if project is gif_file_format %}
                         <img
-                            class="w-full transition-transform duration-300 group-hover:scale-110"
+                            class="w-full"
                             src="{{ vich_uploader_asset(project, 'mainImageFile') }}"
                             alt="{{ project.title }}"
                         >
