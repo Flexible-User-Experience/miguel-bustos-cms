@@ -59,6 +59,7 @@ class Project extends AbstractEntity implements ImageInterface, SlugInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ctaButtonLink = null;
 
+    #[Assert\Regex(pattern: '/^https:\/\/vimeo\.com\//')]
     #[Assert\Url(protocols: ['https'], requireTld: true)]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $vimeoLink = null;
