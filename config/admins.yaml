@@ -1,10 +1,10 @@
 services:
-    admin.category:
-        class: 'App\Admin\CategoryAdmin'
-        tags:
-            - { name: 'sonata.admin', model_class: 'App\Entity\Category', controller: ~, manager_type: 'orm', group: 'Content', label: 'Categories' }
-        calls:
-            - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
+#    admin.category:
+#        class: 'App\Admin\CategoryAdmin'
+#        tags:
+#            - { name: 'sonata.admin', model_class: 'App\Entity\Category', controller: ~, manager_type: 'orm', group: 'Content', label: 'Categories' }
+#        calls:
+#            - [ 'setEntityManager', [ '@doctrine.orm.entity_manager' ] ]
     admin.project:
         class: 'App\Admin\ProjectAdmin'
         tags:
