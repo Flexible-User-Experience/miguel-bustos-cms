@@ -43,6 +43,17 @@
             {% endif %}
         </div>
         <div class="col-span-2 grid gap-y-4">
+            {% if project.vimeoLink %}
+                <div class="relative w-full overflow-hidden shadow-lg mt-6 aspect-video">
+                    <iframe
+                        src="{{ project.vimeoLink | replace({'vimeo.com/': 'player.vimeo.com/video/'}) }}"
+                        class="absolute top-0 left-0 w-full h-full"
+                        frameborder="0"
+                        allow="fullscreen; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            {% endif %}
             {% if project.images | length > 0 %}
                 {% for image in project.images %}
                     {% if image.mainImage is not null %}
