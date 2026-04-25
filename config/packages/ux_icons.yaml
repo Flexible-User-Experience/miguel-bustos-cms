@@ -2,3 +2,8 @@ ux_icons:
     default_icon_attributes:
         fill: 'currentColor'
         'font-size': '1.25em'
+    ignore_not_found: false
+
+when@prod:
+    ux_icons:
+        ignore_not_found: true

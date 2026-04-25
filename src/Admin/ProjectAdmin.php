@@ -2,7 +2,6 @@
 
 namespace App\Admin;
 
-use App\Entity\Category;
 use App\Entity\Translations\CategoryTranslation;
 use App\Enum\DoctrineEnum;
 use App\Form\Type\GedmoTranslationsType;
@@ -12,10 +11,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\FieldDescription\FieldDescriptionInterface;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\DoctrineORMAdminBundle\Filter\ModelFilter;
 use Sonata\Form\Type\CollectionType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -72,14 +68,6 @@ final class ProjectAdmin extends AbstractBaseAdmin
             ->end()
             ->with('admin.general', ['class' => 'col-md-4'])
             ->add(
-                'category',
-                EntityType::class,
-                [
-                    'class' => Category::class,
-                    'required' => false,
-                ]
-            )
-            ->add(
                 'title',
                 TextType::class,
                 [
@@ -116,6 +104,14 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 [
                     'required' => false,
                     'help' => 'Cta Button Link Help',
+                ]
+            )
+            ->add(
+                'vimeoLink',
+                UrlType::class,
+                [
+                    'required' => false,
+                    'help' => 'Vimeo Link Help',
                 ]
             )
             ->end()
@@ -217,17 +213,6 @@ final class ProjectAdmin extends AbstractBaseAdmin
     protected function configureDatagridFilters(DatagridMapper $filter): void
     {
         $filter
-            ->add(
-                'category',
-                ModelFilter::class,
-                [
-                    'field_options' => [
-                        'class' => Category::class,
-                        'choice_label' => 'name',
-                        'query_builder' => $this->getEntityManager()->getRepository(Category::class)->getAllSortedByNameQB(),
-                    ],
-                ]
-            )
             ->add('title')
             ->add('subtitle')
             ->add('description')
@@ -253,26 +238,12 @@ final class ProjectAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'category',
-                FieldDescriptionInterface::TYPE_MANY_TO_ONE,
+                'title',
+                null,
                 [
-                    'editable' => false,
-                    'sortable' => true,
-                    'associated_property' => 'name',
-                    'route' => [
-                        'name' => 'edit',
-                    ],
-                    'sort_field_mapping' => [
-                        'fieldName' => 'name',
-                    ],
-                    'sort_parent_association_mappings' => [
-                        [
-                            'fieldName' => 'category',
-                        ],
-                    ],
+                    'editable' => true,
                 ]
             )
-            ->add('title')
             ->add(
                 'position',
                 null,
@@ -325,18 +296,6 @@ final class ProjectAdmin extends AbstractBaseAdmin
                     ],
                 ]
             )
-        ;
-    }
-
-    protected function configureShowFields(ShowMapper $show): void
-    {
-        $show
-            ->add('category')
-            ->add('title')
-            ->add('subtitle')
-            ->add('description')
-            ->add('mainImageFile')
-            ->add('isActive')
         ;
     }
 }

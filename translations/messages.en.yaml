@@ -53,6 +53,8 @@
 'Cta Button Label': 'Texto Botón de Acción'
 'Cta Button Link': 'Enlace Botón de Acción'
 'Cta Button Link Help': 'Solamente se permiten enlaces que empiecen por "https://"'
+'Vimeo Link': 'Enlace para incrustar Vimeo'
+'Vimeo Link Help': 'Solamente se permiten enlaces que empiecen por "https://vimeo.com/"'
 'About me page!': 'About me page!'
 'Contact form page!': 'Contact form page!'
 'Your Name': 'Your Name'
