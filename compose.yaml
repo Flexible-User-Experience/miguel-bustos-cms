@@ -1,40 +1,54 @@
 services:
-  www:
-    container_name: miguel-bustos-cms-www
-    build: docker/php
-    restart: always
-    environment:
-      MYSQL_DATABASE: symfony
-      MYSQL_USER: symfony
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: root
+  miguel-bustos-nginx:
+    image: nginx:1.30-alpine-slim
+    container_name: miguel-bustos-nginx
+    working_dir: /var/www/miguel-bustos
     volumes:
-      - ./docker/ssl/:/etc/apache2/ssl
-      - ./docker/php/vhosts:/etc/apache2/sites-enabled
-      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      - ./:/var/www/project
-    links:
-      - database
-    depends_on:
-      - database
+      - ./:/var/www/miguel-bustos:cached
+      - ./.docker/nginx/nginx-dev.conf:/etc/nginx/conf.d/default.conf
+      - ./.docker/nginx/server.crt:/etc/nginx/server.crt:cached
+      - ./.docker/nginx/server.key:/etc/nginx/server.key:cached
+    ports:
+      - "127.0.0.1:48003:80"
+      - "127.0.0.1:44303:443"
+    hostname: "miguel-bustos.test"
     networks:
-      - my_network
-  database:
-    container_name: miguel-bustos-cms-database
-    image: mysql:8
-    restart: always
-    environment:
-      MYSQL_DATABASE: symfony
-      MYSQL_USER: symfony
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - database_data:/var/lib/mysql
-    networks:
-      - my_network
+      - miguel-bustos-net
 
-volumes:
-  database_data:
+  miguel-bustos-php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+      target: development
+    container_name: miguel-bustos-php
+    working_dir: /var/www/miguel-bustos
+    user: "1000:1000"
+    volumes:
+      - ./:/var/www/miguel-bustos:cached
+      - ./.docker/php/php.ini-development:/usr/local/etc/php/conf.d/custom.ini:cached
+    environment:
+      XDEBUG_SESSION: PHPSTORM
+      PHP_IDE_CONFIG: serverName=docker-localhost
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - miguel-bustos-net
+
+  miguel-bustos-mailpit:
+    image: axllent/mailpit
+    container_name: miguel-bustos-mailpit
+    ports:
+      - "127.0.0.1:43103:1025"
+      - "127.0.0.1:43203:8025"
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    depends_on:
+      - miguel-bustos-php
+    networks:
+      - miguel-bustos-net
 
 networks:
-  my_network:
+  miguel-bustos-net:
+    name: miguel-bustos-net
+    driver: bridge
