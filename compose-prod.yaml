@@ -1,0 +1,20 @@
+services:
+  miguel-bustos-php:
+    image: registry.gitlab.espaikowo.cat/flux/miguel-bustos/php:latest
+    container_name: miguel-bustos-php
+    user: "1000:1000"
+    working_dir: /opt/docker/flux/miguel-bustos/deploy/current
+    restart: always
+    pull_policy: always
+    volumes:
+      - /opt/docker/flux/miguel-bustos/deploy:/opt/docker/flux/miguel-bustos/deploy
+    ports:
+      - "127.0.0.1:8020:9000"
+    networks:
+      - miguel-bustos-net
+
+networks:
+  miguel-bustos-net:
+    name: miguel-bustos-net
+    driver: bridge
+    enable_ipv6: false
