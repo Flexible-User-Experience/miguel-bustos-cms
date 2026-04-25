@@ -1,0 +1,134 @@
+default:
+    image: docker:29-cli
+    services:
+        - docker:29-dind
+    before_script:
+        - docker info
+
+stages:
+    - test
+    - deploy
+    - deploy_infra
+    - deploy_rollback
+    - deploy_unlock
+
+variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "/certs"
+
+test:
+    stage: test
+    when: manual
+    cache:
+        paths:
+            - vendor/
+    script:
+        - COMPOSE_BAKE=true docker compose -f compose-ci.yaml up -d --wait
+        - docker exec miguel-bustos-php sh -c "composer install"
+        - docker exec miguel-bustos-php sh -c "phplint --configuration=.phplint.yml"
+        - docker exec miguel-bustos-php sh -c "bin/console lint:container"
+        - docker exec miguel-bustos-php sh -c "bin/console lint:yaml config src"
+        - docker exec miguel-bustos-php sh -c "bin/console lint:twig templates"
+        - docker exec miguel-bustos-php sh -c "bin/console doctrine:schema:validate --skip-sync"
+        - docker exec miguel-bustos-php sh -c "bin/console doctrine:database:create --env=test"
+        - docker exec miguel-bustos-php sh -c "bin/console doctrine:schema:create --quiet --env=test"
+        - docker exec miguel-bustos-php sh -c "bin/console hautelook:fixtures:load --no-interaction --env=test"
+        - docker exec miguel-bustos-php sh -c "vendor/bin/phpunit -c phpunit.dist.xml"
+
+deploy:
+    stage: deploy
+    when: manual
+    resource_group: production
+    only:
+        - main
+    image:
+        name: deployphp/deployer:v7
+        entrypoint: [""]
+    before_script:
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - chmod 400 "$SSH_PRIVATE_KEY"
+        - ssh-add "$SSH_PRIVATE_KEY"
+    script:
+        - dep deploy -vvv
+
+deploy_rollback:
+    stage: deploy_rollback
+    when: manual
+    resource_group: production
+    only:
+        - main
+    image:
+        name: deployphp/deployer:v7
+        entrypoint: [""]
+    before_script:
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - chmod 400 "$SSH_PRIVATE_KEY"
+        - ssh-add "$SSH_PRIVATE_KEY"
+    script:
+        - dep rollback
+
+deploy_unlock:
+    stage: deploy_unlock
+    when: manual
+    resource_group: production
+    only:
+        - main
+    image:
+        name: deployphp/deployer:v7
+        entrypoint: [""]
+    before_script:
+        - mkdir -p ~/.ssh
+        - eval $(ssh-agent -s)
+        - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - chmod 400 "$SSH_PRIVATE_KEY"
+        - ssh-add "$SSH_PRIVATE_KEY"
+    script:
+        - dep deploy:unlock
+
+deploy_infra:
+    stage: deploy_infra
+    when: manual
+    resource_group: production
+    only:
+        - main
+    before_script:
+        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+        - export CI_REGISTRY_IMAGE_PHP="$CI_REGISTRY_IMAGE"/php
+        - apk add --update curl
+        - echo "APP_ENV=prod" > .env.local
+        - echo "APP_SECRET_PROD=$APP_SECRET_PROD" >> .env.local
+        - echo "GOOGLE_ANALYTICS_ID=$GOOGLE_ANALYTICS_ID_PROD" >> .env.local
+        - echo "PROJECT_URL_BASE=$PROJECT_URL_BASE_PROD" >> .env.local
+        - echo "CUSTOMER_NAME=$CUSTOMER_NAME_PROD" >> .env.local
+        - echo "CUSTOMER_ADDRESS=$CUSTOMER_ADDRESS_PROD" >> .env.local
+        - echo "CUSTOMER_CITY=$CUSTOMER_CITY_PROD" >> .env.local
+        - echo "CUSTOMER_ZIP=$CUSTOMER_ZIP_PROD" >> .env.local
+        - echo "CUSTOMER_PROVINCE=$CUSTOMER_PROVINCE_PROD" >> .env.local
+        - echo "CUSTOMER_TIN=$CUSTOMER_TIN_PROD" >> .env.local
+        - echo "CUSTOMER_MOBILE_PHONE=$CUSTOMER_MOBILE_PHONE_PROD" >> .env.local
+        - echo "CUSTOMER_DELIVERY_ADDRESS=$CUSTOMER_DELIVERY_ADDRESS_PROD" >> .env.local
+        - echo "CUSTOMER_URL=$CUSTOMER_URL_PROD" >> .env.local
+        - echo "FACEBOOK_URL=$FACEBOOK_URL_PROD" >> .env.local
+        - echo "INSTAGRAM_URL=$INSTAGRAM_URL_PROD" >> .env.local
+        - echo "YOUTUBE_URL=$YOUTUBE_URL_PROD" >> .env.local
+        - echo "DEVELOPER_NAME=$DEVELOPER_NAME_PROD" >> .env.local
+        - echo "DEVELOPER_URL=$DEVELOPER_URL_PROD" >> .env.local
+        - echo "MAILER_DSN=$MAILER_DSN_PROD" >> .env.local
+        - echo "GOOGLE_RECAPTCHA_SITE_KEY=$GOOGLE_RECAPTCHA_SITE_KEY_PROD" >> .env.local
+        - echo "GOOGLE_RECAPTCHA_SECRET=$GOOGLE_RECAPTCHA_SECRET_PROD" >> .env.local
+        - echo "EWZ_RECAPTCHA_SECRET_PROD=$EWZ_RECAPTCHA_SECRET_PROD" >> .env.local
+        - echo "EWZ_RECAPTCHA_SITE_KEY_PROD=$EWZ_RECAPTCHA_SITE_KEY_PROD" >> .env.local
+        - cp dockerignore-prod .dockerignore
+    script:
+        - docker pull $CI_REGISTRY_IMAGE_PHP:latest || true
+        - docker build --target prod --file .docker/php/Dockerfile --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from $CI_REGISTRY_IMAGE_PHP:latest --tag $CI_REGISTRY_IMAGE_PHP:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE_PHP:latest .
+        - docker push $CI_REGISTRY_IMAGE_PHP:$CI_COMMIT_SHA
+        - docker push $CI_REGISTRY_IMAGE_PHP:latest
+        - 'curl -X POST --location "https://dockhand.espaikowo.cat/api/git/stacks/5/webhook" -H "Content-Type: application/json" -H "X-Hub-Signature-256: ${DOCKHAND_WEBHOOK_SECRET}"'
