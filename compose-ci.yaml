@@ -1,0 +1,56 @@
+services:
+  miguel-bustos-nginx:
+    image: nginx:1.30-alpine-slim
+    container_name: miguel-bustos-nginx
+    working_dir: /var/www/miguel-bustos
+    volumes:
+      - ./:/var/www/miguel-bustos:cached
+      - ./.docker/nginx/nginx-dev.conf:/etc/nginx/conf.d/default.conf
+      - ./.docker/nginx/server.crt:/etc/nginx/server.crt:cached
+      - ./.docker/nginx/server.key:/etc/nginx/server.key:cached
+    ports:
+      - "8080:80"
+      - "443:443"
+    hostname: "miguel-bustos.test"
+    networks:
+      - miguel-bustos-net
+    depends_on:
+      - miguel-bustos-php
+
+  miguel-bustos-php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+      target: development
+    container_name: miguel-bustos-php
+    working_dir: /var/www/miguel-bustos
+    user: "1000:1000"
+    volumes:
+      - ./:/var/www/miguel-bustos:cached
+      - ./.docker/php/php.ini-development:/usr/local/etc/php/conf.d/custom.ini:cached
+    environment:
+      XDEBUG_SESSION: PHPSTORM
+      PHP_IDE_CONFIG: serverName=docker-localhost
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - miguel-bustos-net
+
+  miguel-bustos-mailpit:
+    image: axllent/mailpit
+    container_name: miguel-bustos-mailpit
+    ports:
+      - "1026:1025"
+      - "8026:8025"
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    depends_on:
+      - miguel-bustos-php
+    networks:
+      - miguel-bustos-net
+
+networks:
+  miguel-bustos-net:
+    name: miguel-bustos-net
+    driver: bridge
