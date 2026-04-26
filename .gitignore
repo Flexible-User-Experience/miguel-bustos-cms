@@ -30,14 +30,17 @@ google_apis_credentials.json
 .env.test
 .idea
 .DS_Store
+.phpactor.json
 ###< app/bundle ###
 
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
 /.env.*.local
+/config/reference.php
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/var/
 /vendor/
 ###< symfony/framework-bundle ###
 

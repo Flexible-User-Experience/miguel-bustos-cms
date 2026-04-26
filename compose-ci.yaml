@@ -9,11 +9,13 @@ services:
       - ./.docker/nginx/server.crt:/etc/nginx/server.crt:cached
       - ./.docker/nginx/server.key:/etc/nginx/server.key:cached
     ports:
-      - "127.0.0.1:48003:80"
-      - "127.0.0.1:44303:443"
+      - "8080:80"
+      - "443:443"
     hostname: "miguel-bustos.test"
     networks:
       - miguel-bustos-net
+    depends_on:
+      - miguel-bustos-php
 
   miguel-bustos-php:
     build:
@@ -38,8 +40,8 @@ services:
     image: axllent/mailpit
     container_name: miguel-bustos-mailpit
     ports:
-      - "127.0.0.1:43103:1025"
-      - "127.0.0.1:43203:8025"
+      - "1026:1025"
+      - "8026:8025"
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
