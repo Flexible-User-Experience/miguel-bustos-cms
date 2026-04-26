@@ -25,9 +25,8 @@ google_apis_credentials.json
 /var/testing-database.db
 /var/tailwind/*
 !/var/tailwind/.gitkeep
-/briefing
-.env
-.env.test
+.env.dev
+!.env.test
 .idea
 .DS_Store
 .phpactor.json
@@ -40,13 +39,13 @@ google_apis_credentials.json
 /config/reference.php
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
 /vendor/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
 /phpunit.xml
-/.phpunit.cache/
+.phpunit.result.cache
+.phpunit.cache
 ###< phpunit/phpunit ###
 
 ###> symfony/asset-mapper ###
