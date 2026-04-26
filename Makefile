@@ -128,7 +128,7 @@ doctrine-test/db-recreate: \
 
 # Test
 test/controller: doctrine-test/db-fixtures symfony-test/cache-clear
-	@docker exec $(PHP_CONTAINER_NAME) sh -c "vendor/bin/phpunit"
+	@docker exec $(PHP_CONTAINER_NAME) sh -c "vendor/bin/phpunit -c phpunit.dist.xml"
 
 test: test/controller
 
@@ -139,8 +139,8 @@ local-server/hosts-line:
 local-server/login-info:
 	$(info **********************************)
 	$(info Local server is running)
-	$(info URL: https://miguel-bustos.test:44301)
-	$(info Admin URL: https://miguel-bustos.test:44301/admin/login)
+	$(info URL: https://miguel-bustos.test:44303)
+	$(info Admin URL: https://miguel-bustos.test:44303/admin/login)
 	$(info User: super_admin@email.com)
 	$(info Password: 12345678)
 	$(info **********************************)
