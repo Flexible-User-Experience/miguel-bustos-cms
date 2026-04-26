@@ -21,6 +21,9 @@ composer/install:
 composer/update:
 	@docker exec $(PHP_CONTAINER_NAME) sh -c "composer update"
 
+composer/recipes-update:
+	@docker exec $(PHP_CONTAINER_NAME) sh -c "composer recipe:update"
+
 composer/execute-autoscripts:
 	@docker exec $(PHP_CONTAINER_NAME) sh -c "composer run-script auto-scripts"
 
