@@ -131,4 +131,4 @@ deploy_infra:
         - docker build --target prod --file .docker/php/Dockerfile --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from $CI_REGISTRY_IMAGE_PHP:latest --tag $CI_REGISTRY_IMAGE_PHP:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE_PHP:latest .
         - docker push $CI_REGISTRY_IMAGE_PHP:$CI_COMMIT_SHA
         - docker push $CI_REGISTRY_IMAGE_PHP:latest
-        - 'curl -X POST --location "https://dockhand.espaikowo.cat/api/git/stacks/5/webhook" -H "Content-Type: application/json" -H "X-Hub-Signature-256: ${DOCKHAND_WEBHOOK_SECRET}"'
+        - 'curl -X POST --location "https://dockhand.espaikowo.cat/api/git/stacks/7/webhook" -H "Content-Type: application/json" -H "X-Hub-Signature-256: ${DOCKHAND_WEBHOOK_SECRET}"'
